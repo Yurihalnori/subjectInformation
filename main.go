@@ -3,6 +3,7 @@ package main
 import (
 	"subjectInformation/config"
 	"subjectInformation/middleware"
+	"subjectInformation/model"
 	"subjectInformation/router"
 
 	"github.com/gin-gonic/gin"
@@ -13,6 +14,7 @@ func main() {
 	r := gin.Default()
 
 	config.InitSession(r)
+	model.InitModel()
 
 	r.Use(middleware.Error)
 	router.InitRouter(r)

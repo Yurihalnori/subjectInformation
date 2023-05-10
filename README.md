@@ -1,6 +1,5 @@
-# gin-example
+# 学科信息外包
 
-gin应用示例
 
 ## 快速预览
 
@@ -10,7 +9,7 @@ go run .
 
 ## 数据库
 
-数据库sql文件为 `gin-example.sql` ，请设置环境变量以指定数据库
+数据库sql文件为 `subject.sql` ，请设置环境变量以指定数据库
 
 ## 环境变量
 

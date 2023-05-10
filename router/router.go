@@ -15,6 +15,6 @@ func InitRouter(r *gin.Engine) {
 		apiRouter.GET("/time", helloController.HelloTime)
 
 		publiccontroller := controller.PublicDatabaseController{}
-		apiRouter.POST("/publiccommonDatabase", publiccontroller.Search)
+		apiRouter.POST("/publiccommonDatabase", publiccontroller.Add)
 	}
 }
