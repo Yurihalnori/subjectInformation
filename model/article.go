@@ -2,7 +2,7 @@ package model
 
 import "time"
 
-type Article struct {
+type Article struct { //期刊论文
 	Id           int       `json:"id"`           //序号
 	Nation       string    `json:"nation"`       //国家
 	Title        string    `json:"title"`        //题名

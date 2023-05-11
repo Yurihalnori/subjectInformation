@@ -7,7 +7,7 @@ type Msg struct {
 	Text           string `form:"text" json:"text" binding:"omitempty"`
 	Region         string `form:"region" json:"region" binding:"omitempty"`
 	Name           string `form:"name" json:"name" binding:"omitempty"`
-	Classification string `form:"classification" json:"classification" binding:"omitempty"` //项目类别 学位点类别 导师类型
+	Classification string `form:"classification" json:"classification" binding:"omitempty"`
 	Sponsor        string `form:"sponsor" json:"" binding:"omitempty"`
 	ApprovalNumber string `form:"approvalNumber" json:"approvalNumber" binding:"omitempty"`
 	CreateDate     string `form:"createDate" json:"createDate" binding:"omitempty"`
@@ -34,7 +34,7 @@ type Msg struct {
 	Download       int    `form:"download" json:"download" binding:"omitempty"`
 }
 
-type Form struct {
+type Form struct { //接受请求
 	Total int   `form:"total" json:"total" binding:"required"`
 	List  []Msg `form:"list" json:"list" binding:"required"`
 }

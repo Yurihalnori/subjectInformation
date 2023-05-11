@@ -2,8 +2,10 @@ package model
 
 import "time"
 
-type Dissertation struct {
+type Dissertation struct { //学位论文
 	Id         int       `json:"id"`         //序号
+	Title      string    `json:"title"`      //题目
+	Author     string    `json:"author"`     //作者
 	Tutor      string    `json:"tutor"`      //导师
 	Province   string    `json:"province"`   //省(通指一级地方单位)
 	City       string    `json:"city"`       //市(通指二级地方单位)

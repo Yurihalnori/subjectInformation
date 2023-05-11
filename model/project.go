@@ -2,7 +2,7 @@ package model
 
 import "time"
 
-type Project struct {
+type Project struct { //科研项目
 	Id             int       `json:"id"`             //序号
 	Name           string    `json:"name"`           //项目名称
 	Classification string    `json:"classification"` //项目类别

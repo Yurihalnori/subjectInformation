@@ -2,7 +2,7 @@ package model
 
 import "time"
 
-type Book struct {
+type Book struct { //学科图书
 	Id        int       `json:"id"`        //序号
 	Name      string    `json:"name"`      //图书名称
 	Nation    string    `json:"nation"`    //国家
