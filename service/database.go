@@ -1,29 +1,20 @@
 package service
 
 import (
-	"fmt"
 	"subjectInformation/model"
-	"time"
 )
 
 type DatabaseService struct {
 }
 
 type message struct {
-	Check string
-	Id    int
-	Title string
-}
-
-func (h DatabaseService) Search(msg string) string {
-	return fmt.Sprintf("hello %v", msg)
-}
-
-func (h DatabaseService) Change(date time.Time) string {
-	return fmt.Sprintf("tomorrow is %v", date.Format("2006-01-02"))
+	Check string `form:"check" json:"check"`
+	Id    int    `form:"id" json:"id"`
+	Title string `form:"title" json:"title"`
 }
 
 func (h DatabaseService) Add(form model.Form) interface{} {
+	//最后返回信息的切片
 	s := []message{}
 	for i := range form.List {
 		module := form.List[i].Module

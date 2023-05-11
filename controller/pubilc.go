@@ -23,6 +23,7 @@ func (s PublicDatabaseController) Add(c *gin.Context) {
 		})
 		return
 	}
+
 	databaseService := service.DatabaseService{}
 
 	c.JSON(http.StatusOK, Response{
