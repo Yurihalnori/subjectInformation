@@ -16,19 +16,25 @@ type message struct {
 func (h DatabaseService) Add(form model.Form) interface{} {
 	//最后返回信息的切片
 	s := []message{}
+	category := Category{}
 	for i := range form.List {
 		module := form.List[i].Module
 		switch module {
 		case "0":
 			s = append(s, Add0(form, i)) //科研项目
+			category.AddCategory(form.List[i].Category, s[i].Id, "projects")
 		case "1":
 			s = append(s, Add1(form, i)) //学位点
+			category.AddCategory(form.List[i].Category, s[i].Id, "institutes")
 		case "2":
 			s = append(s, Add2(form, i)) //学科图书
+			category.AddCategory(form.List[i].Category, s[i].Id, "books")
 		case "3":
 			s = append(s, Add3(form, i)) //学位论文
+			category.AddCategory(form.List[i].Category, s[i].Id, "dissertations")
 		case "4":
 			s = append(s, Add4(form, i)) //期刊论文
+			category.AddCategory(form.List[i].Category, s[i].Id, "articles")
 		}
 	}
 	return s
