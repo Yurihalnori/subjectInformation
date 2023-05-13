@@ -16,4 +16,6 @@ type Tutor struct { //导师
 	Classification string    `json:"classification"` //类型(博导 硕导)
 	CreatedAt      time.Time `json:"createdAt"`
 	UpdatedAt      time.Time `json:"updatedAt"`
+	InstituteId    int       `json:"instituteId"` //外键
+	Institute      Institute `binding:"omitempty"`
 }
