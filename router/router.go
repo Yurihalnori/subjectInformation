@@ -10,7 +10,8 @@ func InitRouter(r *gin.Engine) {
 	// r.Use(middleware.Error)
 	apiRouter := r.Group("/api")
 	{
-		publiccontroller := controller.PublicDatabaseController{}
-		apiRouter.POST("/publiccommonDatabase", publiccontroller.Add)
+		projectController := controller.ProjectController{}
+		apiRouter.POST("/commonDatabase/project", projectController.Add)
+		// apiRouter.PUT("/commonDatabase/:id", projectController.Change)
 	}
 }

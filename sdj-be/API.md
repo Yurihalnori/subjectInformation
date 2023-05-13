@@ -5,8 +5,8 @@ News & Database of Journalism
 
 
 ## [学界资讯](./api_modules/news.md)
-## [公共数据库](./api_modules/common_db_api.md)
-## [特色数据库](./api_modules/unique%20database.md) 
+## [公共数据库](./api_modules/common_db.md)
+## [特色数据库](./api_modules/unique_db.md) 
 ## [团队项目](./api_modules/teamwork.md)
 ## [高级搜索接口](./api_modules/search.md)
 ## [用户管理](./api_modules/user.md)
@@ -15,7 +15,7 @@ News & Database of Journalism
 ### 正确
 ```json
         {
-          "success":"true",
+          "success":true,
           "data":{
             ......
           }
@@ -25,7 +25,7 @@ News & Database of Journalism
 ### 错误
 ```json
         {
-          "success":"true",
+          "success":false,
           "message":"未找到对应信息",  //错误信息
           "code":0  // 1: "内部错误",
                     // 2: "公开错误",

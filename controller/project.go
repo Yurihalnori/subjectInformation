@@ -10,11 +10,11 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type PublicDatabaseController struct {
+type ProjectController struct {
 }
 
-func (s PublicDatabaseController) Add(c *gin.Context) {
-	var form model.Form
+func (s ProjectController) Add(c *gin.Context) {
+	var form model.ProjectForm
 	if err := c.ShouldBind(&form); err != nil {
 		fmt.Printf("controller %v", err)
 		c.Error(&gin.Error{
@@ -24,7 +24,7 @@ func (s PublicDatabaseController) Add(c *gin.Context) {
 		return
 	}
 
-	databaseService := service.DatabaseService{}
+	databaseService := service.ProjectService{}
 
 	c.JSON(http.StatusOK, Response{
 		Success: true,
