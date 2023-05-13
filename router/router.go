@@ -12,5 +12,12 @@ func InitRouter(r *gin.Engine) {
 	{
 		publiccontroller := controller.PublicDatabaseController{}
 		apiRouter.POST("/publiccommonDatabase", publiccontroller.Add)
+		userRouter := apiRouter.Group("/user")
+		{
+			userController := controller.UserController{}
+			userRouter.POST("/register", userController.CreateUser)
+			userRouter.POST("/login", userController.Login)
+			userRouter.DELETE("/logout", userController.Logout)
+		}
 	}
 }

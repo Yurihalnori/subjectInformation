@@ -43,7 +43,7 @@ func init() {
 }
 
 func InitModel() {
-	DB.AutoMigrate(&Article{}, &Book{}, &Category{}, &Dissertation{}, &Institute{}, &Project{}, &Tutor{})
+	DB.AutoMigrate(&Article{}, &Book{}, &Category{}, &Dissertation{}, &Institute{}, &Project{}, &Tutor{}, &News{}, &User{})
 	if !DB.Migrator().HasTable(&Article{}) {
 		DB.Migrator().CreateTable(&Article{})
 	}
@@ -64,5 +64,11 @@ func InitModel() {
 	}
 	if !DB.Migrator().HasTable(&Tutor{}) {
 		DB.Migrator().CreateTable(&Tutor{})
+	}
+	if !DB.Migrator().HasTable(&News{}) {
+		DB.Migrator().CreateTable(&News{})
+	}
+	if !DB.Migrator().HasTable(&User{}) {
+		DB.Migrator().CreateTable(&User{})
 	}
 }
