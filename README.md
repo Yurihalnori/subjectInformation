@@ -32,6 +32,8 @@ base_url为 `127.0.0.1:8080`
 
 ## 已实现功能
 
+#### 用户
+ + 注册登录登出
 #### 公共数据库
 
 + 管理员添加条目 `POST {base_url}/api/commonDatabase`

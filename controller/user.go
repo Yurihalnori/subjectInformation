@@ -13,7 +13,7 @@ type UserController struct {
 
 func (UserController) Logincheck(c *gin.Context) {
 	session := sessions.Default(c)
-	num := session.Get("number")
+	num := session.Get("id")
 	if num != nil {
 		c.Next()
 	} else {
@@ -24,10 +24,23 @@ func (UserController) Logincheck(c *gin.Context) {
 func (UserController) CreateUser(c *gin.Context) {
 	var user model.User
 	c.BindJSON(&user)
+	isExist := service.CheckUsername(user.Username)
+	if isExist == false {
+		c.JSON(http.StatusOK, gin.H{
+			"success": false,
+			"message": "用户已存在",
+			"code":    service.OpErr,
+		})
+		return
+	}
 	err := service.CreateAUser(&user)
 	session := sessions.Default(c)
 	if err != nil {
-		c.JSON(http.StatusOK, gin.H{"error": err.Error()})
+		c.JSON(http.StatusOK, gin.H{
+			"success": false,
+			"message": err.Error(),
+			"code":    service.OpErr,
+		})
 	} else {
 		session.Set("id", user.Id)
 		session.Save()
@@ -45,7 +58,7 @@ func (UserController) CreateUser(c *gin.Context) {
 func (UserController) Login(c *gin.Context) {
 	var user model.User
 	c.BindJSON(&user)
-	pass := service.CheckPassword(user.Username)
+	pass, _ := service.CheckPassword(user.Username)
 	if pass.Password == user.Password {
 		session := sessions.Default(c)
 		session.Set("id", user.Id)
@@ -57,14 +70,15 @@ func (UserController) Login(c *gin.Context) {
 	} else {
 		c.JSON(http.StatusOK, gin.H{
 			"success": false,
-			"error":   "密码错误",
+			"message": "密码错误",
+			"code":    service.ParamErr,
 		})
 	}
 }
 
 func (UserController) Logout(c *gin.Context) {
 	session := sessions.Default(c)
-	num := session.Get("number")
+	num := session.Get("id")
 	if num != nil {
 		session.Clear()
 		session.Save()
@@ -76,10 +90,9 @@ func (UserController) Logout(c *gin.Context) {
 		})
 	} else {
 		c.JSON(http.StatusOK, gin.H{
-			"success": true,
-			"data": gin.H{
-				"login": false,
-			},
+			"success": false,
+			"message": "您还未登录",
+			"code":    service.AuthErr,
 		})
 	}
 }
