@@ -14,4 +14,6 @@ type Institute struct { //学位点
 	Click          int       `json:"click"`          //点击数
 	CreatedAt      time.Time `json:"createdAt"`
 	UpdatedAt      time.Time `json:"updatedAt"`
+	TutorId        int       `json:"foreignKey"`
+	Category       string    `json:"category" gorm:"-:migration"` // 学科分类
 }

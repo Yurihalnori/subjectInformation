@@ -7,7 +7,8 @@
 - Request
     ```json
     {
-        "database":0|1|2|3|4, //单一传入检索数据库，默认包含全部（0代表总库）
+        "database":0|1|2|3|4, //单一传入检索数据库，默认包含全部（0代表总库）,不能多选
+        //1总公共数据库 11项目 12学位点 返回字段交集
     }
     ```
 - Response
@@ -17,19 +18,19 @@
         "data":{
             "text":[
                 {
-                    "name":"title", //为查询时发送请求字段名
+                    "key":"title", //为查询时发送请求字段名
                     "display":"主题" //字段展示名称
                 },{
-                    "name":"author",
+                    "key":"author",
                     "display":"作者"
                 },{
-                    "name":"department",
+                    "key":"department",
                     "display":"主体单位"
                 }
                 ],
             "selector":[
                 {
-                    "name":"database",
+                    "key":"db",
                     "items":[{
                         "position":0,
                         "display":"学界资讯"
@@ -38,7 +39,7 @@
                         "display":"公共数据库"
                     },...],
                 },{
-                    "name":"region",
+                    "key":"region",
                     "items":[{
                         "position":0,
                         "display":"国内"
@@ -60,11 +61,13 @@
     ```json
     {
         //均是可选的，某项目未作限定返回全部相关信息
-        "category":"110011001", //传入9个学科信息，不填写默认为111111111
+        "category":"1100110011", //传入10个学科信息，不填写默认为1111111111
         "title":"学科信息网站搭建-后端 ",//text选项可传入高级检索字符串
-        "database":"0010",//按照position从右至左传递,0010表示仅包含position为1的数据
+        "database":0|1|2|3|4, //单一传入检索数据库，默认包含全部（0代表总库）,不能多选
+        //1总公共数据库 11项目 12学位点 返回字段交集
+        "db":"0010",//按照position从右至左传递,0010表示仅包含position为1的数据
         "sort":{ //可选默认时间倒序
-            "name":"relation|time|popularity", 
+            "key":"relation|time|popularity", 
             "order":"increase|reverse"
         }
         ...
@@ -82,7 +85,7 @@
                     "id": 1, //此id对应其特定database中的id(可能会重复)
                     "title":"题目",
                     "category":"100000000",
-                    "database":1,
+                    "db":"0001",
                     "module": 0,
                     "region":"domestic|foreign",
                     "department":"挑战网",

@@ -18,4 +18,5 @@ type Tutor struct { //导师
 	UpdatedAt      time.Time `json:"updatedAt"`
 	InstituteId    int       `json:"instituteId"` //外键
 	Institute      Institute `binding:"omitempty"`
+	Category       string    `json:"category" gorm:"-:migration"` // 学科分类
 }

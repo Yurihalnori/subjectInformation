@@ -50,7 +50,7 @@
           "success":true,
           "data":[{
               "check":"", // 查重状态，形式等待进一步确定
-              "id":1,
+              "id":1,   //返回重复的id
               "title":"今天吃什么",      //文章标题  
             },...],
             
@@ -67,7 +67,7 @@
     + `PUT {base_url}/api/commonDatabase/dissertation/:id`
   + 每次仅修改一条
   + id在url中给定
-  + module在url中给定，形式为十进制数
+  + module在url中给定
   + 字段可任意数目给定
   + 需要返回字段未定？
 + Request
@@ -82,14 +82,14 @@
       {
         "success":true,
         "data":{
-          ......
+          "id":1,
         }
       }
 ```
 
 <a id="delete"></a>
 
-#### 管理员删除条目 `DELETE {base_url}/api/commonDatabase/:id/`
+#### 管理员删除条目 `DELETE {base_url}/api/commonDatabase/:id`
 
 + 要求
   + 每次请求只能对一个子模块进行请求，module名在url最后延伸，如

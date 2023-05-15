@@ -19,4 +19,5 @@ type Article struct { //期刊论文
 	Download     int       `json:"download"`     //下载数
 	CreatedAt    time.Time `json:"createdAt"`
 	UpdatedAt    time.Time `json:"updatedAt"`
+	Category     string    `json:"category" gorm:"-:migration"` // 学科分类
 }
