@@ -13,6 +13,13 @@ func InitRouter(r *gin.Engine) {
 		projectController := controller.ProjectController{}
 		apiRouter.POST("/commonDatabase/project", projectController.Add)
 		// apiRouter.PUT("/commonDatabase/:id", projectController.Change)
+
+		uniqueRouter := apiRouter.Group("/uniqueDatabase")
+		{
+			uniqueController := controller.UniqueController{}
+			uniqueRouter.POST("", uniqueController.Add)
+		}
+
 		userRouter := apiRouter.Group("/user")
 		{
 			userController := controller.UserController{}

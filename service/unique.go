@@ -1,22 +1,21 @@
 package service
 
 import (
-	"fmt"
 	"subjectInformation/model"
 )
 
-type ProjectService struct {
+type UniqueService struct {
 }
 
-func (h ProjectService) Add(form model.ProjectForm) interface{} {
+func (h UniqueService) Add(form model.UniqueForm) interface{} {
 
 	var Response []model.Message
-	categoryService := Category{}
+	// categoryService := Category{}
 
 	for i := 0; i < form.Total; i++ {
 		data := form.List[i]
 		model.DB.Create(&data)
-		categoryService.AddCategory(data.Category, data.Id, "projects")
+		// categoryService.AddCategory(data.Category, data.Id, "unique")
 		s := model.Message{
 			Check: "",
 			Id:    data.Id,
@@ -26,8 +25,4 @@ func (h ProjectService) Add(form model.ProjectForm) interface{} {
 	}
 
 	return Response
-}
-
-func (h ProjectService) Change(form model.Project) interface{} {
-	return fmt.Sprint(1)
 }

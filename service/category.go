@@ -20,6 +20,7 @@ func (h Category) AddCategory(category string, foreignKey int, table string) {
 		Category9:  false,
 		Category10: false,
 	}
+
 	if category[0] == '1' {
 		data.Category1 = true
 	}
