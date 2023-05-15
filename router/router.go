@@ -20,5 +20,10 @@ func InitRouter(r *gin.Engine) {
 			userRouter.POST("/login", userController.Login)
 			userRouter.DELETE("/logout", userController.Logout)
 		}
+		newsRouter := r.Group("/news")
+		{
+			newsController := controller.NewsController{}
+			newsRouter.POST("/", newsController.AddNews)
+		}
 	}
 }

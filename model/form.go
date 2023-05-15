@@ -35,3 +35,8 @@ type Message struct {
 	Id    int    `form:"id" json:"id"`
 	Title string `form:"title" json:"title"`
 }
+
+type NewsForm struct {
+	Total    int `json:"total"`
+	NewsList []News
+}
