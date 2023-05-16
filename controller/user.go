@@ -58,7 +58,15 @@ func (UserController) CreateUser(c *gin.Context) {
 func (UserController) Login(c *gin.Context) {
 	var user model.User
 	c.BindJSON(&user)
-	pass, _ := service.CheckPassword(user.Username)
+	pass, err := service.CheckPassword(user.Username)
+	if err != nil {
+		c.JSON(http.StatusOK, gin.H{
+			"success": false,
+			"message": err.Error(),
+			"code":    service.ParamErr,
+		})
+		return
+	}
 	if pass.Password == user.Password {
 		session := sessions.Default(c)
 		session.Set("id", user.Id)
@@ -70,7 +78,7 @@ func (UserController) Login(c *gin.Context) {
 	} else {
 		c.JSON(http.StatusOK, gin.H{
 			"success": false,
-			"message": "密码错误",
+			"message": "用户名或密码错误",
 			"code":    service.ParamErr,
 		})
 	}
