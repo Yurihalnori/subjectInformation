@@ -11,7 +11,7 @@ import (
 type UserController struct {
 }
 
-func (UserController) Logincheck(c *gin.Context) {
+func (UserController) LoginCheck(c *gin.Context) {
 	session := sessions.Default(c)
 	num := session.Get("id")
 	if num != nil {
@@ -23,7 +23,15 @@ func (UserController) Logincheck(c *gin.Context) {
 
 func (UserController) CreateUser(c *gin.Context) {
 	var user model.User
-	c.BindJSON(&user)
+	bindErr := c.BindJSON(&user)
+	if bindErr != nil {
+		c.JSON(http.StatusOK, gin.H{
+			"success": false,
+			"message": bindErr,
+			"code":    service.OpErr,
+		})
+		return
+	}
 	isExist := service.CheckUsername(user.Username)
 	if isExist == false {
 		c.JSON(http.StatusOK, gin.H{
@@ -43,7 +51,10 @@ func (UserController) CreateUser(c *gin.Context) {
 		})
 	} else {
 		session.Set("id", user.Id)
-		session.Save()
+		sessionErr := session.Save()
+		if sessionErr != nil {
+			return
+		}
 		c.JSON(http.StatusOK, gin.H{
 			"success": true,
 			"data": gin.H{
@@ -57,7 +68,15 @@ func (UserController) CreateUser(c *gin.Context) {
 
 func (UserController) Login(c *gin.Context) {
 	var user model.User
-	c.BindJSON(&user)
+	bindErr := c.BindJSON(&user)
+	if bindErr != nil {
+		c.JSON(http.StatusOK, gin.H{
+			"success": false,
+			"message": bindErr,
+			"code":    service.OpErr,
+		})
+		return
+	}
 	pass, err := service.CheckPassword(user.Username)
 	if err != nil {
 		c.JSON(http.StatusOK, gin.H{
@@ -70,7 +89,10 @@ func (UserController) Login(c *gin.Context) {
 	if pass.Password == user.Password {
 		session := sessions.Default(c)
 		session.Set("id", user.Id)
-		session.Save()
+		sessionErr := session.Save()
+		if sessionErr != nil {
+			return
+		}
 		c.JSON(http.StatusOK, gin.H{
 			"success": true,
 			"data":    pass,
@@ -89,7 +111,10 @@ func (UserController) Logout(c *gin.Context) {
 	num := session.Get("id")
 	if num != nil {
 		session.Clear()
-		session.Save()
+		err := session.Save()
+		if err != nil {
+			return
+		}
 		c.JSON(http.StatusOK, gin.H{
 			"success": true,
 			"data": gin.H{
