@@ -17,7 +17,7 @@
 
 ### 接口详情
 
-<a id="list"></a>
+<!-- <a id="list"></a>
 
 #### 用户查看列表信息 `GET {base_url}/api/uniqueDatabase/getInfo`
 
@@ -58,7 +58,7 @@
           ]
         }
       }
-```
+``` -->
 
 <a id="add"></a>
 
