@@ -42,6 +42,6 @@ type UniqueForm struct {
 }
 
 type NewsForm struct {
-	Total    int `json:"total"`
-	NewsList []News
+	Total    int    `json:"total"`
+	NewsList []News `json:"list"`
 }

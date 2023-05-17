@@ -12,20 +12,33 @@ type NewsController struct {
 }
 
 func (NewsController) AddNews(c *gin.Context) {
-	var news model.News
-
-	info, err := service.AddOneNews(news)
-	if err != nil {
-		fmt.Printf("controller %v", err)
+	var form model.NewsForm
+	bindErr := c.ShouldBind(&form)
+	if bindErr != nil {
 		c.JSON(http.StatusOK, gin.H{
 			"success": false,
-			"message": err,
-			"code":    service.ParamErr,
+			"message": bindErr,
+			"code":    service.OpErr,
 		})
 		return
 	}
+	allNews := form.NewsList
+	fmt.Println(allNews)
+	var infoList []interface{}
+	var errList []interface{}
+	for _, aNews := range allNews {
+		info, err := service.AddOneNews(aNews)
+		if err != nil {
+			errList = append(errList, err)
+			fmt.Printf("controller %v", err)
+		} else {
+			infoList = append(infoList, info)
+		}
+	}
 	c.JSON(http.StatusOK, gin.H{
 		"success": true,
-		"data":    info,
+		"data": gin.H{
+			"Add":  infoList,
+			"fail": errList},
 	})
 }
