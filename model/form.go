@@ -30,8 +30,7 @@ type ArticleForm struct {
 	List  []Article `form:"list" json:"list" binding:"required"`
 }
 
-type Message struct {
-	Check string `form:"check" json:"check"`
-	Id    int    `form:"id" json:"id"`
-	Title string `form:"title" json:"title"`
+type NewsForm struct {
+	Total    int    `json:"total"`
+	NewsList []News `json:"list"`
 }

@@ -10,8 +10,8 @@ func InitRouter(r *gin.Engine) {
 	// r.Use(middleware.Error)
 	apiRouter := r.Group("/api")
 	{
-		projectController := controller.ProjectController{}
-		apiRouter.POST("/commonDatabase/project", projectController.Add)
+		// projectController := controller.ProjectController{}
+		// apiRouter.POST("/commonDatabase/project", projectController.Add)
 		// apiRouter.PUT("/commonDatabase/:id", projectController.Change)
 
 		uniqueRouter := apiRouter.Group("/uniqueDatabase")
@@ -26,6 +26,12 @@ func InitRouter(r *gin.Engine) {
 			userRouter.POST("/register", userController.CreateUser)
 			userRouter.POST("/login", userController.Login)
 			userRouter.DELETE("/logout", userController.Logout)
+		}
+
+		newsRouter := apiRouter.Group("/news")
+		{
+			newsController := controller.NewsController{}
+			newsRouter.POST("/", newsController.AddNews)
 		}
 	}
 }
