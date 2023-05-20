@@ -8,7 +8,6 @@ import (
 	"subjectInformation/service"
 
 	"github.com/gin-gonic/gin"
-	"github.com/go-playground/validator/v10"
 )
 
 type UniqueController struct {
@@ -17,16 +16,6 @@ type UniqueController struct {
 func (s UniqueController) Add(c *gin.Context) {
 	var form model.UniqueForm
 	if err := c.ShouldBind(&form); err != nil {
-		fmt.Printf("controller %v", err)
-		c.Error(&gin.Error{
-			Err:  err,
-			Type: service.ParamErr,
-		})
-		return
-	}
-
-	validate := validator.New()
-	if err := validate.Struct(form); err != nil {
 		fmt.Printf("controller %v", err)
 		c.Error(&gin.Error{
 			Err:  err,

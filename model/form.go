@@ -35,8 +35,3 @@ type Message struct {
 	Id    int    `form:"id" json:"id"`
 	Title string `form:"title" json:"title"`
 }
-
-type UniqueForm struct {
-	Total int              `json:"total" binding:"numeric"`
-	List  []UniqueDatabase `json:"list" binding:"required"`
-}
