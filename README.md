@@ -34,10 +34,11 @@ base_url为 `127.0.0.1:8080`
 
 #### 用户
  + 注册登录登出
-#### 公共数据库
+#### 特色数据库
 
-+ 管理员添加条目 `POST {base_url}/api/commonDatabase`
-  + 大改API，五个子模块分别请求，在url后面加对应module名
-  + model.form仅仅是用来接受Request的，并没有什么实际意义
-  + ~~初步实现category添加   为什么不直接存二进制捏~~
-  + 导师单独成表，通过外键belong to 一个学位点
++ 管理员添加条目 `POST {base_url}/api/uniqueDatabase`
+  + 感觉没啥太大的问题？
+  + 要求全部字段均required
+
++ 管理员修改条目 `POST {base_url}/api/commonDatabase`
+  + 返回信息待进一步确定

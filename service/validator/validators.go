@@ -16,9 +16,9 @@ func timing(fl validator.FieldLevel) bool {
 	return true
 }
 
-func binary(fl validator.FieldLevel) bool {
+func category(fl validator.FieldLevel) bool {
 	if num, ok := fl.Field().Interface().(string); ok {
-		if len(num) != 5 {
+		if len(num) != 10 {
 			return false
 		}
 		for i := 0; i < len(num); i++ {

@@ -5,7 +5,7 @@ import "time"
 type Category struct { //学科分类
 	Id         int       `json:"id"`         //主键
 	ForeignKey int       `json:"foreignKey"` //外键
-	Table      string    `json:"table"`
+	Tablee     string    `json:"table"`
 	Category1  bool      //新闻学
 	Category2  bool      //传播学
 	Category3  bool      //网络与新媒体

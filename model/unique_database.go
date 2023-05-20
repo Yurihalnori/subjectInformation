@@ -11,7 +11,7 @@ type UniqueDatabase struct {
 	Data         string    `json:"data" binding:"required"`         //数据
 	CreatedAt    time.Time `json:"createdAt"`
 	UpdatedAt    time.Time `json:"updatedAt"`
-	Category     string    `json:"category" gorm:"-" binding:"required"` // 学科分类
+	Category     string    `json:"category" gorm:"-" binding:"category"` // 学科分类
 }
 
 type UniqueDatabaseOmitempty struct {
@@ -23,7 +23,7 @@ type UniqueDatabaseOmitempty struct {
 	Data         string    `json:"data" binding:"omitempty"`         //数据
 	CreatedAt    time.Time `json:"createdAt"`
 	UpdatedAt    time.Time `json:"updatedAt"`
-	Category     string    `json:"category" gorm:"-" binding:"omitempty"` // 学科分类
+	Category     string    `json:"category" gorm:"-" binding:"omitempty,category"` // 学科分类
 }
 
 type UniqueResponseMsg struct {
@@ -32,5 +32,5 @@ type UniqueResponseMsg struct {
 
 type UniqueForm struct {
 	Total int              `json:"total" binding:"numeric"`
-	List  []UniqueDatabase `json:"list" binding:"required"`
+	List  []UniqueDatabase `json:"list" binding:"required,dive"`
 }

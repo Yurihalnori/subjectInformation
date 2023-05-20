@@ -6,8 +6,8 @@ import (
 )
 
 var validatorRouter = map[string]validator.Func{
-	"timing": timing,
-	"binary": binary,
+	"timing":   timing,
+	"category": category,
 }
 
 func InitValidator() {

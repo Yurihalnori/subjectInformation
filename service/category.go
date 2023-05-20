@@ -1,14 +1,16 @@
 package service
 
-import "subjectInformation/model"
+import (
+	"subjectInformation/model"
+)
 
 type Category struct {
 }
 
-func (h Category) AddCategory(category string, foreignKey int, table string) {
+func DisposeCategory(category string, foreignKey int, table string) model.Category {
 	data := model.Category{
 		ForeignKey: foreignKey,
-		Table:      table,
+		Tablee:     table,
 		Category1:  false,
 		Category2:  false,
 		Category3:  false,
@@ -51,5 +53,29 @@ func (h Category) AddCategory(category string, foreignKey int, table string) {
 	if category[9] == '1' {
 		data.Category10 = true
 	}
+	return data
+}
+
+func (h Category) AddCategory(category string, foreignKey int, table string) {
+	data := DisposeCategory(category, foreignKey, table)
 	model.DB.Create(&data)
+}
+
+func (h Category) ChangeCategory(category string, foreignKey int, table string) {
+	toData := DisposeCategory(category, foreignKey, table)
+	var data model.Category
+	result := model.DB.Where("foreign_key = ? AND tablee = ?", foreignKey, table).First(&data)
+	if result.Error == nil {
+		data.Category1 = toData.Category1
+		data.Category2 = toData.Category2
+		data.Category3 = toData.Category3
+		data.Category4 = toData.Category4
+		data.Category5 = toData.Category5
+		data.Category6 = toData.Category6
+		data.Category7 = toData.Category7
+		data.Category8 = toData.Category8
+		data.Category9 = toData.Category9
+		data.Category10 = toData.Category10
+		model.DB.Save(&data)
+	}
 }

@@ -23,3 +23,19 @@ func (h UniqueService) Add(form model.UniqueForm) interface{} {
 	}
 	return Response
 }
+
+func (h UniqueService) Change(form model.UniqueDatabaseOmitempty, id int) interface{} {
+	var data model.UniqueDatabase
+	model.DB.First(&data, id)
+	model.DB.Model(&data).Updates(&form)
+	model.DB.Save(&data)
+
+	categoryService := Category{}
+	categoryService.ChangeCategory(form.Category, data.Id, "unique_databases")
+
+	Response := model.UniqueResponseMsg{
+		Id: data.Id,
+	}
+
+	return Response
+}

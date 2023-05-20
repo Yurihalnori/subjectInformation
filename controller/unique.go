@@ -3,6 +3,7 @@ package controller
 import (
 	"fmt"
 	"net/http"
+	"strconv"
 
 	"subjectInformation/model"
 	"subjectInformation/service"
@@ -32,21 +33,23 @@ func (s UniqueController) Add(c *gin.Context) {
 	})
 }
 
-// func (s UniqueController) Change(c *gin.Context) {
-// 	var form model.UniqueForm
-// 	if err := c.ShouldBind(&form); err != nil {
-// 		fmt.Printf("controller %v", err)
-// 		c.Error(&gin.Error{
-// 			Err:  err,
-// 			Type: service.ParamErr,
-// 		})
-// 		return
-// 	}
+func (s UniqueController) Change(c *gin.Context) {
+	var form model.UniqueDatabaseOmitempty
+	id, _ := strconv.Atoi(c.Param("id"))
 
-// 	UniqueService := service.UniqueService{}
+	if err := c.ShouldBind(&form); err != nil {
+		fmt.Printf("controller %v", err)
+		c.Error(&gin.Error{
+			Err:  err,
+			Type: service.ParamErr,
+		})
+		return
+	}
 
-// 	c.JSON(http.StatusOK, Response{
-// 		Success: true,
-// 		Data:    UniqueService.Change(form),
-// 	})
-// }
+	UniqueService := service.UniqueService{}
+
+	c.JSON(http.StatusOK, Response{
+		Success: true,
+		Data:    UniqueService.Change(form, id),
+	})
+}
