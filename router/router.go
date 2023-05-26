@@ -19,6 +19,7 @@ func InitRouter(r *gin.Engine) {
 			uniqueController := controller.UniqueController{}
 			uniqueRouter.POST("", uniqueController.Add)
 			uniqueRouter.PUT("/:id", uniqueController.Change)
+			uniqueRouter.DELETE("/:id", uniqueController.Delete)
 		}
 
 		userRouter := apiRouter.Group("/user")

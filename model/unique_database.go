@@ -23,7 +23,7 @@ type UniqueDatabaseOmitempty struct {
 	Data         string    `json:"data" binding:"omitempty"`         //数据
 	CreatedAt    time.Time `json:"createdAt"`
 	UpdatedAt    time.Time `json:"updatedAt"`
-	Category     string    `json:"category" gorm:"-" binding:"omitempty,category"` // 学科分类
+	Category     string    `json:"category" gorm:"-" binding:"omitempty,category00"` // 学科分类
 }
 
 type UniqueResponseMsg struct {

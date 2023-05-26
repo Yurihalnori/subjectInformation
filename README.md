@@ -40,5 +40,9 @@ base_url为 `127.0.0.1:8080`
   + 感觉没啥太大的问题？
   + 要求全部字段均required
 
-+ 管理员修改条目 `POST {base_url}/api/commonDatabase`
++ 管理员修改条目 `POST {base_url}/api/uniqueDatabase/:id`
   + 返回信息待进一步确定
+  + 输入信息尚未检验
+
++ 管理员删除条目 `DELETE {base_url}/api/uniqueDatabase/:id`
+  + 初步实现功能

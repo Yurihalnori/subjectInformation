@@ -39,3 +39,12 @@ func (h UniqueService) Change(form model.UniqueDatabaseOmitempty, id int) interf
 
 	return Response
 }
+
+func (h UniqueService) Delete(id int) bool {
+	var data model.UniqueDatabase
+	if result := model.DB.First(&data, id); result.Error != nil {
+		return false
+	}
+	model.DB.Delete(&model.UniqueDatabase{}, id)
+	return true
+}

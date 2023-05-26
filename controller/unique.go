@@ -9,6 +9,7 @@ import (
 	"subjectInformation/service"
 
 	"github.com/gin-gonic/gin"
+	"github.com/go-playground/validator/v10"
 )
 
 type UniqueController struct {
@@ -26,10 +27,11 @@ func (s UniqueController) Add(c *gin.Context) {
 	}
 
 	UniqueService := service.UniqueService{}
+	data := UniqueService.Add(form)
 
 	c.JSON(http.StatusOK, Response{
 		Success: true,
-		Data:    UniqueService.Add(form),
+		Data:    data,
 	})
 }
 
@@ -51,5 +53,23 @@ func (s UniqueController) Change(c *gin.Context) {
 	c.JSON(http.StatusOK, Response{
 		Success: true,
 		Data:    UniqueService.Change(form, id),
+	})
+}
+
+func (s UniqueController) Delete(c *gin.Context) {
+	id, _ := strconv.Atoi(c.Param("id"))
+
+	validate := validator.New()
+	if err := validate.Var(id, "numeric"); err != nil {
+		c.Error(&gin.Error{
+			Err:  err,
+			Type: service.ParamErr,
+		})
+	}
+
+	UniqueService := service.UniqueService{}
+
+	c.JSON(http.StatusOK, Response{
+		Success: UniqueService.Delete(id),
 	})
 }
