@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"errors"
 	"fmt"
 	"net/http"
 	"strconv"
@@ -20,7 +21,7 @@ func (s UniqueController) Add(c *gin.Context) {
 	if err := c.ShouldBind(&form); err != nil {
 		fmt.Printf("controller %v", err)
 		c.Error(&gin.Error{
-			Err:  err,
+			Err:  errors.New("存在字段为空，请检查输入信息"),
 			Type: service.ParamErr,
 		})
 		return
@@ -38,7 +39,6 @@ func (s UniqueController) Add(c *gin.Context) {
 func (s UniqueController) Change(c *gin.Context) {
 	var form model.UniqueDatabaseOmitempty
 	id, _ := strconv.Atoi(c.Param("id"))
-
 	if err := c.ShouldBind(&form); err != nil {
 		fmt.Printf("controller %v", err)
 		c.Error(&gin.Error{
@@ -48,12 +48,29 @@ func (s UniqueController) Change(c *gin.Context) {
 		return
 	}
 
-	UniqueService := service.UniqueService{}
+	validate := validator.New()
+	if err := validate.Var(id, "numeric"); err != nil {
+		c.Error(&gin.Error{
+			Err:  errors.New("请返回正确的id?"),
+			Type: service.ParamErr,
+		})
+		return
+	}
 
-	c.JSON(http.StatusOK, Response{
-		Success: true,
-		Data:    UniqueService.Change(form, id),
-	})
+	UniqueService := service.UniqueService{}
+	data, err := UniqueService.Change(form, id)
+
+	if err == nil {
+		c.JSON(http.StatusOK, Response{
+			Success: true,
+			Data:    data,
+		})
+	} else {
+		c.Error(&gin.Error{
+			Err:  err,
+			Type: service.ParamErr,
+		})
+	}
 }
 
 func (s UniqueController) Delete(c *gin.Context) {
@@ -62,14 +79,23 @@ func (s UniqueController) Delete(c *gin.Context) {
 	validate := validator.New()
 	if err := validate.Var(id, "numeric"); err != nil {
 		c.Error(&gin.Error{
+			Err:  errors.New("请返回正确的id?"),
+			Type: service.ParamErr,
+		})
+		return
+	}
+
+	UniqueService := service.UniqueService{}
+	err := UniqueService.Delete(id)
+
+	if err == nil {
+		c.JSON(http.StatusOK, Response{
+			Success: true,
+		})
+	} else {
+		c.Error(&gin.Error{
 			Err:  err,
 			Type: service.ParamErr,
 		})
 	}
-
-	UniqueService := service.UniqueService{}
-
-	c.JSON(http.StatusOK, Response{
-		Success: UniqueService.Delete(id),
-	})
 }

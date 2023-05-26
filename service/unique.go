@@ -1,6 +1,7 @@
 package service
 
 import (
+	"errors"
 	"subjectInformation/model"
 )
 
@@ -24,9 +25,13 @@ func (h UniqueService) Add(form model.UniqueForm) interface{} {
 	return Response
 }
 
-func (h UniqueService) Change(form model.UniqueDatabaseOmitempty, id int) interface{} {
+func (h UniqueService) Change(form model.UniqueDatabaseOmitempty, id int) (interface{}, error) {
+
 	var data model.UniqueDatabase
-	model.DB.First(&data, id)
+	if result := model.DB.First(&data, id); result.Error != nil {
+		return nil, errors.New("未找到对应id数据,请检查id是否正确")
+	}
+
 	model.DB.Model(&data).Updates(&form)
 	model.DB.Save(&data)
 
@@ -37,14 +42,14 @@ func (h UniqueService) Change(form model.UniqueDatabaseOmitempty, id int) interf
 		Id: data.Id,
 	}
 
-	return Response
+	return Response, nil
 }
 
-func (h UniqueService) Delete(id int) bool {
+func (h UniqueService) Delete(id int) error {
 	var data model.UniqueDatabase
 	if result := model.DB.First(&data, id); result.Error != nil {
-		return false
+		return errors.New("未找到对应id信息,请检查id是否正确")
 	}
 	model.DB.Delete(&model.UniqueDatabase{}, id)
-	return true
+	return nil
 }

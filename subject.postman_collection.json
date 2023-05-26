@@ -1,0 +1,113 @@
+{
+	"info": {
+		"_postman_id": "bd4171be-e2c6-48d1-93db-114d0ecb2fc3",
+		"name": "subject",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24147217"
+	},
+	"item": [
+		{
+			"name": "UniqueDatabse",
+			"item": [
+				{
+					"name": "添加条目",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"total\":1,\r\n    \"list\":[{\r\n        \"category\":\"1011011001\",\r\n        \"name\":\"fauihfaw\",\r\n        \"trimmer\":\"agwreua\",\r\n        \"introduction\":\"fahifbnwjnf\",\r\n        \"keyWord\":\"2131\",\r\n        \"Data\":\"123456\"\r\n    }]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:8080/api/uniqueDatabase",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"uniqueDatabase"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "修改条目",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"111\",\r\n    \"trimmer\":\"english\",\r\n    \"category\":\"0000000000\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:8080/api/uniqueDatabase/:id",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"uniqueDatabase",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "14"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "删除条目",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:8080/api/uniqueDatabase/:id",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"uniqueDatabase",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
