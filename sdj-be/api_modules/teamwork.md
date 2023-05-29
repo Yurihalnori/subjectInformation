@@ -4,15 +4,13 @@
 
 #### 具体要求为：
 
-每个库包含九个子学科，以九位二进制000000000表示查询的模块，1表示包括 ，0表示不包括
-
-项目层级 0国际合作 1国家级 2省部级 3市级 4区县级 5乡镇
+项目层级 0国际合作 1国家级 2省部级 3市级 4区县级 5乡镇级
 
 ### 接口列表
 
 
 
-[用户查看列表信息](#list) `GET {base_url}/api/uniqueDatabase/getInfo`
+<!-- [用户查看列表信息](#list) `GET {base_url}/api/uniqueDatabase/getInfo` -->
 
 [管理员添加条目](#add) `POST {base_url}/api/uniqueDatabase/add`
 
@@ -22,7 +20,7 @@
 
 ### 接口详情
 
-<a id="list"></a>
+<!-- <a id="list"></a>
 
 #### 用户查看列表信息 `GET {base_url}/api/uniqueDatabase/getInfo`
 
@@ -77,7 +75,7 @@
           ]
         }
       }
-```
+``` -->
 
 <a id="add"></a>
 
@@ -89,21 +87,22 @@
     "total":10,
     "list":[{
       "id":1,
-      "title":"基于氢、氮、镥的室温超导体",      //项目名称
-      "category":"001001001",                      //专业分类 
-      "grade":1,                          //项目层级
-      "direct":"横向/纵向",               //项目类别（横向/纵向）
-      "sponsor":"Trump",                  //资助主体
-      "authorization":"123456789",        //项目批准号
-      "foundTime":"1145-1-4",             //立项时间
-      "superintendent":"Rochester",       //项目负责人
+      "name":"基于氢、氮、镥的室温超导体",      //项目名称
+      "category":"001001001",        //专业分类 
+      "grade":1,                     //项目层级
+      "direction":"横向/纵向",        //项目类别（横向/纵向）
+      "sponsor":"Trump",             //资助主体
+      "number":"123456789",          //项目批准号
+      "time":"1145-1-4",             //立项时间
+      "principal":"Rochester",       //项目负责人
       "member":"a,b,c",                   //项目成员
-      "area":{                 //所属区域
+      "region":{                 //所属区域
         "provinces":"37",      //省
-        "city":"07"            //市
+        "city":"07",            //市
+        "county":"04"          //区
       },
-      "link":"http://tiaozhan.com",       //调研图片
-      "achievement":"balabala"            //项目成果
+      "picture":"http://tiaozhan.com",   //调研图片
+      "achievement":"balabala"           //项目成果
     },...]
   }
   ```
@@ -115,7 +114,7 @@
           "data":[{
             "id":1,
             "title":"基于氢、氮、镥的室温超导体",      //文章标题
-            "updateTime":"2023-02-27"                //上传时间
+            "time":"2023-02-27"                      //上传时间
           },...]
         }
 ```
