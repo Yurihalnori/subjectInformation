@@ -28,6 +28,7 @@ func (NewsController) AddNews(c *gin.Context) {
 	var errList []interface{}
 	for _, aNews := range allNews {
 		info, err := service.AddOneNews(aNews)
+
 		if err != nil {
 			errList = append(errList, err)
 			fmt.Printf("controller %v", err)
