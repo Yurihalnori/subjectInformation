@@ -74,5 +74,5 @@ func InitModel() {
 	if !DB.Migrator().HasTable(&UniqueDatabase{}) {
 		DB.Migrator().CreateTable(&UniqueDatabase{})
 	}
-
+	DB.Exec("ALTER TABLE News ADD FULLTEXT (text)")
 }
