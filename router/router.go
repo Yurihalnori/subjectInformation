@@ -34,6 +34,7 @@ func InitRouter(r *gin.Engine) {
 		{
 			newsController := controller.NewsController{}
 			newsRouter.POST("/", newsController.AddNews)
+			newsRouter.GET("/", newsController.GetNews)
 		}
 	}
 }

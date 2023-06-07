@@ -15,3 +15,12 @@ type News struct { //学界咨询
 	UpdatedAt  time.Time `json:"updatedAt"`
 	Category   string    `json:"category" gorm:"-:migration"` // 学科分类
 }
+
+type GetSomeNews struct {
+	Module   int    `form:"module" json:"module"`
+	Page     int    `form:"page" json:"page"`
+	Limit    int    `form:"limit" json:"limit"`
+	Category string `form:"category" json:"category"`
+	Name     string `form:"name" json:"name"`
+	Order    string `form:"order" json:"order"`
+}

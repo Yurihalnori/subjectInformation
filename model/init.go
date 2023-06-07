@@ -67,6 +67,7 @@ func InitModel() {
 	}
 	if !DB.Migrator().HasTable(&News{}) {
 		DB.Migrator().CreateTable(&News{})
+		DB.Exec("ALTER TABLE News ADD FULLTEXT (text)")
 	}
 	if !DB.Migrator().HasTable(&User{}) {
 		DB.Migrator().CreateTable(&User{})
@@ -74,5 +75,4 @@ func InitModel() {
 	if !DB.Migrator().HasTable(&UniqueDatabase{}) {
 		DB.Migrator().CreateTable(&UniqueDatabase{})
 	}
-	DB.Exec("ALTER TABLE News ADD FULLTEXT (text)")
 }

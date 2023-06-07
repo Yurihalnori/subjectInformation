@@ -8,15 +8,13 @@
 - Request
     ```json
     {
-        "module":"0|1|2|3", // 0:行业资讯，1：学术会议，2：学科竞赛，3：招聘信息, 仅支持单值传递
-        "total":10086,
+        "module":0|1|2|3, // 0:行业资讯，1：学术会议，2：学科竞赛，3：招聘信息, 仅支持单值传递
         "page":1,
         "limit":20,
-        "category":"110011001", //传入9个学科信息，默认包含全部
-        "sort":{ //可选默认时间倒序
-            "name":"relation|time|popularity", 
-            "order":"increase|reverse"
-        }
+        "category":"1100110011", //传入10个学科信息，默认包含全部
+         //可选默认时间倒序
+        "name":"relation|time|popularity", 
+        "order":"increase|reverse"
     }
     ```
 - Response

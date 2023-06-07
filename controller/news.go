@@ -1,7 +1,6 @@
 package controller
 
 import (
-	"fmt"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"subjectInformation/model"
@@ -23,15 +22,12 @@ func (NewsController) AddNews(c *gin.Context) {
 		return
 	}
 	allNews := form.NewsList
-	fmt.Println(allNews)
 	var infoList []interface{}
 	var errList []interface{}
 	for _, aNews := range allNews {
 		info, err := service.AddOneNews(aNews)
-
 		if err != nil {
 			errList = append(errList, err)
-			fmt.Printf("controller %v", err)
 		} else {
 			infoList = append(infoList, info)
 		}
@@ -42,4 +38,30 @@ func (NewsController) AddNews(c *gin.Context) {
 			"Add":  infoList,
 			"fail": errList},
 	})
+}
+
+func (NewsController) GetNews(c *gin.Context) {
+	var form model.GetSomeNews
+	bindErr := c.ShouldBindQuery(&form)
+	if bindErr != nil {
+		c.JSON(http.StatusOK, gin.H{
+			"success": false,
+			"message": bindErr,
+			"code":    service.OpErr,
+		})
+		return
+	}
+	res, err := service.GetSomeNews(form)
+	if err != nil {
+		c.JSON(http.StatusOK, gin.H{
+			"success": false,
+			"message": err,
+			"code":    service.ParamErr,
+		})
+	} else {
+		c.JSON(http.StatusOK, gin.H{
+			"success": true,
+			"data":    res,
+		})
+	}
 }
