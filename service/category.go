@@ -1,6 +1,7 @@
 package service
 
 import (
+	"errors"
 	"subjectInformation/model"
 )
 
@@ -61,21 +62,33 @@ func (h Category) AddCategory(category string, foreignKey int, table string) {
 	model.DB.Create(&data)
 }
 
-func (h Category) ChangeCategory(category string, foreignKey int, table string) {
-	toData := DisposeCategory(category, foreignKey, table)
+func (h Category) ChangeCategory(category string, foreignKey int, table string) error {
+	_Data := DisposeCategory(category, foreignKey, table)
 	var data model.Category
 	result := model.DB.Where("foreign_key = ? AND tablee = ?", foreignKey, table).First(&data)
 	if result.Error == nil {
-		data.Category1 = toData.Category1
-		data.Category2 = toData.Category2
-		data.Category3 = toData.Category3
-		data.Category4 = toData.Category4
-		data.Category5 = toData.Category5
-		data.Category6 = toData.Category6
-		data.Category7 = toData.Category7
-		data.Category8 = toData.Category8
-		data.Category9 = toData.Category9
-		data.Category10 = toData.Category10
+		data.Category1 = _Data.Category1
+		data.Category2 = _Data.Category2
+		data.Category3 = _Data.Category3
+		data.Category4 = _Data.Category4
+		data.Category5 = _Data.Category5
+		data.Category6 = _Data.Category6
+		data.Category7 = _Data.Category7
+		data.Category8 = _Data.Category8
+		data.Category9 = _Data.Category9
+		data.Category10 = _Data.Category10
 		model.DB.Save(&data)
+		return nil
 	}
+	return errors.New("未找到对应category(理论上并不会发生)")
+}
+
+func (h Category) DeleteCategory(foreignKey int, table string) error {
+	var data model.Category
+	result := model.DB.Where("foreign_key = ? AND tablee = ?", foreignKey, table).First(&data)
+	if result.Error == nil {
+		model.DB.Delete(&model.Category{}, data.Id)
+		return nil
+	}
+	return errors.New("未找到对应category(理论上并不会发生)")
 }

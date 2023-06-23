@@ -36,13 +36,13 @@ func (h UniqueService) Change(form model.UniqueDatabaseOmitempty, id int) (inter
 	model.DB.Save(&data)
 
 	categoryService := Category{}
-	categoryService.ChangeCategory(form.Category, data.Id, "unique_databases")
+	cateErr := categoryService.ChangeCategory(form.Category, data.Id, "unique_databases")
 
 	Response := model.UniqueResponseMsg{
 		Id: data.Id,
 	}
 
-	return Response, nil
+	return Response, cateErr
 }
 
 func (h UniqueService) Delete(id int) error {
@@ -51,5 +51,7 @@ func (h UniqueService) Delete(id int) error {
 		return errors.New("未找到对应id信息,请检查id是否正确")
 	}
 	model.DB.Delete(&model.UniqueDatabase{}, id)
-	return nil
+	categoryService := Category{}
+	cateErr := categoryService.DeleteCategory(id, "unique_databases")
+	return cateErr
 }

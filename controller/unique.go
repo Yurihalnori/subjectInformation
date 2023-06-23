@@ -16,6 +16,7 @@ import (
 type UniqueController struct {
 }
 
+// 添加条目
 func (s UniqueController) Add(c *gin.Context) {
 	var form model.UniqueForm
 	if err := c.ShouldBind(&form); err != nil {
@@ -36,6 +37,7 @@ func (s UniqueController) Add(c *gin.Context) {
 	})
 }
 
+// 修改条目
 func (s UniqueController) Change(c *gin.Context) {
 	var form model.UniqueDatabaseOmitempty
 	id, _ := strconv.Atoi(c.Param("id"))
@@ -73,9 +75,9 @@ func (s UniqueController) Change(c *gin.Context) {
 	}
 }
 
+// 删除条目
 func (s UniqueController) Delete(c *gin.Context) {
 	id, _ := strconv.Atoi(c.Param("id"))
-
 	validate := validator.New()
 	if err := validate.Var(id, "numeric"); err != nil {
 		c.Error(&gin.Error{

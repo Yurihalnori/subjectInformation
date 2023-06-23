@@ -43,28 +43,28 @@ func init() {
 }
 
 func InitModel() {
-	DB.AutoMigrate(&Article{}, &Book{}, &Category{}, &Dissertation{}, &Institute{}, &Project{}, &Tutor{}, &News{}, &User{}, &UniqueDatabase{})
-	if !DB.Migrator().HasTable(&Article{}) {
-		DB.Migrator().CreateTable(&Article{})
-	}
-	if !DB.Migrator().HasTable(&Book{}) {
-		DB.Migrator().CreateTable(&Book{})
-	}
-	if !DB.Migrator().HasTable(&Category{}) {
-		DB.Migrator().CreateTable(&Category{})
-	}
-	if !DB.Migrator().HasTable(&Dissertation{}) {
-		DB.Migrator().CreateTable(&Dissertation{})
-	}
-	if !DB.Migrator().HasTable(&Institute{}) {
-		DB.Migrator().CreateTable(&Institute{})
-	}
-	if !DB.Migrator().HasTable(&Project{}) {
-		DB.Migrator().CreateTable(&Project{})
-	}
-	if !DB.Migrator().HasTable(&Tutor{}) {
-		DB.Migrator().CreateTable(&Tutor{})
-	}
+	DB.AutoMigrate(&News{}, &User{}, &UniqueDatabase{})
+	// if !DB.Migrator().HasTable(&Article{}) {
+	// 	DB.Migrator().CreateTable(&Article{})
+	// }
+	// if !DB.Migrator().HasTable(&Book{}) {
+	// 	DB.Migrator().CreateTable(&Book{})
+	// }
+	// if !DB.Migrator().HasTable(&Category{}) {
+	// 	DB.Migrator().CreateTable(&Category{})
+	// }
+	// if !DB.Migrator().HasTable(&Dissertation{}) {
+	// 	DB.Migrator().CreateTable(&Dissertation{})
+	// }
+	// if !DB.Migrator().HasTable(&Institute{}) {
+	// 	DB.Migrator().CreateTable(&Institute{})
+	// }
+	// if !DB.Migrator().HasTable(&Project{}) {
+	// 	DB.Migrator().CreateTable(&Project{})
+	// }
+	// if !DB.Migrator().HasTable(&Tutor{}) {
+	// 	DB.Migrator().CreateTable(&Tutor{})
+	// }
 	if !DB.Migrator().HasTable(&News{}) {
 		DB.Migrator().CreateTable(&News{})
 	}
