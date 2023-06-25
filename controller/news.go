@@ -106,3 +106,39 @@ func (NewsController) ApplyOneNews(c *gin.Context) {
 		}
 	}
 }
+
+func (NewsController) EditOneNews(c *gin.Context) {
+	var form model.News
+	bindErr := c.ShouldBindJSON(&form)
+	if bindErr != nil {
+		c.JSON(http.StatusOK, gin.H{
+			"success": false,
+			"message": bindErr,
+			"code":    service.OpErr,
+		})
+		return
+	}
+	id := c.Param("id")
+	if _, err := strconv.Atoi(id); err != nil {
+		c.JSON(http.StatusOK, gin.H{
+			"success": false,
+			"message": err,
+			"code":    service.ParamErr,
+		})
+		return
+	}
+	form.Id, _ = strconv.Atoi(id)
+	err := service.EditNews(form)
+	if err != nil {
+		c.JSON(http.StatusOK, gin.H{
+			"success": false,
+			"message": err,
+			"code":    service.ParamErr,
+		})
+	} else {
+		c.JSON(http.StatusOK, gin.H{
+			"success": true,
+			"data":    form.Id,
+		})
+	}
+}

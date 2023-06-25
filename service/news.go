@@ -1,6 +1,7 @@
 package service
 
 import (
+	"errors"
 	"gorm.io/gorm"
 	"strconv"
 	"subjectInformation/model"
@@ -80,5 +81,20 @@ func ClickNewsOnce(id int) (err error) {
 		Where("id = ?", id).
 		Update("click", gorm.Expr("click + ?", 1))
 	err = res.Error
+	return
+}
+
+func EditNews(form model.News) (err error) {
+	var news model.News
+	res := model.DB.
+		Model(&news).
+		Where("id = ?", form.Id).
+		Updates(form)
+	num := res.RowsAffected
+	if num == 0 {
+		err = errors.New("can't find")
+	} else {
+		err = res.Error
+	}
 	return
 }

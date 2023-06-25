@@ -2,6 +2,11 @@
 
 ## 学界咨询
 
+Note: module 和 region 永远用int 
+```json
+"module":0|1|2|3, // 0:行业资讯，1：学术会议，2：学科竞赛，3：招聘信息, 仅支持单值传递
+"region":0|1 //domestic|foreign
+```
 #### 获取资讯 `GET {base_url}/api/news`
 - 要求：使用query传递
 
@@ -31,7 +36,7 @@
                     "title":"题目",
                     "category":"100000000",
                     "module": 0,
-                    "region":"domestic|foreign",
+                    "region":1,
                     "department":"挑战网",
                     "date":"2023-04-03",
                     "click": 114514
@@ -58,7 +63,7 @@
             "title":"题目",
             "category":"100000000",
             "module": 0,
-            "region":"domestic|foreign",
+            "region":1,
             "department":"挑战网",
             "date":"2023-04-03",
             "content":"..." //可能包含富文本
@@ -77,7 +82,7 @@
             "title":"题目",
             "category":"100000000",
             "module": 0,
-            "region":"domestic|foreign",
+            "region":1,
             "department":"挑战网",
             "date":"2023-04-03",
             "content":"..." //可能包含富文本
@@ -105,7 +110,7 @@
             "title":"题目", //可选
             "category":"100000000", //可选
             "module": 0, //可选
-            "region":"domestic|foreign", //可选
+            "region":1, //可选
             "department":"挑战网", //可选
             "date":"2023-04-03", //可选
             "content":"..." //可选
