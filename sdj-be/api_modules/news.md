@@ -12,8 +12,8 @@
         "page":1,
         "limit":20,
         "category":"1100110011", //传入10个学科信息，默认包含全部
-         //可选默认时间倒序
-        "name":"relation|time|popularity", 
+         //默认时间倒序
+        "name":"time|popularity", 
         "order":"increase|reverse"
     }
     ```
@@ -24,6 +24,7 @@
         "data":{
             "category":"110011001",
             "module":0,
+            "total": 100
             "list":[
                 {
                     "id": 1,
@@ -33,6 +34,7 @@
                     "region":"domestic|foreign",
                     "department":"挑战网",
                     "date":"2023-04-03",
+                    "click": 114514
                 }
             ]
         }

@@ -3,6 +3,7 @@ package controller
 import (
 	"github.com/gin-gonic/gin"
 	"net/http"
+	"strconv"
 	"subjectInformation/model"
 	"subjectInformation/service"
 )
@@ -51,7 +52,7 @@ func (NewsController) GetNews(c *gin.Context) {
 		})
 		return
 	}
-	res, err := service.GetSomeNews(form)
+	res, total, err := service.GetSomeNews(form)
 	if err != nil {
 		c.JSON(http.StatusOK, gin.H{
 			"success": false,
@@ -61,7 +62,47 @@ func (NewsController) GetNews(c *gin.Context) {
 	} else {
 		c.JSON(http.StatusOK, gin.H{
 			"success": true,
-			"data":    res,
+			"data": gin.H{
+				"category": form.Category,
+				"module":   form.Module,
+				"total":    total,
+				"list":     res,
+			},
 		})
+	}
+}
+
+func (NewsController) ApplyOneNews(c *gin.Context) {
+	id := c.Param("id")
+	if _, err := strconv.Atoi(id); err != nil {
+		c.JSON(http.StatusOK, gin.H{
+			"success": false,
+			"message": err,
+			"code":    service.ParamErr,
+		})
+		return
+	}
+	IntId, _ := strconv.Atoi(id)
+	aPieceOfNews, FindErr := service.GetOneNew(IntId)
+	if FindErr != nil {
+		c.JSON(http.StatusOK, gin.H{
+			"success": false,
+			"message": FindErr,
+			"code":    service.ParamErr,
+		})
+	} else {
+		err := service.ClickNewsOnce(IntId)
+		if err != nil {
+			c.JSON(http.StatusOK, gin.H{
+				"success": false,
+				"message": err,
+				"code":    service.ParamErr,
+			})
+		} else {
+			c.JSON(http.StatusOK, gin.H{
+				"success": true,
+				"data":    aPieceOfNews,
+			})
+		}
 	}
 }
