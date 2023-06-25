@@ -10,18 +10,6 @@ func InitRouter(r *gin.Engine) {
 	// r.Use(middleware.Error)
 	apiRouter := r.Group("/api")
 	{
-		// projectController := controller.ProjectController{}
-		// apiRouter.POST("/commonDatabase/project", projectController.Add)
-		// apiRouter.PUT("/commonDatabase/:id", projectController.Change)
-
-		uniqueRouter := apiRouter.Group("/uniqueDatabase")
-		{
-			uniqueController := controller.UniqueController{}
-			uniqueRouter.POST("", uniqueController.Add)
-			uniqueRouter.PUT("/:id", uniqueController.Change)
-			uniqueRouter.DELETE("/:id", uniqueController.Delete)
-		}
-
 		userRouter := apiRouter.Group("/user")
 		{
 			userController := controller.UserController{}
@@ -36,5 +24,23 @@ func InitRouter(r *gin.Engine) {
 			newsRouter.POST("/", newsController.AddNews)
 			newsRouter.GET("/", newsController.GetNews)
 		}
+
+		uniqueRouter := apiRouter.Group("/uniqueDatabase")
+		{
+			uniqueController := controller.UniqueController{}
+			uniqueRouter.POST("", uniqueController.Add)
+			uniqueRouter.PUT("/:id", uniqueController.Change)
+			uniqueRouter.DELETE("/:id", uniqueController.Delete)
+		}
+
+		teamworkRouter := apiRouter.Group("/teamwork")
+		{
+			teamworkController := controller.TeamworkController{}
+			teamworkRouter.POST("", teamworkController.Add)
+			teamworkRouter.PUT("/:id", teamworkController.Change)
+			teamworkRouter.DELETE("/:id", teamworkController.Delete)
+		}
+
 	}
+
 }

@@ -5,19 +5,19 @@ import (
 	"subjectInformation/model"
 )
 
-type UniqueService struct {
+type TeamworkService struct {
 }
 
-func (h UniqueService) Add(form model.UniqueForm) interface{} {
+func (h TeamworkService) Add(form model.TeamworkForm) interface{} {
 
-	var Response []model.UniqueResponseMsg
+	var Response []model.TeamworkResponseMsg
 	categoryService := Category{}
 
 	for i := 0; i < form.Total; i++ {
 		data := form.List[i]
 		model.DB.Create(&data)
-		categoryService.AddCategory(data.Category, data.Id, "unique_databases")
-		s := model.UniqueResponseMsg{
+		categoryService.AddCategory(data.Category, data.Id, "teamworks")
+		s := model.TeamworkResponseMsg{
 			Id: data.Id,
 		}
 		Response = append(Response, s)
@@ -25,9 +25,9 @@ func (h UniqueService) Add(form model.UniqueForm) interface{} {
 	return Response
 }
 
-func (h UniqueService) Change(form model.UniqueDatabaseOmitempty, id int) (interface{}, error) {
+func (h TeamworkService) Change(form model.TeamworkOmitempty, id int) (interface{}, error) {
 
-	var data model.UniqueDatabase
+	var data model.Teamwork
 	if result := model.DB.First(&data, id); result.Error != nil {
 		return nil, errors.New("未找到对应id数据,请检查id是否正确")
 	}
@@ -37,26 +37,26 @@ func (h UniqueService) Change(form model.UniqueDatabaseOmitempty, id int) (inter
 
 	if form.Category != "" {
 		categoryService := Category{}
-		cateErr := categoryService.ChangeCategory(form.Category, data.Id, "unique_databases")
+		cateErr := categoryService.ChangeCategory(form.Category, data.Id, "teamworks")
 		if cateErr != nil {
 			return nil, cateErr
 		}
 	}
 
-	Response := model.UniqueResponseMsg{
+	Response := model.TeamworkResponseMsg{
 		Id: data.Id,
 	}
 
 	return Response, nil
 }
 
-func (h UniqueService) Delete(id int) error {
-	var data model.UniqueDatabase
+func (h TeamworkService) Delete(id int) error {
+	var data model.Teamwork
 	if result := model.DB.First(&data, id); result.Error != nil {
 		return errors.New("未找到对应id信息,请检查id是否正确")
 	}
-	model.DB.Delete(&model.UniqueDatabase{}, id)
+	model.DB.Delete(&model.Teamwork{}, id)
 	categoryService := Category{}
-	cateErr := categoryService.DeleteCategory(id, "unique_databases")
+	cateErr := categoryService.DeleteCategory(id, "teamworks")
 	return cateErr
 }

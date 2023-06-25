@@ -43,7 +43,7 @@ func init() {
 }
 
 func InitModel() {
-	DB.AutoMigrate(&News{}, &User{}, &UniqueDatabase{})
+	DB.AutoMigrate(&News{}, &User{}, &UniqueDatabase{}, &Teamwork{})
 	// if !DB.Migrator().HasTable(&Article{}) {
 	// 	DB.Migrator().CreateTable(&Article{})
 	// }
@@ -74,5 +74,8 @@ func InitModel() {
 	}
 	if !DB.Migrator().HasTable(&UniqueDatabase{}) {
 		DB.Migrator().CreateTable(&UniqueDatabase{})
+	}
+	if !DB.Migrator().HasTable(&Teamwork{}) {
+		DB.Migrator().CreateTable(&Teamwork{})
 	}
 }
