@@ -7,14 +7,17 @@ import (
 	"subjectInformation/model"
 )
 
-func AddOneNews(form model.News) (news model.News, err error) {
+type NewsService struct {
+}
+
+func (NewsService) AddOneNews(form model.News) (news model.News, err error) {
 	res := model.DB.Select("title", "module", "region", "department", "date", "text", "category").Create(&form)
 	err = res.Error
 	Category{}.AddCategory(form.Category, form.Id, "News")
 	return form, err
 }
 
-func GetSomeNews(form model.GetSomeNews) (newsList []model.NewsPreview, total int, err error) {
+func (NewsService) GetSomeNews(form model.GetSomeNews) (newsList []model.NewsPreview, total int, err error) {
 	order := ""
 	if form.Name == "" || form.Order == "" {
 		order = "date desc"
@@ -64,7 +67,7 @@ func GetSomeNews(form model.GetSomeNews) (newsList []model.NewsPreview, total in
 	return
 }
 
-func GetOneNew(id int) (ApieceOfNews model.NewsDetail, err error) {
+func (NewsService) GetOneNew(id int) (ApieceOfNews model.NewsDetail, err error) {
 	var news model.News
 	res := model.DB.
 		Table("news").
@@ -75,7 +78,7 @@ func GetOneNew(id int) (ApieceOfNews model.NewsDetail, err error) {
 	return
 }
 
-func ClickNewsOnce(id int) (err error) {
+func (NewsService) ClickNewsOnce(id int) (err error) {
 	res := model.DB.
 		Table("news").
 		Where("id = ?", id).
@@ -84,7 +87,7 @@ func ClickNewsOnce(id int) (err error) {
 	return
 }
 
-func EditNews(form model.News) (err error) {
+func (NewsService) EditNews(form model.News) (err error) {
 	var news model.News
 	res := model.DB.
 		Model(&news).
@@ -95,6 +98,25 @@ func EditNews(form model.News) (err error) {
 		err = errors.New("can't find")
 	} else {
 		err = res.Error
+	}
+	if err == nil {
+		if form.Category != "" {
+			err = Category{}.ChangeCategory(form.Category, form.Id, "News")
+		}
+	}
+	return
+}
+
+func (NewsService) DeleteNews(id int) (err error) {
+	res := model.DB.Delete(model.News{}, id)
+	num := res.RowsAffected
+	if num == 0 {
+		err = errors.New("can't find")
+	} else {
+		err = res.Error
+	}
+	if err == nil {
+		err = Category{}.DeleteCategory(id, "News")
 	}
 	return
 }
