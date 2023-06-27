@@ -54,10 +54,16 @@ func (NewsService) GetSomeNews(form model.GetSomeNews) (newsList []model.NewsPre
 		}
 	}
 	condition += "1=0)"
+	module := ""
+	if form.Module == 4 {
+		module = " 4 = ? "
+	} else {
+		module = "news.module = ?"
+	}
 	res := model.DB.
 		Model(&model.News{}).
 		Select("news.id", "news.title", "news.category", "news.module", "news.region", "news.department", "news.click", "news.date").
-		Where("news.module = ?", form.Module).
+		Where(module, form.Module).
 		Limit(form.Limit).
 		Offset((form.Page - 1) * form.Limit).
 		Joins(condition).
