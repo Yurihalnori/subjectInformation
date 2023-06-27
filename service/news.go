@@ -120,3 +120,69 @@ func (NewsService) DeleteNews(id int) (err error) {
 	}
 	return
 }
+
+func (NewsService) SearchNews(form model.NewsSearchRequest) (total int, newsList []model.NewsPreview, err error) {
+	join := " INNER JOIN categories ON categories.foreign_key = news.id AND categories.tablee = 'News' AND ( "
+	for key, value := range form.Category {
+		if value == 49 { // ascii 1 = 49
+			join += "categories.category" + strconv.Itoa(key+1) + " ='1'" + " OR "
+		}
+	}
+	join += "1=0) "
+
+	module := ""
+	if form.Module != 4 {
+		module = "`module` = " + strconv.Itoa(int(form.Module)) + " AND "
+	}
+
+	condition := "SELECT * , MATCH(title) AGAINST ('" +
+		form.Content + "' IN NATURAL LANGUAGE MODE)" +
+		" AS title_score,  MATCH(text) AGAINST ( '" +
+		form.Content + "' IN NATURAL LANGUAGE MODE) AS text_score " +
+		"FROM news " + join + "WHERE " + module + "MATCH(title, text) AGAINST ('" +
+		form.Content + "' IN NATURAL LANGUAGE MODE) "
+
+	order := "ORDER BY "
+
+	if form.Name == "" || form.Order == "" || form.Name == "relativity" {
+		order += "(title_score + text_score) DESC"
+	} else {
+		switch form.Name {
+		case "time":
+			switch form.Order {
+			case "increase":
+				{
+					order += "date asc"
+				}
+			case "decrease":
+				{
+					order += "date desc"
+				}
+			}
+		case "popularity":
+			switch form.Order {
+			case "increase":
+				{
+					order += "click asc"
+				}
+			case "decrease":
+				{
+					order += "click desc"
+				}
+			}
+		}
+	}
+
+	var count []model.NewsPreview
+	model.DB.Raw(condition).Scan(&count)
+	total = len(count)
+
+	condition += order
+
+	limit := " LIMIT " + strconv.Itoa((form.Page-1)*form.Limit) + " , " + strconv.Itoa(form.Limit)
+
+	condition += limit
+
+	model.DB.Raw(condition).Scan(&newsList)
+	return
+}

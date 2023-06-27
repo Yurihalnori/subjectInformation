@@ -13,7 +13,7 @@ type News struct { //学界咨询
 	Region     uint      `json:"region"`                             //domestic|foreign
 	CreatedAt  time.Time `json:"createdAt"`
 	UpdatedAt  time.Time `json:"updatedAt"`
-	Category   string    `json:"category"` // 学科分类
+	Category   string    `json:"category" gorm:"type:varchar(64)"` // 学科分类
 }
 
 type GetSomeNews struct {
@@ -46,4 +46,14 @@ type NewsDetail struct {
 	Date       string `gorm:"type:varchar(64)" json:"date"`       // 发布时间
 	Region     uint   `json:"region"`                             //domestic|foreign
 	Category   string `json:"category"`                           // 学科分类
+}
+
+type NewsSearchRequest struct {
+	Content  string `json:"content"`
+	Module   uint   `json:"Module"`
+	Name     string `json:"name"`
+	Order    string `json:"order"`
+	Page     int    `form:"page" json:"page"`
+	Limit    int    `form:"limit" json:"limit"`
+	Category string `form:"category" json:"category"`
 }

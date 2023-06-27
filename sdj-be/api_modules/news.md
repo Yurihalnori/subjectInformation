@@ -144,3 +144,42 @@ Note: module 和 region 永远用int
         }
     }
     ```
+
+#### 搜索 `POST {base_url}/api/news/search`
+- 要求：使用body传递
+- Request
+    ```json
+    {
+        "content": "是学生",//建议前端直接过滤掉非法字符
+        "module":0|1|2|3|4 // 0:行业资讯，1：学术会议，2：学科竞赛，3：招聘信息, 4:全选 仅支持单值传递
+        "page":1,
+        "limit":20,
+        "category":"1100110011", //传入10个学科信息，默认包含全部
+         //默认时间倒序
+        "name":"relativity|time|popularity",   
+        "order":"increase|reverse" //不提供相关性升序
+    }
+  ```
+- Response
+  ```json
+  {
+    "data": {
+        "category": "1111001000",
+        "list": [
+            {
+                "id": 18,
+                "title": "2023年9月全国计算机等级考试报名通知",
+                "module": 3,
+                "department": "挑战网",
+                "click": 0,
+                "date": "2023-06-05",
+                "region": 2,
+                "category": "1010100011"
+            }
+        ],
+        "module": 3,
+        "total": 3
+    },
+    "success": true
+  }
+  ```

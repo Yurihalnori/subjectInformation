@@ -172,3 +172,34 @@ func (NewsController) DeleteOneNews(c *gin.Context) {
 		})
 	}
 }
+
+func (NewsController) SearchNews(c *gin.Context) {
+	var form model.NewsSearchRequest
+	bindErr := c.ShouldBindJSON(&form)
+	if bindErr != nil {
+		c.JSON(http.StatusOK, gin.H{
+			"success": false,
+			"message": bindErr,
+			"code":    service.OpErr,
+		})
+		return
+	}
+	total, res, err := service.NewsService{}.SearchNews(form)
+	if err != nil {
+		c.JSON(http.StatusOK, gin.H{
+			"success": false,
+			"message": err,
+			"code":    service.ParamErr,
+		})
+	} else {
+		c.JSON(http.StatusOK, gin.H{
+			"success": true,
+			"data": gin.H{
+				"total":    total,
+				"module":   form.Module,
+				"category": form.Category,
+				"list":     res,
+			},
+		})
+	}
+}

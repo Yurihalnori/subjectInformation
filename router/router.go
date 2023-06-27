@@ -26,6 +26,7 @@ func InitRouter(r *gin.Engine) {
 			newsRouter.GET("/:id", newsController.ApplyOneNews)
 			newsRouter.PUT("/:id", newsController.EditOneNews)
 			newsRouter.DELETE("/:id", newsController.DeleteOneNews)
+			newsRouter.POST("/search", newsController.SearchNews)
 		}
 
 		uniqueRouter := apiRouter.Group("/uniqueDatabase")

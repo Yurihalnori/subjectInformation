@@ -43,16 +43,16 @@ func init() {
 }
 
 func InitModel() {
-	DB.AutoMigrate(&News{}, &User{}, &UniqueDatabase{}, &Teamwork{})
+	DB.AutoMigrate(&User{}, &UniqueDatabase{}, &Teamwork{})
 	// if !DB.Migrator().HasTable(&Article{}) {
 	// 	DB.Migrator().CreateTable(&Article{})
 	// }
 	// if !DB.Migrator().HasTable(&Book{}) {
 	// 	DB.Migrator().CreateTable(&Book{})
 	// }
-	// if !DB.Migrator().HasTable(&Category{}) {
-	// 	DB.Migrator().CreateTable(&Category{})
-	// }
+	if !DB.Migrator().HasTable(&Category{}) {
+		DB.Migrator().CreateTable(&Category{})
+	}
 	// if !DB.Migrator().HasTable(&Dissertation{}) {
 	// 	DB.Migrator().CreateTable(&Dissertation{})
 	// }
@@ -67,7 +67,9 @@ func InitModel() {
 	// }
 	if !DB.Migrator().HasTable(&News{}) {
 		DB.Migrator().CreateTable(&News{})
-		DB.Exec("ALTER TABLE News ADD FULLTEXT (text)")
+		DB.Exec("ALTER TABLE news ADD FULLTEXT (text) WITH PARSER ngram")
+		DB.Exec("ALTER TABLE news ADD FULLTEXT (title) WITH PARSER ngram")
+		DB.Exec("ALTER TABLE news ADD FULLTEXT (title,text) WITH PARSER ngram")
 	}
 	if !DB.Migrator().HasTable(&User{}) {
 		DB.Migrator().CreateTable(&User{})
