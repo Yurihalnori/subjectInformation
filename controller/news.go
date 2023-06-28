@@ -1,7 +1,9 @@
 package controller
 
 import (
+	"errors"
 	"github.com/gin-gonic/gin"
+	"github.com/go-playground/validator/v10"
 	"net/http"
 	"strconv"
 	"subjectInformation/model"
@@ -15,10 +17,9 @@ func (NewsController) AddNews(c *gin.Context) {
 	var form model.NewsForm
 	bindErr := c.ShouldBind(&form)
 	if bindErr != nil {
-		c.JSON(http.StatusOK, gin.H{
-			"success": false,
-			"message": bindErr,
-			"code":    service.OpErr,
+		_ = c.Error(&gin.Error{
+			Err:  bindErr,
+			Type: service.ParamErr,
 		})
 		return
 	}
@@ -37,7 +38,8 @@ func (NewsController) AddNews(c *gin.Context) {
 		"success": true,
 		"data": gin.H{
 			"Add":  infoList,
-			"fail": errList},
+			"fail": errList,
+		},
 	})
 }
 
@@ -45,20 +47,19 @@ func (NewsController) GetNews(c *gin.Context) {
 	var form model.GetSomeNews
 	bindErr := c.ShouldBindQuery(&form)
 	if bindErr != nil {
-		c.JSON(http.StatusOK, gin.H{
-			"success": false,
-			"message": bindErr,
-			"code":    service.OpErr,
+		_ = c.Error(&gin.Error{
+			Err:  bindErr,
+			Type: service.ParamErr,
 		})
 		return
 	}
 	res, total, err := service.NewsService{}.GetSomeNews(form)
 	if err != nil {
-		c.JSON(http.StatusOK, gin.H{
-			"success": false,
-			"message": err,
-			"code":    service.ParamErr,
+		_ = c.Error(&gin.Error{
+			Err:  err,
+			Type: service.ParamErr,
 		})
+		return
 	} else {
 		c.JSON(http.StatusOK, gin.H{
 			"success": true,
@@ -74,29 +75,34 @@ func (NewsController) GetNews(c *gin.Context) {
 
 func (NewsController) ApplyOneNews(c *gin.Context) {
 	id := c.Param("id")
+	validate := validator.New()
+	if err := validate.Var(id, "numeric"); err != nil {
+		_ = c.Error(&gin.Error{
+			Err:  errors.New("请返回正确的id"),
+			Type: service.ParamErr,
+		})
+		return
+	}
 	if _, err := strconv.Atoi(id); err != nil {
-		c.JSON(http.StatusOK, gin.H{
-			"success": false,
-			"message": err,
-			"code":    service.ParamErr,
+		_ = c.Error(&gin.Error{
+			Err:  err,
+			Type: service.ParamErr,
 		})
 		return
 	}
 	IntId, _ := strconv.Atoi(id)
 	aPieceOfNews, FindErr := service.NewsService{}.GetOneNew(IntId)
 	if FindErr != nil {
-		c.JSON(http.StatusOK, gin.H{
-			"success": false,
-			"message": FindErr,
-			"code":    service.ParamErr,
+		_ = c.Error(&gin.Error{
+			Err:  errors.New("请返回正确的id"),
+			Type: service.ParamErr,
 		})
 	} else {
 		err := service.NewsService{}.ClickNewsOnce(IntId)
 		if err != nil {
-			c.JSON(http.StatusOK, gin.H{
-				"success": false,
-				"message": err,
-				"code":    service.ParamErr,
+			_ = c.Error(&gin.Error{
+				Err:  err,
+				Type: service.ParamErr,
 			})
 		} else {
 			c.JSON(http.StatusOK, gin.H{
@@ -111,30 +117,29 @@ func (NewsController) EditOneNews(c *gin.Context) {
 	var form model.News
 	bindErr := c.ShouldBindJSON(&form)
 	if bindErr != nil {
-		c.JSON(http.StatusOK, gin.H{
-			"success": false,
-			"message": bindErr,
-			"code":    service.OpErr,
+		_ = c.Error(&gin.Error{
+			Err:  bindErr,
+			Type: service.ParamErr,
 		})
 		return
 	}
 	id := c.Param("id")
-	if _, err := strconv.Atoi(id); err != nil {
-		c.JSON(http.StatusOK, gin.H{
-			"success": false,
-			"message": err,
-			"code":    service.ParamErr,
+	validate := validator.New()
+	if err := validate.Var(id, "numeric"); err != nil {
+		_ = c.Error(&gin.Error{
+			Err:  errors.New("请返回正确的id"),
+			Type: service.ParamErr,
 		})
 		return
 	}
 	form.Id, _ = strconv.Atoi(id)
 	err := service.NewsService{}.EditNews(form)
 	if err != nil {
-		c.JSON(http.StatusOK, gin.H{
-			"success": false,
-			"message": err,
-			"code":    service.ParamErr,
+		_ = c.Error(&gin.Error{
+			Err:  err,
+			Type: service.ParamErr,
 		})
+		return
 	} else {
 		c.JSON(http.StatusOK, gin.H{
 			"success": true,
@@ -148,21 +153,20 @@ func (NewsController) EditOneNews(c *gin.Context) {
 func (NewsController) DeleteOneNews(c *gin.Context) {
 	id := c.Param("id")
 	if _, err := strconv.Atoi(id); err != nil {
-		c.JSON(http.StatusOK, gin.H{
-			"success": false,
-			"message": err,
-			"code":    service.ParamErr,
+		_ = c.Error(&gin.Error{
+			Err:  err,
+			Type: service.ParamErr,
 		})
 		return
 	}
 	IntId, _ := strconv.Atoi(id)
 	err := service.NewsService{}.DeleteNews(IntId)
 	if err != nil {
-		c.JSON(http.StatusOK, gin.H{
-			"success": false,
-			"message": err,
-			"code":    service.ParamErr,
+		_ = c.Error(&gin.Error{
+			Err:  err,
+			Type: service.ParamErr,
 		})
+		return
 	} else {
 		c.JSON(http.StatusOK, gin.H{
 			"success": true,
