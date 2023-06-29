@@ -1,7 +1,7 @@
 package middleware
 
 import (
-	"errors"
+	"net/http"
 
 	"subjectInformation/service"
 
@@ -9,26 +9,33 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func CheckRole(min int) gin.HandlerFunc {
-	return func(c *gin.Context) {
-		session := sessions.Default(c)
-		id := session.Get("user-id")
-		if id == nil {
-			c.Error(&gin.Error{
-				Err:  errors.New("未登录"),
-				Type: service.AuthErr,
-			})
-			c.Abort()
-			return
-		}
-		if id.(int) < min {
-			c.Error(&gin.Error{
-				Err:  errors.New("权限不足"),
-				Type: service.LevelErr,
-			})
-			c.Abort()
-			return
-		}
+func LoginCheck(c *gin.Context) {
+	session := sessions.Default(c)
+	num := session.Get("id")
+	if num != nil {
 		c.Next()
+	} else {
+		c.JSON(http.StatusOK, gin.H{"error": "请登录"})
+		c.Abort()
+	}
+}
+
+func AdminCheck(c *gin.Context) {
+	session := sessions.Default(c)
+	num := session.Get("id")
+	user, err := service.UserService{}.CheckInfo(num.(string))
+	if err != nil {
+		_ = c.Error(&gin.Error{
+			Err:  err,
+			Type: service.ParamErr,
+		})
+		c.Abort()
+		return
+	}
+	if user.Usertype == 1 {
+		c.Next()
+	} else {
+		c.Abort()
+		c.JSON(http.StatusOK, gin.H{"error": "您不是管理员"})
 	}
 }
