@@ -107,6 +107,15 @@ func (UserController) Login(c *gin.Context) {
 		return
 	}
 	if res.Password == user.Password {
+		if user.Usertype == 1 {
+			if res.Usertype != 1 {
+				c.JSON(http.StatusOK, gin.H{
+					"success": false,
+					"message": "您不是管理员",
+					"code":    service.AuthErr,
+				})
+			}
+		}
 		session := sessions.Default(c)
 		session.Set("id", user.Id)
 		sessionErr := session.Save()
