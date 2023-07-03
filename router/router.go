@@ -41,6 +41,45 @@ func InitRouter(r *gin.Engine) {
 			teamworkRouter.DELETE("/:id", teamworkController.Delete)
 		}
 
+		projectRouter := apiRouter.Group("/common/project")
+		{
+			projectController := controller.ProjectController{}
+			projectRouter.POST("", projectController.Add)
+			projectRouter.PUT("/:id", projectController.Change)
+			projectRouter.DELETE("/:id", projectController.Delete)
+		}
+
+		InstituteRouter := apiRouter.Group("/common/institute")
+		{
+			instituteController := controller.InstituteController{}
+			InstituteRouter.POST("", instituteController.Add)
+			InstituteRouter.PUT("/:id", instituteController.Change)
+			InstituteRouter.DELETE("/:id", instituteController.Delete)
+		}
+
+		BookRouter := apiRouter.Group("/common/book")
+		{
+			BookController := controller.BookController{}
+			BookRouter.POST("", BookController.Add)
+			BookRouter.PUT("/:id", BookController.Change)
+			BookRouter.DELETE("/:id", BookController.Delete)
+		}
+
+		DissertationRouter := apiRouter.Group("/common/dissertation")
+		{
+			DissertationController := controller.DissertationController{}
+			DissertationRouter.POST("", DissertationController.Add)
+			DissertationRouter.PUT("/:id", DissertationController.Change)
+			DissertationRouter.DELETE("/:id", DissertationController.Delete)
+		}
+
+		ArticleRouter := apiRouter.Group("/common/article")
+		{
+			ArticleController := controller.ArticleController{}
+			ArticleRouter.POST("", ArticleController.Add)
+			ArticleRouter.PUT("/:id", ArticleController.Change)
+			ArticleRouter.DELETE("/:id", ArticleController.Delete)
+		}
 	}
 
 }

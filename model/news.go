@@ -24,3 +24,8 @@ type GetSomeNews struct {
 	Name     string `form:"name" json:"name"`
 	Order    string `form:"order" json:"order"`
 }
+
+type NewsForm struct {
+	Total    int    `json:"total"`
+	NewsList []News `json:"list"`
+}

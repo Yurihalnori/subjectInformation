@@ -7,7 +7,7 @@
 	},
 	"item": [
 		{
-			"name": "UniqueDatabse",
+			"name": "特色数据库",
 			"item": [
 				{
 					"name": "添加条目",
@@ -16,7 +16,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"total\":1,\r\n    \"list\":[{\r\n        \"category\":\"1011011001\",\r\n        \"name\":\"fauihfaw\",\r\n        \"trimmer\":\"agwreua\",\r\n        \"introduction\":\"fahifbnwjnf\",\r\n        \"keyWord\":\"2131\",\r\n        \"Data\":\"123456\"\r\n    }]\r\n}",
+							"raw": "{\r\n    \"total\":1,\r\n    \"list\":[{\r\n        \"category\":\"1011011001\",\r\n        \"name\":\"fauihfaw\",\r\n        \"trimmer\":\"agwreua\",\r\n        \"introduction\":\"fahifbnwjnf\",\r\n        \"keyWord\":\"2131\",\r\n        \"data\":\"123\"\r\n    }]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -47,7 +47,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\":\"111\",\r\n    \"trimmer\":\"english\",\r\n    \"category\":\"0000000000\"\r\n}",
+							"raw": "{\r\n    \"name\":\"111\",\r\n    \"trimmer\":\"english\",\r\n    \"category\":\"0000011111\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -71,7 +71,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "14"
+									"value": "20"
 								}
 							]
 						}
@@ -100,12 +100,629 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "10"
+									"value": "50"
 								}
 							]
 						}
 					},
 					"response": []
+				}
+			]
+		},
+		{
+			"name": "团队项目(地图)",
+			"item": [
+				{
+					"name": "添加条目",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"total\":1,\r\n    \"list\":[\r\n        {\r\n        \"name\":\"name\",\r\n        \"grade\":\"3\",\r\n        \"direction\":\"horizontal\",\r\n        \"sponsor\":\"Trump\",\r\n        \"number\":\"114514\",\r\n        \"time\":\"1145.1.4\",\r\n        \"principal\":\"homo\",\r\n        \"member\":\"1,23,456\",\r\n        \"Province\":\"37\",\r\n        \"city\":\"07\",\r\n        \"county\":\"04\",\r\n        \"picture\":\"http://\",\r\n        \"Achievement\":\"http://\",\r\n        \"category\":\"0000000000\"\r\n    }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:8080/api/teamwork",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"teamwork"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "修改条目",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:8080/api/teamwork/:id",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"teamwork",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "删除条目",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:8080/api/teamwork/:id",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"teamwork",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "公共数据库",
+			"item": [
+				{
+					"name": "团队项目",
+					"item": [
+						{
+							"name": "添加条目",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"total\":\"1\",\r\n    \"list\":[\r\n        {\r\n            \"name\":\"123\",\r\n            \"classification\":\"123\",\r\n            \"sponsor\":\"trump\",\r\n            \"approvalNumber\":\"123456\",\r\n            \"createDate\":\"1145.1.4\",\r\n            \"superintendent\":\"trump\",\r\n            \"organization\":\"china\",\r\n            \"region\":\"p\",\r\n            \"category\":\"0000000000\"\r\n        }\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "127.0.0.1:8080/api/common/project/",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"common",
+										"project",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "修改条目",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\":\"123456\",\r\n    \"category\":\"1111111111\",\r\n    \"superintendent\":\"abc\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "127.0.0.1:8080/api/common/project/:id",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"common",
+										"project",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "删除条目",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "127.0.0.1:8080/api/common/project/:id",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"common",
+										"project",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "19"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "学位点",
+					"item": [
+						{
+							"name": "添加条目",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"total\":1,\r\n    \"list\":[\r\n        {\r\n            \"name\":\"123\",\r\n            \"university\":\"123\",\r\n            \"college\":\"123\",\r\n            \"nation\":\"china\",\r\n            \"province\":\"山东\",\r\n            \"city\":\"潍坊\",\r\n            \"classification\":\"123\",\r\n            \"category\":\"0000000000\"\r\n        }\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "127.0.0.1:8080/api/common/institute",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"common",
+										"institute"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "修改条目",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\":\"123456\",\r\n    \"category\":\"1111111111\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "127.0.0.1:8080/api/common/institute/:id",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"common",
+										"institute",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "删除条目",
+							"request": {
+								"method": "GET",
+								"header": []
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "学科图书",
+					"item": [
+						{
+							"name": "添加条目",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"total\":1,\r\n    \"list\":[{\r\n        \"name\":\"reo\",\r\n        \"nation\":\"China\",\r\n        \"language\":\"chinese\",\r\n        \"author\":\"Trump\",\r\n        \"publisher\":\"123\",\r\n        \"time\":\"2023.7.3\",\r\n        \"digest\":\"123\",\r\n        \"text\":\"text\",\r\n        \"category\":\"0000000000\"\r\n    }]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "127.0.0.1:8080/api/common/book",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"common",
+										"book"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "修改条目",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\":\"456\",\r\n    \"category\":\"1111111111\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "127.0.0.1:8080/api/common/book/:id",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"common",
+										"book",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "12"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "删除条目",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "127.0.0.1:8080/api/common/book/:id",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"common",
+										"book",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "12"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "学位论文",
+					"item": [
+						{
+							"name": "添加条目",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"total\":1,\r\n    \"list\":[\r\n        {\r\n            \"title\":\"title\",\r\n            \"author\":\"author\",\r\n            \"tutor\":\"tutor\",\r\n            \"province\":\"province\",\r\n            \"city\":\"city\",\r\n            \"university\":\"university\",\r\n            \"college\":\"collegeg\",\r\n            \"year\":\"1999\",\r\n            \"technique\":\"123\",\r\n            \"keyWord\":\"123,456\",\r\n            \"digest\":\"123\",\r\n            \"data\":\"data\",\r\n            \"text\":\"text\",\r\n            \"category\":\"0000011111\"\r\n        }\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "127.0.0.1:8080/api/common/dissertation",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"common",
+										"dissertation"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "修改条目",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\":\"trump\",\r\n    \"category\":\"0001110001\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "127.0.0.1:8080/api/common/dissertation/:id",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"common",
+										"dissertation",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "5"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "删除条目",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "127.0.0.1:8080/api/common/dissertation/:id",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"common",
+										"dissertation",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": null
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "期刊论文",
+					"item": [
+						{
+							"name": "添加条目",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"total\":1,\r\n    \"list\":[\r\n        {\r\n            \"nation\":\"China\",\r\n            \"title\":\"title\",\r\n            \"periodical\":\"123\",\r\n            \"author\":\"123\",\r\n            \"organization\":\"123\",\r\n            \"createdate\":\"2023.7.3\",\r\n            \"technique\":\"123\",\r\n            \"keyWord\":\"key\",\r\n            \"digest\":\"digest\",\r\n            \"data\":\"data\",\r\n            \"text\":\"text\",\r\n            \"category\":\"0000000000\"\r\n        }\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "127.0.0.1:8080/api/common/article",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"common",
+										"article"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "修改条目",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\":\"trump\",\r\n    \"category\":\"0000111101\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "127.0.0.1:8080/api/common/article/:id",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"common",
+										"article",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "删除条目",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "127.0.0.1:8080/api/common/article/:id",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"common",
+										"article",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				}
 			]
 		}
