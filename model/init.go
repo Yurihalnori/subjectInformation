@@ -68,7 +68,9 @@ func InitModel() {
 	}
 	if !DB.Migrator().HasTable(&News{}) {
 		DB.Migrator().CreateTable(&News{})
-		DB.Exec("ALTER TABLE News ADD FULLTEXT (text)")
+		DB.Exec("ALTER TABLE news ADD FULLTEXT (text) WITH PARSER ngram")
+		DB.Exec("ALTER TABLE news ADD FULLTEXT (title) WITH PARSER ngram")
+		DB.Exec("ALTER TABLE news ADD FULLTEXT (title,text) WITH PARSER ngram")
 	}
 	if !DB.Migrator().HasTable(&User{}) {
 		DB.Migrator().CreateTable(&User{})

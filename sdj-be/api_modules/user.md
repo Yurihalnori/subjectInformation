@@ -24,11 +24,13 @@
 ### 用户登录 `POST {base_url}/api/user/login`
 - Request
     ```json
-    {
+    {    
+        "usertype": 0,
         "username":"fusion",
         "password":"adcd1234",
     }
     ```
+    普通用户选择管理员登录则无法登录，管理员选择普通登录仍为管理员
 - Response
     ```json
     {
