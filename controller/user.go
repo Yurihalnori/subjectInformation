@@ -114,10 +114,11 @@ func (UserController) Login(c *gin.Context) {
 					"message": "您不是管理员",
 					"code":    service.AuthErr,
 				})
+				return
 			}
 		}
 		session := sessions.Default(c)
-		session.Set("id", user.Id)
+		session.Set("id", res.Id)
 		sessionErr := session.Save()
 		if sessionErr != nil {
 			_ = c.Error(&gin.Error{

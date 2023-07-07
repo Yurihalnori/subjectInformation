@@ -32,7 +32,8 @@ func (UserService) CheckInfo(userid string) (user *model.User, err error) {
 }
 
 func (UserService) ChangeInfo(form model.UserChangeRequest) (err error) {
-	res := model.DB.Save(form)
+	var user model.User
+	res := model.DB.Model(&user).Where("id=?", form.Id).Update("usertype", form.UserType)
 	err = res.Error
 	return
 }

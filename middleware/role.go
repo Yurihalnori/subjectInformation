@@ -2,6 +2,7 @@ package middleware
 
 import (
 	"net/http"
+	"strconv"
 
 	"subjectInformation/service"
 
@@ -22,8 +23,10 @@ func LoginCheck(c *gin.Context) {
 
 func AdminCheck(c *gin.Context) {
 	session := sessions.Default(c)
-	num := session.Get("id")
-	user, err := service.UserService{}.CheckInfo(num.(string))
+	var num = session.Get("id")
+	println(session.Get("id"))
+	var stringId = strconv.Itoa(num.(int))
+	user, err := service.UserService{}.CheckInfo(stringId)
 	if err != nil {
 		_ = c.Error(&gin.Error{
 			Err:  err,

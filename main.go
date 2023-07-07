@@ -1,6 +1,8 @@
 package main
 
 import (
+	"github.com/gin-contrib/sessions"
+	"github.com/gin-contrib/sessions/cookie"
 	"subjectInformation/config"
 	"subjectInformation/middleware"
 	"subjectInformation/model"
@@ -15,7 +17,8 @@ func main() {
 
 	config.InitSession(r)
 	model.InitModel()
-
+	store := cookie.NewStore([]byte("1145411919810"))
+	r.Use(sessions.Sessions("UserInfo", store))
 	r.Use(middleware.Error)
 	router.InitRouter(r)
 
