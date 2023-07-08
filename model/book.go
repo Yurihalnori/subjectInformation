@@ -4,7 +4,7 @@ import "time"
 
 type Book struct { //学科图书
 	Id        int       `json:"id"`                           //序号
-	Name      string    `json:"name" binding:"required"`      //图书名称
+	Title     string    `json:"name" binding:"required"`      //图书名称
 	Nation    string    `json:"nation" binding:"required"`    //国家
 	Language  string    `json:"language" binding:"required"`  //语言
 	Author    string    `json:"author" binding:"required"`    //作者
