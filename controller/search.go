@@ -2,6 +2,7 @@ package controller
 
 import (
 	"github.com/gin-gonic/gin"
+	"net/http"
 	"subjectInformation/model"
 	"subjectInformation/service"
 )
@@ -19,5 +20,15 @@ func (SearchController) SearchCommonDB(c *gin.Context) {
 		})
 		return
 	}
-	service.SearchService{}.SearchInCommonDB(form)
+	res, err := service.SearchService{}.SearchInCommonDB(form)
+	if err != nil {
+		_ = c.Error(&gin.Error{
+			Err:  err,
+			Type: service.ParamErr,
+		})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{
+		"list": res,
+	})
 }

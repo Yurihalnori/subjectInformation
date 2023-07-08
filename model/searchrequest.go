@@ -6,6 +6,8 @@ type SearchCommonDBRequest struct {
 }
 
 type SearchCommonDBPreview struct {
-	Title string
-	Id    string
+	Title     string
+	Id        string
+	TableName string
+	Author    string
 }
