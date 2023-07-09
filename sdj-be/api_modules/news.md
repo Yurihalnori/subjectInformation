@@ -72,7 +72,7 @@ Note: module 和 region 永远用int
     ```
 #### 发表文章 `POST {base_url}/api/news/`
 - 要求：使用body传递
-
+- 注意：因为会有多篇资讯出现在一天之内，所以date字段请传一个具体时间”2023-1-1T04:05:14Z“
 - Request
     ```json
     {
@@ -84,7 +84,7 @@ Note: module 和 region 永远用int
             "module": 0,
             "region":1,
             "department":"挑战网",
-            "date":"2023-04-03",
+            "date":"2006-01-01T04:05:14Z",
             "content":"..." //可能包含富文本
         }
         ,...]
@@ -103,7 +103,7 @@ Note: module 和 region 永远用int
 
 #### 修改一篇文章 `PUT {base_url}/api/news/:id`
 - 要求：使用body传递, 注意文章id在params中提供
-
+  注意：因为会有多篇资讯出现在一天之内，所以date字段请传一个具体时间”2023-1-1T04:05:14Z“
 - Request
     ```json
         {
