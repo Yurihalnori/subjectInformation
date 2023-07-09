@@ -25,7 +25,7 @@
 - Request
     ```json
     {    
-        "usertype": 0,
+        "role": 0,
         "username":"fusion",
         "password":"adcd1234",
     }
