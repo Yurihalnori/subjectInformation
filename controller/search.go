@@ -20,7 +20,20 @@ func (SearchController) SearchCommonDB(c *gin.Context) {
 		})
 		return
 	}
-	res, err := service.SearchService{}.SearchInCommonDB(form)
+	var res []model.SearchCommonDBPreview
+	var err error
+	switch form.Module {
+	case 0:
+		res, err = service.SearchService{}.SearchInCommonDB(form)
+	case 1:
+		res, err = service.SearchService{}.SearchCommonDBProject(form)
+	case 2:
+		res, err = service.SearchService{}.SearchCommonDBBook(form)
+	case 3:
+		res, err = service.SearchService{}.SearchCommonDBDissertation(form)
+	case 4:
+		res, err = service.SearchService{}.SearchCommonDBArticle(form)
+	}
 	if err != nil {
 		_ = c.Error(&gin.Error{
 			Err:  err,
