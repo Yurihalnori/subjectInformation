@@ -87,6 +87,8 @@ func InitRouter(r *gin.Engine) {
 			ArticleRouter.PUT("/:id", ArticleController.Change)
 			ArticleRouter.DELETE("/:id", ArticleController.Delete)
 		}
+
+		apiRouter.PUT("/search", controller.SearchController{}.SearchCommonDB)
 	}
 
 }

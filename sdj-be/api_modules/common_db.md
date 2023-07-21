@@ -12,6 +12,7 @@
 + `PUT {base_url}/api/commonDatabase/institute/:id`
 + `DELETE {base_url}/api/commonDatabase/book/:id`
 
+注意 所有的时间形式写成 2023-01-02T14:14:14Z 
 ### 接口列表
 
 <!-- [用户查看列表信息](#list) `GET {base_url}/api/commonDatabase/getInfo` -->
