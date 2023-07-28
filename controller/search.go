@@ -23,8 +23,35 @@ func (SearchController) SearchCommonDB(c *gin.Context) {
 	var res []model.SearchCommonDBPreview
 	var err error
 	switch form.Module {
-	case 0:
+	case 5:
+		var dissertationCount = 0
+		var bookCount = 0
+		var projectCount = 0
+		var articleCount = 0
 		res, err = service.SearchService{}.SearchInCommonDB(form)
+		if err != nil {
+			_ = c.Error(&gin.Error{
+				Err:  err,
+				Type: service.ParamErr,
+			})
+			return
+		}
+		dissertationCount, bookCount, projectCount, articleCount, err = service.SearchService{}.CountModuleInCommonDB(form)
+		if err != nil {
+			_ = c.Error(&gin.Error{
+				Err:  err,
+				Type: service.ParamErr,
+			})
+			return
+		}
+		c.JSON(http.StatusOK, gin.H{
+			"list":               res,
+			"dissertationsCount": dissertationCount,
+			"booksCount":         bookCount,
+			"projectsCount":      projectCount,
+			"articlesCount":      articleCount,
+		})
+		return
 	case 1:
 		res, err = service.SearchService{}.SearchCommonDBProject(form)
 	case 2:

@@ -15,4 +15,5 @@ type SearchCommonDBPreview struct {
 	Id        string
 	TableName string
 	Author    string
+	Time      string
 }
