@@ -43,6 +43,8 @@ func init() {
 }
 
 func InitModel() {
+	DB.AutoMigrate(&News{}, &User{}, &UniqueDatabase{}, &Teamwork{})
+	DB.AutoMigrate(&Project{}, &Institute{}, &Book{}, &Dissertation{}, &Article{}, &Tutor{})
 	if !DB.Migrator().HasTable(&Project{}) {
 		DB.Migrator().CreateTable(&Project{})
 		DB.Exec("ALTER TABLE projects ADD FULLTEXT (title) WITH PARSER ngram")
@@ -62,9 +64,9 @@ func InitModel() {
 		DB.Migrator().CreateTable(&Article{})
 		DB.Exec("ALTER TABLE articles ADD FULLTEXT (title) WITH PARSER ngram")
 	}
-	// if !DB.Migrator().HasTable(&Tutor{}) {
-	// 	DB.Migrator().CreateTable(&Tutor{})
-	// }
+	if !DB.Migrator().HasTable(&Tutor{}) {
+		DB.Migrator().CreateTable(&Tutor{})
+	}
 	if !DB.Migrator().HasTable(&Category{}) {
 		DB.Migrator().CreateTable(&Category{})
 	}
