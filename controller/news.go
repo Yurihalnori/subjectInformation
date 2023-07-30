@@ -13,6 +13,8 @@ import (
 type NewsController struct {
 }
 
+// TODO panic when total and len(list) don't match
+
 func (NewsController) AddNews(c *gin.Context) {
 	var form model.NewsForm
 	bindErr := c.ShouldBind(&form)

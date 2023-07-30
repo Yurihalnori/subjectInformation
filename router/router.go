@@ -11,7 +11,7 @@ func InitRouter(r *gin.Engine) {
 	// r.Use(middleware.Error)
 	apiRouter := r.Group("/api")
 	{
-		apiRouter.POST("/admin/change", middleware.AdminCheck, controller.UserController{}.ChangeUserInfo)
+		apiRouter.POST("/admin/change", middleware.LoginCheck, middleware.AdminCheck, controller.UserController{}.ChangeUserInfo)
 		userRouter := apiRouter.Group("/user")
 		{
 			userController := controller.UserController{}
@@ -24,11 +24,11 @@ func InitRouter(r *gin.Engine) {
 		newsRouter := apiRouter.Group("/news")
 		{
 			newsController := controller.NewsController{}
-			newsRouter.POST("/", middleware.AdminCheck, newsController.AddNews)
+			newsRouter.POST("/", middleware.LoginCheck, middleware.AdminCheck, newsController.AddNews)
 			newsRouter.GET("/", newsController.GetNews)
 			newsRouter.GET("/:id", middleware.LoginCheck, newsController.ApplyOneNews)
-			newsRouter.PUT("/:id", middleware.AdminCheck, newsController.EditOneNews)
-			newsRouter.DELETE("/:id", middleware.AdminCheck, newsController.DeleteOneNews)
+			newsRouter.PUT("/:id", middleware.LoginCheck, middleware.AdminCheck, newsController.EditOneNews)
+			newsRouter.DELETE("/:id", middleware.LoginCheck, middleware.AdminCheck, newsController.DeleteOneNews)
 			newsRouter.POST("/search", newsController.SearchNews)
 		}
 

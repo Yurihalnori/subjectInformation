@@ -178,7 +178,6 @@ func (SearchService) SearchCommonDBProject(form model.SearchCommonDBRequest) (re
 	limit := " LIMIT " + strconv.Itoa((form.Page-1)*form.Limit) + " , " + strconv.Itoa(form.Limit)
 	RawSql += limit
 	model.DB.Raw(RawSql, form.Title, form.Title).Scan(&res)
-
 	return
 }
 

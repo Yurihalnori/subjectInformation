@@ -24,7 +24,6 @@ func LoginCheck(c *gin.Context) {
 func AdminCheck(c *gin.Context) {
 	session := sessions.Default(c)
 	var num = session.Get("id")
-	println(session.Get("id"))
 	var stringId = strconv.Itoa(num.(int))
 	user, err := service.UserService{}.CheckInfo(stringId)
 	if err != nil {
