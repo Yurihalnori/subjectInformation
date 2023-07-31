@@ -13,8 +13,6 @@ import (
 type NewsController struct {
 }
 
-// TODO panic when total and len(list) don't match
-
 func (NewsController) AddNews(c *gin.Context) {
 	var form model.NewsForm
 	bindErr := c.ShouldBind(&form)
@@ -25,13 +23,21 @@ func (NewsController) AddNews(c *gin.Context) {
 		})
 		return
 	}
+	total := form.Total
 	allNews := form.NewsList
+	if len(allNews) != total {
+		_ = c.Error(&gin.Error{
+			Err:  errors.New("长度与内容不匹配"),
+			Type: service.ParamErr,
+		})
+		return
+	}
 	var infoList []interface{}
 	var errList []interface{}
 	for _, aNews := range allNews {
 		info, err := service.NewsService{}.AddOneNews(aNews)
 		if err != nil {
-			errList = append(errList, err)
+			errList = append(errList, err.Error())
 		} else {
 			infoList = append(infoList, info)
 		}
