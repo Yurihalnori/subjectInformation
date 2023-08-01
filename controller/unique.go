@@ -28,6 +28,17 @@ func (s UniqueController) Add(c *gin.Context) {
 		return
 	}
 
+	// forms, err := c.MultipartForm()
+	// if err != nil {
+	// 	fmt.Println("error", err)
+	// }
+	// files := forms.File["fileName"]
+	// for _, v := range files {
+	// 	if err := c.SaveUploadedFile(v, fmt.Sprintf("%s%s", "./file/", v.Filename)); err != nil {
+	// 		fmt.Println("保存文件失败")
+	// 	}
+	// }
+
 	UniqueService := service.UniqueService{}
 	data := UniqueService.Add(form)
 

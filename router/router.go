@@ -18,7 +18,7 @@ func InitRouter(r *gin.Engine) {
 			userRouter.POST("/register", userController.CreateUser)
 			userRouter.POST("/login", userController.Login)
 			userRouter.DELETE("/logout", userController.Logout)
-			userRouter.GET("/:id", userController.CheckUserStatus)
+			userRouter.GET("/", userController.CheckUserStatus)
 		}
 
 		newsRouter := apiRouter.Group("/news")
