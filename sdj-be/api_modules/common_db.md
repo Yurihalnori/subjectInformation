@@ -15,7 +15,7 @@
 注意 所有的时间形式写成 2023-01-02T14:14:14Z 
 ### 接口列表
 
-<!-- [用户查看列表信息](#list) `GET {base_url}/api/commonDatabase/getInfo` -->
+[用户查看列表信息](#list) `GET {base_url}/api/commonDatabase`
 
 [管理员添加条目](#add) `POST {base_url}/api/commonDatabase`
 
@@ -23,6 +23,38 @@
 
 [管理员删除条目](#delete) `DELETE {base_url}/api/commonDatabase/:id`
 
+<a id="list"></a>
+
+#### 用户查看列表信息 `GET {base_url}/api/commonDatabase`
++ 要求
+  + `page`与`limit`和其他字段均通过body传
++ Request
+```json
+{
+  "page":1,
+  "limit":10,
+  "field":"name",   //根据哪个字段进行排序 默认id
+  "order":"asc"     //acs升序 decs降序 默认升序
+}
+```
+
++ Response
+```json
+{
+  "success":true,
+  "data":{
+    "total":123,
+    "list":[
+      {
+        "id":1,
+        "title":"今天吃什么",      //项目名称
+        "category":"100101010",   //专业分类  
+        ......
+      }
+    ]
+  }
+}
+```
 
 <a id="add"></a>
 
