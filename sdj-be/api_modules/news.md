@@ -34,7 +34,7 @@ Note: module 和 region 永远用int
                 {
                     "id": 1,
                     "title":"题目",
-                    "category":"100000000",
+                    "category":"1000010000",
                     "module": 0,
                     "region":1,
                     "department":"挑战网",
@@ -61,7 +61,7 @@ Note: module 和 region 永远用int
         "data":{
             "id": 1,
             "title":"题目",
-            "category":"100000000",
+            "category":"1000010000",
             "module": 0,
             "region":1,
             "department":"挑战网",
@@ -80,7 +80,7 @@ Note: module 和 region 永远用int
         "list":[
             {
             "title":"题目",
-            "category":"100000000",
+            "category":"1000010000",
             "module": 0,
             "region":1,
             "department":"挑战网",
