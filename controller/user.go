@@ -2,12 +2,14 @@ package controller
 
 import (
 	"errors"
+	"net/http"
+	"strconv"
+	"subjectInformation/model"
+	"subjectInformation/service"
+
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
-	"net/http"
-	"subjectInformation/model"
-	"subjectInformation/service"
 )
 
 type UserController struct {
@@ -167,7 +169,15 @@ func (UserController) Logout(c *gin.Context) {
 }
 
 func (UserController) CheckUserStatus(c *gin.Context) {
-	id := c.Param("id")
+	session := sessions.Default(c)
+	id, ok := session.Get("id").(int)
+	if !ok {
+		c.Error(&gin.Error{
+			Err:  errors.New("未登录"),
+			Type: service.ParamErr,
+		})
+		return
+	}
 	validate := validator.New()
 	if err := validate.Var(id, "numeric"); err != nil {
 		_ = c.Error(&gin.Error{
@@ -176,7 +186,7 @@ func (UserController) CheckUserStatus(c *gin.Context) {
 		})
 		return
 	}
-	user, err := service.UserService{}.CheckInfo(id)
+	user, err := service.UserService{}.CheckInfo(strconv.Itoa(id))
 	if user == nil {
 		c.JSON(http.StatusOK, gin.H{
 			"success": false,

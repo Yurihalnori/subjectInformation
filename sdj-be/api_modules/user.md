@@ -52,9 +52,9 @@
     }
     ```
 
-### 用户状态 `GET {base_url}/api/user/:id`
+### 用户状态 `GET {base_url}/api/user`
 - Request
-   无
+   id通过session获取
 - Response
     ```json
     {
@@ -85,3 +85,26 @@
         }
     }
     ```
+
+### 获取用户列表 `GET {base_url}/api/admin`
+- Request
+```json
+{
+    "limit":20,
+    "page":1
+}
+```
+
++ Response
+```json
+{
+    "total":20,
+    "list":[{
+        "userId":1,
+        "role":1
+    },{
+        "userId":2,
+        "role":1
+    }]
+}
+```

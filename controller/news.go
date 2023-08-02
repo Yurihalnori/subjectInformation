@@ -2,12 +2,14 @@ package controller
 
 import (
 	"errors"
-	"github.com/gin-gonic/gin"
-	"github.com/go-playground/validator/v10"
+	"fmt"
 	"net/http"
 	"strconv"
 	"subjectInformation/model"
 	"subjectInformation/service"
+
+	"github.com/gin-gonic/gin"
+	"github.com/go-playground/validator/v10"
 )
 
 type NewsController struct {
@@ -62,6 +64,7 @@ func (NewsController) GetNews(c *gin.Context) {
 		return
 	}
 	res, total, err := service.NewsService{}.GetSomeNews(form)
+	fmt.Println(res)
 	if err != nil {
 		_ = c.Error(&gin.Error{
 			Err:  err,

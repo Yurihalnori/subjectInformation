@@ -10,7 +10,7 @@
 
 
 
-<!-- [用户查看列表信息](#list) `GET {base_url}/api/uniqueDatabase/getInfo` -->
+[用户查看列表信息](#list) `GET {base_url}/api/uniqueDatabase/getInfo`
 
 [管理员添加条目](#add) `POST {base_url}/api/uniqueDatabase/add`
 
@@ -20,62 +20,61 @@
 
 ### 接口详情
 
-<!-- <a id="list"></a>
+<a id="list"></a>
 
 #### 用户查看列表信息 `GET {base_url}/api/uniqueDatabase/getInfo`
 
 + 要求
-  + page和limit通过Querys传递
-  + 返回内容第一部分是全部团队项目在各省市的分布情况
-  + 返回内容第二部分是列表信息，形式为一个数组，数组中每个元素包含该条信息的所有信息
-
+  + `page`和`limit`和其他字段均通过body传递
 
 + Request 
-  ```json
-      {
-        "page": 1, //第几页(从1开始)
-        "limit": 10 //一页几条记录
-      }
+```json
+{
+  "page":1,
+  "limit":10,
+  "field":"id",     //根据哪个字段进行排序 默认id
+  "order":"asc"     //acs升序 decs降序 默认升序
+}
   ```
 
 + Response
 ```json
+{
+  "success":true,
+  "data":{
+    "total":100,     //总数量
+    "areaQuantity":[
       {
-        "success":true,
-        "data":{
-          "total":100,     //总数量
-          "areaQuantity":[
-            {
-              "provinces":"37",     
-              "city":"07",        //身份证号前4位确定省市
-              "number":"2"        //该地市项目数量
-            },
-            ......
-          ],
-          "list":[
-            {
-              "id":1,
-              "title":"基于氢、氮、镥的室温超导体",      //项目名称
-              "category":"001001001",                  //专业分类 
-              "grade":1,                               //项目层级 
-              "direct":"横向/纵向",                //项目类别（横向/纵向）
-              "sponsor":"Trump",                  //资助主体
-              "authorization":"123456789",        //项目批准号
-              "foundTime":"1145-1-4",             //立项时间
-              "superintendent":"Rochester",       //项目负责人
-              "member":"a,b,c",                   //项目成员
-              "area":{                 //所属区域
-                "provinces":"37",      //省
-                "city":"07"            //市
-              },
-              "link":"http://tiaozhan.com",       //调研图片
-              "achievement":"balabala"            //项目成果
-            },
-            ......
-          ]
-        }
-      }
-``` -->
+        "provinces":"37",     
+        "city":"07",        //身份证号前4位确定省市
+        "number":"2"        //该地市项目数量
+      },
+      ......
+    ],
+    "list":[
+      {
+        "id":1,
+        "title":"基于氢、氮、镥的室温超导体",      //项目名称
+        "category":"001001001",                  //专业分类 
+        "grade":1,                               //项目层级 
+        "direct":"横向/纵向",                //项目类别（横向/纵向）
+        "sponsor":"Trump",                  //资助主体
+        "authorization":"123456789",        //项目批准号
+        "foundTime":"1145-1-4",             //立项时间
+        "superintendent":"Rochester",       //项目负责人
+        "member":"a,b,c",                   //项目成员
+        "area":{                 //所属区域
+          "provinces":"37",      //省
+          "city":"07"            //市
+        },
+        "picture":"http://tiaozhan.com",       //调研图片
+        "achievement":"balabala"            //项目成果
+      },
+      ......
+    ]
+  }
+}
+```
 
 <a id="add"></a>
 

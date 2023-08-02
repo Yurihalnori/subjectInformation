@@ -2,9 +2,10 @@ package service
 
 import (
 	"errors"
-	"gorm.io/gorm"
 	"strconv"
 	"subjectInformation/model"
+
+	"gorm.io/gorm"
 )
 
 type NewsService struct {
@@ -70,6 +71,7 @@ func (NewsService) GetSomeNews(form model.GetSomeNews) (newsList []model.NewsPre
 		Order(order).
 		Scan(&newsList)
 	err = res.Error
+	total = int(res.RowsAffected)
 	return
 }
 
@@ -141,10 +143,9 @@ func (NewsService) SearchNews(form model.NewsSearchRequest) (total int, newsList
 		module = "`module` = " + strconv.Itoa(int(form.Module)) + " AND "
 	}
 
-	condition := "SELECT * , MATCH(title) AGAINST ('" +
+	condition := "SELECT * , MATCH(title,text) AGAINST ('" +
 		form.Content + "' IN NATURAL LANGUAGE MODE)" +
-		" AS title_score,  MATCH(text) AGAINST ( '" +
-		form.Content + "' IN NATURAL LANGUAGE MODE) AS text_score " +
+		" AS title_score " +
 		"FROM news " + join + "WHERE " + module + "MATCH(title, text) AGAINST ('" +
 		form.Content + "' IN NATURAL LANGUAGE MODE) "
 

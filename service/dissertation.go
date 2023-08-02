@@ -14,11 +14,11 @@ func (h DissertationService) Add(form model.DissertationForm) interface{} {
 	categoryService := Category{}
 
 	for i := 0; i < form.Total; i++ {
-		data := form.List[i]
-		model.DB.Create(&data)
-		categoryService.AddCategory(data.Category, data.Id, "dissertations")
+		formdata := form.List[i]
+		model.DB.Create(&formdata)
+		categoryService.AddCategory(formdata.Category, formdata.Id, "dissertations")
 		s := model.DissertationResponseMsg{
-			Id: data.Id,
+			Id: formdata.Id,
 		}
 		Response = append(Response, s)
 	}
