@@ -123,7 +123,7 @@ func (NewsController) ApplyOneNews(c *gin.Context) {
 }
 
 func (NewsController) EditOneNews(c *gin.Context) {
-	var form model.News
+	var form model.NewsEditRequest
 	bindErr := c.ShouldBindJSON(&form)
 	if bindErr != nil {
 		_ = c.Error(&gin.Error{
@@ -192,7 +192,7 @@ func (NewsController) SearchNews(c *gin.Context) {
 	if bindErr != nil {
 		c.JSON(http.StatusOK, gin.H{
 			"success": false,
-			"message": bindErr,
+			"message": bindErr.Error(),
 			"code":    service.OpErr,
 		})
 		return

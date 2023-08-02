@@ -56,8 +56,8 @@ func (NewsService) GetSomeNews(form model.GetSomeNews) (newsList []model.NewsPre
 	}
 	condition += "1=0)"
 	module := ""
-	if form.Module == 4 {
-		module = " 4 = ? "
+	if form.Module == 5 {
+		module = " 5 = ? "
 	} else {
 		module = "news.module = ?"
 	}
@@ -101,7 +101,7 @@ func (NewsService) ClickNewsOnce(id int) (err error) {
 	return
 }
 
-func (NewsService) EditNews(form model.News) (err error) {
+func (NewsService) EditNews(form model.NewsEditRequest) (err error) {
 	var news model.News
 	res := model.DB.
 		Model(&news).
@@ -145,7 +145,7 @@ func (NewsService) SearchNews(form model.NewsSearchRequest) (NewsCount int, news
 	join += "1=0) "
 
 	module := ""
-	if form.Module != 4 {
+	if form.Module != 5 {
 		module = "`module` = " + strconv.Itoa(int(form.Module)) + " AND "
 	}
 
