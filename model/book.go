@@ -44,3 +44,9 @@ type BookForm struct {
 	Total int    `json:"total" binding:"numeric"`
 	List  []Book `json:"list" binding:"required,dive"`
 }
+
+type BookList struct {
+	Total int              `json:"total"`
+	List  []Book `json:"list"`
+	// CategoryNumber []int            `json:"categoryNumber"`
+}

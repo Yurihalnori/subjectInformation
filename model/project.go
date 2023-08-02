@@ -44,3 +44,9 @@ type ProjectForm struct {
 	Total int       `json:"total" binding:"numeric"`
 	List  []Project `json:"list" binding:"required,dive"`
 }
+
+type ProjectList struct {
+	Total int       `json:"total"`
+	List  []Project `json:"list"`
+	// CategoryNumber []int            `json:"categoryNumber"`
+}

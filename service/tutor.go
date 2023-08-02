@@ -5,19 +5,19 @@ import (
 	"subjectInformation/model"
 )
 
-type InstituteService struct {
+type TutorService struct {
 }
 
-func (h InstituteService) Add(form model.InstituteForm) interface{} {
+func (h TutorService) Add(form model.TutorForm) interface{} {
 
-	var Response []model.InstituteResponseMsg
+	var Response []model.TutorResponseMsg
 	categoryService := Category{}
 
 	for i := 0; i < form.Total; i++ {
 		data := form.List[i]
 		model.DB.Create(&data)
-		categoryService.AddCategory(data.Category, data.Id, "institutes")
-		s := model.InstituteResponseMsg{
+		categoryService.AddCategory(data.Category, data.Id, "tutors")
+		s := model.TutorResponseMsg{
 			Id: data.Id,
 		}
 		Response = append(Response, s)
@@ -25,9 +25,9 @@ func (h InstituteService) Add(form model.InstituteForm) interface{} {
 	return Response
 }
 
-func (h InstituteService) Change(form model.InstituteOmitempty, id int) (interface{}, error) {
+func (h TutorService) Change(form model.TutorOmitempty, id int) (interface{}, error) {
 
-	var data model.Institute
+	var data model.Tutor
 	if result := model.DB.First(&data, id); result.Error != nil {
 		return nil, errors.New("未找到对应id数据,请检查id是否正确")
 	}
@@ -37,26 +37,26 @@ func (h InstituteService) Change(form model.InstituteOmitempty, id int) (interfa
 
 	if form.Category != "" {
 		categoryService := Category{}
-		cateErr := categoryService.ChangeCategory(form.Category, data.Id, "institutes")
+		cateErr := categoryService.ChangeCategory(form.Category, data.Id, "tutors")
 		if cateErr != nil {
 			return nil, cateErr
 		}
 	}
 
-	Response := model.InstituteResponseMsg{
+	Response := model.TutorResponseMsg{
 		Id: data.Id,
 	}
 
 	return Response, nil
 }
 
-func (h InstituteService) Delete(id int) error {
-	var data model.Institute
+func (h TutorService) Delete(id int) error {
+	var data model.Tutor
 	if result := model.DB.First(&data, id); result.Error != nil {
 		return errors.New("未找到对应id信息,请检查id是否正确")
 	}
-	model.DB.Delete(&model.Institute{}, id)
+	model.DB.Delete(&model.Tutor{}, id)
 	categoryService := Category{}
-	cateErr := categoryService.DeleteCategory(id, "institutes")
+	cateErr := categoryService.DeleteCategory(id, "tutors")
 	return cateErr
 }

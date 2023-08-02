@@ -14,7 +14,7 @@ type Institute struct { //学位点
 	Click          int       `json:"click"`                             //点击数
 	CreatedAt      time.Time `json:"createdAt"`
 	UpdatedAt      time.Time `json:"updatedAt"`
-	Totors         []Tutor   `json:"tutors" gorm:"many2many:institute_tutors;" binding:"omitempty"`
+	Totors         []Tutor   `json:"tutors" binding:"omitempty"`
 	Category       string    `json:"category" gorm:"-" binding:"required"` // 学科分类
 }
 
@@ -30,7 +30,7 @@ type InstituteOmitempty struct { //学位点
 	Click          int       `json:"click" binding:"omitempty"`          //点击数
 	CreatedAt      time.Time `json:"createdAt"`
 	UpdatedAt      time.Time `json:"updatedAt"`
-	Totors         []Tutor   `json:"tutors" gorm:"many2many:institute_tutors;" binding:"omitempty"`
+	Totors         []Tutor   `json:"tutors" binding:"omitempty"`
 	Category       string    `json:"category" gorm:"-" binding:"omitempty"` // 学科分类
 }
 
@@ -41,4 +41,10 @@ type InstituteResponseMsg struct {
 type InstituteForm struct {
 	Total int         `json:"total" binding:"numeric"`
 	List  []Institute `json:"list" binding:"required,dive"`
+}
+
+type InstituteList struct {
+	Total int         `json:"total"`
+	List  []Institute `json:"list"`
+	// CategoryNumber []int            `json:"categoryNumber"`
 }

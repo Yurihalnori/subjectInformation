@@ -16,6 +16,7 @@ type Tutor struct { //导师
 	Classification string    `json:"classification" binding:"required"` //类型(博导 硕导)
 	CreatedAt      time.Time `json:"createdAt"`
 	UpdatedAt      time.Time `json:"updatedAt"`
+	InstituteID    uint      `json:"InstituteID"`
 	Category       string    `json:"category" gorm:"-"` // 学科分类
 }
 
@@ -33,6 +34,7 @@ type TutorOmitempty struct { //导师
 	Classification string    `json:"classification" binding:"omitempty"` //类型(博导 硕导)
 	CreatedAt      time.Time `json:"createdAt"`
 	UpdatedAt      time.Time `json:"updatedAt"`
+	InstituteID    uint      `json:"InstituteID"`
 	Category       string    `json:"category" gorm:"-"` // 学科分类
 }
 
@@ -43,4 +45,10 @@ type TutorResponseMsg struct {
 type TutorForm struct {
 	Total int     `json:"total" binding:"numeric"`
 	List  []Tutor `json:"list" binding:"required,dive"`
+}
+
+type TutorList struct {
+	Total int     `json:"total"`
+	List  []Tutor `json:"list"`
+	// CategoryNumber []int            `json:"categoryNumber"`
 }

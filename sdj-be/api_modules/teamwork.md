@@ -10,19 +10,19 @@
 
 
 
-[用户查看列表信息](#list) `GET {base_url}/api/uniqueDatabase/getInfo`
+[用户查看列表信息](#list) `GET {base_url}/api/teamwork`
 
-[管理员添加条目](#add) `POST {base_url}/api/uniqueDatabase/add`
+[管理员添加条目](#add) `POST {base_url}/api/teamwork`
 
-[管理员修改条目](#change) `POST {base_url}/api/uniqueDatabase/change`
+[管理员修改条目](#change) `POST {base_url}/api/teamwork/:id`
 
-[管理员删除条目](#delete) `DELETE {base_url}/api/uniqueDatabase/delete`
+[管理员删除条目](#delete) `DELETE {base_url}/api/teamwork/:id`
 
 ### 接口详情
 
 <a id="list"></a>
 
-#### 用户查看列表信息 `GET {base_url}/api/uniqueDatabase/getInfo`
+#### 用户查看列表信息 `GET {base_url}/api/teamwork`
 
 + 要求
   + `page`和`limit`和其他字段均通过body传递
@@ -78,7 +78,7 @@
 
 <a id="add"></a>
 
-#### 管理员添加条目 `POST {base_url}/api/uniqueDatabase`
+#### 管理员添加条目 `POST {base_url}/api/teamwork`
 
 + Request
   ```json
@@ -119,7 +119,7 @@
 ```
 <a id="change"></a>
 
-#### 管理员修改条目 `PUT {base_url}/api/uniqueDatabase/:id`
+#### 管理员修改条目 `PUT {base_url}/api/teamwork/:id`
 
 + 要求
     + 每次仅修改一条
@@ -142,7 +142,7 @@
       }
 ```
 
-#### 管理员删除条目 `DELETE {base_url}/api/uniqueDatabase/:id`
+#### 管理员删除条目 `DELETE {base_url}/api/teamwork/:id`
 + 要求
     + 每次仅删除一条
     + id在url中给定

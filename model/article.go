@@ -50,3 +50,9 @@ type ArticleForm struct {
 	Total int       `json:"total" binding:"numeric"`
 	List  []Article `json:"list" binding:"required,dive"`
 }
+
+type ArticleList struct {
+	Total int              `json:"total"`
+	List  []Article `json:"list"`
+	// CategoryNumber []int            `json:"categoryNumber"`
+}

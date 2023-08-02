@@ -1,6 +1,8 @@
 package model
 
-import "time"
+import (
+	"time"
+)
 
 type UniqueDatabase struct {
 	Id           int       `json:"id"`                              //序号
@@ -17,7 +19,7 @@ type UniqueDatabase struct {
 }
 
 type UniqueDatabaseOmitempty struct {
-	Id           int       `json:"id" binding:"omitempty"`           //序号
+	Id           int       `json:"id"`                               //序号
 	Name         string    `json:"name" binding:"omitempty"`         //名称
 	Trimmer      string    `json:"trimmer" binding:"omitempty"`      //整理者
 	KeyWord      string    `json:"keyWord" binding:"omitempty"`      //关键字
@@ -37,4 +39,17 @@ type UniqueResponseMsg struct {
 type UniqueForm struct {
 	Total int              `json:"total" binding:"numeric"`
 	List  []UniqueDatabase `json:"list" binding:"required,dive"`
+}
+
+type GetInfoForm struct {
+	Page  int    `json:"page" binding:"numeric"`
+	Limit int    `json:"limit" binding:"numeric"`
+	Field string `json:"field" binding:"omitempty"`
+	Order string `json:"order" binding:"omitempty,oneof=desc asc"`
+}
+
+type UniqueList struct {
+	Total int              `json:"total"`
+	List  []UniqueDatabase `json:"list"`
+	// CategoryNumber []int            `json:"categoryNumber"`
 }

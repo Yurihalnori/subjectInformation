@@ -54,3 +54,9 @@ type DissertationForm struct {
 	Total int            `json:"total" binding:"numeric"`
 	List  []Dissertation `json:"list" binding:"required,dive"`
 }
+
+type DissertationList struct {
+	Total int            `json:"total"`
+	List  []Dissertation `json:"list"`
+	// CategoryNumber []int            `json:"categoryNumber"`
+}

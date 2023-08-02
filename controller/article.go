@@ -102,3 +102,24 @@ func (s ArticleController) Delete(c *gin.Context) {
 		})
 	}
 }
+
+// 获取条目
+func (s ArticleController) GetInfo(c *gin.Context) {
+	var form model.GetInfoForm
+	if err := c.ShouldBindJSON(&form); err != nil {
+		fmt.Printf("controller %v", err)
+		c.Error(&gin.Error{
+			Err:  err,
+			Type: service.ParamErr,
+		})
+		return
+	}
+
+	ListService := service.ListService{}
+	data := ListService.GetList(form, "article")
+
+	c.JSON(http.StatusOK, Response{
+		Success: true,
+		Data:    data,
+	})
+}

@@ -56,3 +56,9 @@ type TeamworkForm struct {
 	Total int        `json:"total" binding:"numeric"`
 	List  []Teamwork `json:"list" binding:"required,dive"`
 }
+
+type TeamworkList struct {
+	Total int        `json:"total"`
+	List  []Teamwork `json:"list"`
+	// CategoryNumber []int            `json:"categoryNumber"`
+}

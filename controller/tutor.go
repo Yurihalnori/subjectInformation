@@ -13,23 +13,23 @@ import (
 	"github.com/go-playground/validator/v10"
 )
 
-type UniqueController struct {
+type TutorController struct {
 }
 
 // 添加条目
-func (s UniqueController) Add(c *gin.Context) {
-	var form model.UniqueForm
+func (s TutorController) Add(c *gin.Context) {
+	var form model.TutorForm
 	if err := c.ShouldBind(&form); err != nil {
 		fmt.Printf("controller %v", err)
 		c.Error(&gin.Error{
-			Err:  errors.New("存在字段为空，请检查输入信息"),
+			Err:  errors.New("存在字段错误，请检查输入信息"),
 			Type: service.ParamErr,
 		})
 		return
 	}
 
-	UniqueService := service.UniqueService{}
-	data := UniqueService.Add(form)
+	TutorService := service.TutorService{}
+	data := TutorService.Add(form)
 
 	c.JSON(http.StatusOK, Response{
 		Success: true,
@@ -38,8 +38,8 @@ func (s UniqueController) Add(c *gin.Context) {
 }
 
 // 修改条目
-func (s UniqueController) Change(c *gin.Context) {
-	var form model.UniqueDatabaseOmitempty
+func (s TutorController) Change(c *gin.Context) {
+	var form model.TutorOmitempty
 	id, _ := strconv.Atoi(c.Param("id"))
 	if err := c.ShouldBind(&form); err != nil {
 		fmt.Printf("controller %v", err)
@@ -59,8 +59,8 @@ func (s UniqueController) Change(c *gin.Context) {
 		return
 	}
 
-	UniqueService := service.UniqueService{}
-	data, err := UniqueService.Change(form, id)
+	TutorService := service.TutorService{}
+	data, err := TutorService.Change(form, id)
 
 	if err == nil {
 		c.JSON(http.StatusOK, Response{
@@ -76,8 +76,9 @@ func (s UniqueController) Change(c *gin.Context) {
 }
 
 // 删除条目
-func (s UniqueController) Delete(c *gin.Context) {
+func (s TutorController) Delete(c *gin.Context) {
 	id, _ := strconv.Atoi(c.Param("id"))
+
 	validate := validator.New()
 	if err := validate.Var(id, "numeric"); err != nil {
 		c.Error(&gin.Error{
@@ -87,8 +88,8 @@ func (s UniqueController) Delete(c *gin.Context) {
 		return
 	}
 
-	UniqueService := service.UniqueService{}
-	err := UniqueService.Delete(id)
+	TutorService := service.TutorService{}
+	err := TutorService.Delete(id)
 
 	if err == nil {
 		c.JSON(http.StatusOK, Response{
@@ -103,7 +104,7 @@ func (s UniqueController) Delete(c *gin.Context) {
 }
 
 // 获取条目
-func (s UniqueController) GetInfo(c *gin.Context) {
+func (s TutorController) GetInfo(c *gin.Context) {
 	var form model.GetInfoForm
 	if err := c.ShouldBindJSON(&form); err != nil {
 		fmt.Printf("controller %v", err)
@@ -115,7 +116,7 @@ func (s UniqueController) GetInfo(c *gin.Context) {
 	}
 
 	ListService := service.ListService{}
-	data := ListService.GetList(form, "unique")
+	data := ListService.GetList(form, "tutor")
 
 	c.JSON(http.StatusOK, Response{
 		Success: true,
