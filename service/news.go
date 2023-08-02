@@ -18,7 +18,7 @@ func (NewsService) AddOneNews(form model.News) (news model.News, err error) {
 	return form, err
 }
 
-func (NewsService) GetSomeNews(form model.GetSomeNews) (newsList []model.NewsPreview, total int, err error) {
+func (NewsService) GetSomeNews(form model.GetSomeNews) (newsList []model.NewsPreview, total int64, err error) {
 	order := ""
 	if form.Name == "" || form.Order == "" {
 		order = "date desc"
@@ -56,8 +56,8 @@ func (NewsService) GetSomeNews(form model.GetSomeNews) (newsList []model.NewsPre
 	}
 	condition += "1=0)"
 	module := ""
-	if form.Module == 4 {
-		module = " 4 = ? "
+	if form.Module == 5 {
+		module = " 5 = ? "
 	} else {
 		module = "news.module = ?"
 	}
@@ -71,7 +71,13 @@ func (NewsService) GetSomeNews(form model.GetSomeNews) (newsList []model.NewsPre
 		Order(order).
 		Scan(&newsList)
 	err = res.Error
-	total = int(res.RowsAffected)
+	if err != nil {
+		return nil, 0, err
+	}
+	model.DB.Model(&model.News{}).
+		Select("news.id", "news.title", "news.category", "news.module", "news.region", "news.department", "news.click", "news.date").
+		Where(module, form.Module).
+		Joins(condition).Count(&total)
 	return
 }
 
@@ -95,7 +101,7 @@ func (NewsService) ClickNewsOnce(id int) (err error) {
 	return
 }
 
-func (NewsService) EditNews(form model.News) (err error) {
+func (NewsService) EditNews(form model.NewsEditRequest) (err error) {
 	var news model.News
 	res := model.DB.
 		Model(&news).
@@ -129,7 +135,7 @@ func (NewsService) DeleteNews(id int) (err error) {
 	return
 }
 
-func (NewsService) SearchNews(form model.NewsSearchRequest) (total int, newsList []model.NewsPreview, err error) {
+func (NewsService) SearchNews(form model.NewsSearchRequest) (NewsCount int, newsList []model.NewsPreview, err error) {
 	join := " INNER JOIN categories ON categories.foreign_key = news.id AND categories.tablee = 'News' AND ( "
 	for key, value := range form.Category {
 		if value == 49 { // ascii 1 = 49
@@ -139,15 +145,14 @@ func (NewsService) SearchNews(form model.NewsSearchRequest) (total int, newsList
 	join += "1=0) "
 
 	module := ""
-	if form.Module != 4 {
+	if form.Module != 5 {
 		module = "`module` = " + strconv.Itoa(int(form.Module)) + " AND "
 	}
 
-	condition := "SELECT * , MATCH(title,text) AGAINST ('" +
-		form.Content + "' IN NATURAL LANGUAGE MODE)" +
+	condition := "SELECT * , MATCH(title,text) AGAINST (? IN NATURAL LANGUAGE MODE)" +
 		" AS title_score " +
-		"FROM news " + join + "WHERE " + module + "MATCH(title, text) AGAINST ('" +
-		form.Content + "' IN NATURAL LANGUAGE MODE) "
+		"FROM news " + join + "WHERE " + module +
+		"MATCH(title, text) AGAINST (? IN NATURAL LANGUAGE MODE) "
 
 	order := "ORDER BY "
 
@@ -180,16 +185,17 @@ func (NewsService) SearchNews(form model.NewsSearchRequest) (total int, newsList
 		}
 	}
 
-	var count []model.NewsPreview
-	model.DB.Raw(condition).Scan(&count)
-	total = len(count)
-
+	CountSql := "SELECT COUNT(*) AS 'NewsCount'" +
+		"FROM news " + join + "WHERE " + module +
+		"MATCH(title, text) AGAINST (? IN NATURAL LANGUAGE MODE) "
+	err = model.DB.Raw(CountSql, form.Content).Scan(&NewsCount).Error
+	if err != nil {
+		return 0, nil, err
+	}
 	condition += order
-
 	limit := " LIMIT " + strconv.Itoa((form.Page-1)*form.Limit) + " , " + strconv.Itoa(form.Limit)
-
 	condition += limit
-
-	model.DB.Raw(condition).Scan(&newsList)
+	err = model.DB.Raw(condition, form.Content, form.Content).
+		Scan(&newsList).Error
 	return
 }
