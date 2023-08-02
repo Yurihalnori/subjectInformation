@@ -2,7 +2,6 @@ package controller
 
 import (
 	"errors"
-	"fmt"
 	"net/http"
 	"strconv"
 	"subjectInformation/model"
@@ -64,7 +63,6 @@ func (NewsController) GetNews(c *gin.Context) {
 		return
 	}
 	res, total, err := service.NewsService{}.GetSomeNews(form)
-	fmt.Println(res)
 	if err != nil {
 		_ = c.Error(&gin.Error{
 			Err:  err,
