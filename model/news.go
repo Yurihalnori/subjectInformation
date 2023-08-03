@@ -19,7 +19,7 @@ type News struct { //学界咨询
 type NewsEditRequest struct { //学界咨询
 	Id         int       `json:"id"`                                 //序号
 	Title      string    `gorm:"type:varchar(64)" json:"title"`      //题目
-	Module     uint      `json:"module"`                             //模块  0:行业资讯，1：学术会议，2：学科竞赛，3：招聘信息
+	Module     uint      `json:"module" binding:"oneof=1 2 3 4 5"`   //模块  0:行业资讯，1：学术会议，2：学科竞赛，3：招聘信息
 	Department string    `gorm:"type:varchar(64)" json:"department"` //主体单位
 	Text       string    `gorm:"type:longtext" json:"content"`       //全文
 	Click      uint      `json:"click" gorm:"default:0"`             //点击数
@@ -29,7 +29,7 @@ type NewsEditRequest struct { //学界咨询
 }
 
 type GetSomeNews struct {
-	Module   int    `form:"module" json:"module" binding:"required"`
+	Module   int    `form:"module" json:"module" binding:"required,oneof=1 2 3 4 5"`
 	Page     int    `form:"page" json:"page" binding:"required"`
 	Limit    int    `form:"limit" json:"limit" binding:"required"`
 	Category string `form:"category" json:"category" binding:"required,len=10" `
@@ -67,7 +67,7 @@ type NewsDetail struct {
 
 type NewsSearchRequest struct {
 	Content  string `json:"content" binding:"required"`
-	Module   uint   `json:"Module" binding:"required"`
+	Module   uint   `json:"Module" binding:"required,oneof=1 2 3 4 5""`
 	Name     string `json:"name"`
 	Order    string `json:"order"`
 	Page     int    `form:"page" json:"page" binding:"required"`

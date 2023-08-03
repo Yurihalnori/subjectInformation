@@ -22,6 +22,7 @@ func (SearchController) SearchCommonDB(c *gin.Context) {
 	}
 	var res []model.SearchCommonDBPreview
 	var err error
+	var total = 0
 	switch form.Module {
 	case 5:
 		var dissertationCount = 0
@@ -36,7 +37,7 @@ func (SearchController) SearchCommonDB(c *gin.Context) {
 			})
 			return
 		}
-		dissertationCount, bookCount, projectCount, articleCount, err = service.SearchService{}.CountModuleInCommonDB(form)
+		bookCount, dissertationCount, articleCount, projectCount, err = service.SearchService{}.CountModuleInCommonDB(form)
 		if err != nil {
 			_ = c.Error(&gin.Error{
 				Err:  err,
@@ -53,13 +54,13 @@ func (SearchController) SearchCommonDB(c *gin.Context) {
 		})
 		return
 	case 1:
-		res, err = service.SearchService{}.SearchCommonDBProject(form)
+		res, total, err = service.SearchService{}.SearchCommonDBProject(form)
 	case 2:
-		res, err = service.SearchService{}.SearchCommonDBBook(form)
+		res, total, err = service.SearchService{}.SearchCommonDBBook(form)
 	case 3:
-		res, err = service.SearchService{}.SearchCommonDBDissertation(form)
+		res, total, err = service.SearchService{}.SearchCommonDBDissertation(form)
 	case 4:
-		res, err = service.SearchService{}.SearchCommonDBArticle(form)
+		res, total, err = service.SearchService{}.SearchCommonDBArticle(form)
 	}
 	if err != nil {
 		_ = c.Error(&gin.Error{
@@ -69,6 +70,7 @@ func (SearchController) SearchCommonDB(c *gin.Context) {
 		return
 	}
 	c.JSON(http.StatusOK, gin.H{
-		"list": res,
+		"list":  res,
+		"total": total,
 	})
 }
