@@ -25,11 +25,13 @@ type NewsEditRequest struct { //学界咨询
 	Click      uint      `json:"click" gorm:"default:0"`             //点击数
 	Date       time.Time `gorm:"type:datetime" json:"date"`          // 发布时间
 	Region     uint      `json:"region"`                             //domestic|foreign
-	Category   string    `json:"category" gorm:"type:varchar(64)"`   // 学科分类
+	CreatedAt  time.Time `json:"createdAt"`
+	UpdatedAt  time.Time `json:"updatedAt"`
+	Category   string    `json:"category" gorm:"type:varchar(64)"`
 }
 
 type GetSomeNews struct {
-	Module   int    `form:"module" json:"module" binding:"required"`
+	Module   int    `form:"module" json:"module" binding:"required,oneof=1 2 3 4 5"`
 	Page     int    `form:"page" json:"page" binding:"required"`
 	Limit    int    `form:"limit" json:"limit" binding:"required"`
 	Category string `form:"category" json:"category" binding:"required,len=10" `
@@ -67,7 +69,7 @@ type NewsDetail struct {
 
 type NewsSearchRequest struct {
 	Content  string `json:"content" binding:"required"`
-	Module   uint   `json:"Module" binding:"required"`
+	Module   uint   `json:"Module" binding:"required,oneof=1 2 3 4 5""`
 	Name     string `json:"name"`
 	Order    string `json:"order"`
 	Page     int    `form:"page" json:"page" binding:"required"`

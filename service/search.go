@@ -18,11 +18,11 @@ func orderString(name string, ord string) (sql string) {
 			switch ord {
 			case "increase":
 				{
-					order += "date asc"
+					order += "time asc"
 				}
 			case "decrease":
 				{
-					order += "date desc"
+					order += "time desc"
 				}
 			}
 		case "citation":
@@ -156,7 +156,7 @@ func (SearchService) CountModuleInCommonDB(form model.SearchCommonDBRequest) (bo
 	return
 }
 
-func (SearchService) SearchCommonDBProject(form model.SearchCommonDBRequest) (res []model.SearchCommonDBPreview, err error) {
+func (SearchService) SearchCommonDBProject(form model.SearchCommonDBRequest) (res []model.SearchCommonDBPreview, total int, err error) {
 	JoinProjects := " INNER JOIN categories ON categories.foreign_key =projects.id AND categories.tablee = 'projects' AND ( "
 	for key, value := range form.Category {
 		if value == 49 { // ascii 1 = 49
@@ -173,15 +173,24 @@ func (SearchService) SearchCommonDBProject(form model.SearchCommonDBRequest) (re
 		" WHERE MATCH(title) AGAINST (? IN BOOLEAN MODE)" +
 		") AS results"
 
-	RawSql += orderString(form.Name, form.Order)
+	var countSql = "SELECT COUNT(*) as theCount" +
+		" FROM projects" + JoinProjects +
+		" WHERE MATCH(title) AGAINST (? IN BOOLEAN MODE)"
 
+	var theCount = 0
+	err = model.DB.Raw(countSql, form.Title).Scan(&theCount).Error
+	total = theCount
+	if err != nil {
+		return nil, 0, err
+	}
+	RawSql += orderString(form.Name, form.Order)
 	limit := " LIMIT " + strconv.Itoa((form.Page-1)*form.Limit) + " , " + strconv.Itoa(form.Limit)
 	RawSql += limit
-	model.DB.Raw(RawSql, form.Title, form.Title).Scan(&res)
+	err = model.DB.Raw(RawSql, form.Title, form.Title).Scan(&res).Error
 	return
 }
 
-func (SearchService) SearchCommonDBArticle(form model.SearchCommonDBRequest) (res []model.SearchCommonDBPreview, err error) {
+func (SearchService) SearchCommonDBArticle(form model.SearchCommonDBRequest) (res []model.SearchCommonDBPreview, total int, err error) {
 	JoinArticles := " INNER JOIN categories ON categories.foreign_key = articles.id AND categories.tablee = 'articles' AND ( "
 	for key, value := range form.Category {
 		if value == 49 { // ascii 1 = 49
@@ -198,15 +207,24 @@ func (SearchService) SearchCommonDBArticle(form model.SearchCommonDBRequest) (re
 		" WHERE MATCH(title) AGAINST (? IN BOOLEAN MODE)" +
 		") AS results"
 
+	var countSql = "SELECT COUNT(*) as theCount" +
+		" FROM articles" + JoinArticles +
+		" WHERE MATCH(title) AGAINST (? IN BOOLEAN MODE)"
+	var theCount = 0
+	err = model.DB.Raw(countSql, form.Title).Scan(&theCount).Error
+	total = theCount
+	if err != nil {
+		return nil, 0, err
+	}
 	RawSql += orderString(form.Name, form.Order)
 
 	limit := " LIMIT " + strconv.Itoa((form.Page-1)*form.Limit) + " , " + strconv.Itoa(form.Limit)
 	RawSql += limit
-	model.DB.Raw(RawSql, form.Title, form.Title).Scan(&res)
+	err = model.DB.Raw(RawSql, form.Title, form.Title).Scan(&res).Error
 	return
 }
 
-func (SearchService) SearchCommonDBDissertation(form model.SearchCommonDBRequest) (res []model.SearchCommonDBPreview, err error) {
+func (SearchService) SearchCommonDBDissertation(form model.SearchCommonDBRequest) (res []model.SearchCommonDBPreview, total int, err error) {
 	JoinDissertations := " INNER JOIN categories ON categories.foreign_key = dissertations.id AND categories.tablee = 'dissertations' AND ( "
 	for key, value := range form.Category {
 		if value == 49 { // ascii 1 = 49
@@ -221,16 +239,25 @@ func (SearchService) SearchCommonDBDissertation(form model.SearchCommonDBRequest
 		" FROM dissertations" + JoinDissertations +
 		" WHERE MATCH(title) AGAINST (? IN BOOLEAN MODE)" +
 		") AS results"
+	var countSql = "SELECT COUNT(*) as theCount" +
+		" FROM dissertations" + JoinDissertations +
+		" WHERE MATCH(title) AGAINST (? IN BOOLEAN MODE)"
 
+	var theCount = 0
+	err = model.DB.Raw(countSql, form.Title).Scan(&theCount).Error
+	total = theCount
+	if err != nil {
+		return nil, 0, err
+	}
 	RawSql += orderString(form.Name, form.Order)
 
 	limit := " LIMIT " + strconv.Itoa((form.Page-1)*form.Limit) + " , " + strconv.Itoa(form.Limit)
 	RawSql += limit
-	model.DB.Raw(RawSql, form.Title, form.Title).Scan(&res)
+	err = model.DB.Raw(RawSql, form.Title, form.Title).Scan(&res).Error
 	return
 }
 
-func (SearchService) SearchCommonDBBook(form model.SearchCommonDBRequest) (res []model.SearchCommonDBPreview, err error) {
+func (SearchService) SearchCommonDBBook(form model.SearchCommonDBRequest) (res []model.SearchCommonDBPreview, total int, err error) {
 	JoinBooks := " INNER JOIN categories ON categories.foreign_key = books.id AND categories.tablee = 'books' AND ( "
 	for key, value := range form.Category {
 		if value == 49 { // ascii 1 = 49
@@ -245,12 +272,20 @@ func (SearchService) SearchCommonDBBook(form model.SearchCommonDBRequest) (res [
 		" FROM books" + JoinBooks +
 		" WHERE MATCH(title) AGAINST (? IN BOOLEAN MODE)" +
 		") AS results"
+	var countSql = "SELECT COUNT(*) as theCount" +
+		" FROM books" + JoinBooks +
+		" WHERE MATCH(title) AGAINST (? IN BOOLEAN MODE)"
 
+	var theCount = 0
+	err = model.DB.Raw(countSql, form.Title).Scan(&theCount).Error
+	total = theCount
+	if err != nil {
+		return nil, 0, err
+	}
 	RawSql += orderString(form.Name, form.Order)
-
 	limit := " LIMIT " + strconv.Itoa((form.Page-1)*form.Limit) + " , " + strconv.Itoa(form.Limit)
 	RawSql += limit
-	model.DB.Raw(RawSql, form.Title, form.Title).Scan(&res)
+	err = model.DB.Raw(RawSql, form.Title, form.Title).Scan(&res).Error
 	return
 }
 

@@ -17,3 +17,12 @@ type SearchCommonDBPreview struct {
 	Author    string
 	Time      string
 }
+
+type SearchUniqueDBRequest struct {
+	Title    string `json:"title" binding:"required"`
+	Category string `json:"category" binding:"required"`
+	Page     int    `json:"page" binding:"required"`
+	Limit    int    `json:"limit" binding:"required"`
+	Name     string `json:"name"`
+	Order    string `json:"order"`
+}

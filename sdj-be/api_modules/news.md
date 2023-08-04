@@ -4,7 +4,7 @@
 
 Note: module 和 region 永远用int 
 ```json
-"module":0|1|2|3|4, // 1:行业资讯，2：学术会议，3：学科竞赛，4：招聘信息,5:全选  仅支持单值传递
+"module":1|2|3|4|5, // 1:行业资讯，2：学术会议，3：学科竞赛，4：招聘信息,5:全选  仅支持单值传递
 "region":0|1 //domestic|foreign
 ```
 #### 获取资讯 `GET {base_url}/api/news`

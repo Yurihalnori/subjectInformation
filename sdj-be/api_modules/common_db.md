@@ -142,4 +142,53 @@
           "success":true
         }
 ```
+
+#### 公共数据库搜索 `PUT {base_url/api/commonDatabase/search`
++ Request
+```json
+        {
+          "title":"reo",
+          "category":"1111111111",
+          "module":5, // 5：全部  1：项目 2：图书 3：学位论文 4：期刊论文
+          "page":2,
+          "limit":1,
+          "name":"relevance", // 支持relevance和time 后续支持citation
+          "order":"decrease"
+        }
+```
+
++ Response
+对于总的搜索
+```json 
+{
+  "articlesCount": 0,
+  "booksCount": 2,
+  "dissertationsCount": 0,
+  "list": [
+    {
+      "Title": "reoreo",
+      "Id": "5",
+      "TableName": "books",
+      "Author": "Trump",
+      "Time": "2023-01-02 14:14:14"
+    }
+  ],
+  "projectsCount": 5
+}
+```
+对于各模块分别搜索
+```json
+{
+    "list": [
+        {
+            "Title": "reo",
+            "Id": "5",
+            "TableName": "projects",
+            "Author": "trump",
+            "Time": "2023-01-02T00:00:00Z"
+        }
+    ],
+    "total": 5
+}
+```
 ##### 用户添加关系 institute&tutor ``
