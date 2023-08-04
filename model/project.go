@@ -17,7 +17,7 @@ type Project struct { //科研项目
 	Data           int       `json:"data"`
 	CreatedAt      time.Time `json:"createdAt"`
 	UpdatedAt      time.Time `json:"updatedAt"`
-	Category       string    `json:"category" gorm:"-" binding:"required"` // 学科分类
+	Category       string    `json:"category" gorm:"-" binding:"category"` // 学科分类
 }
 
 type ProjectOmitempty struct {
@@ -35,7 +35,7 @@ type ProjectOmitempty struct {
 	Data           int       `json:"data"`
 	CreatedAt      time.Time `json:"createdAt"`
 	UpdatedAt      time.Time `json:"updatedAt"`
-	Category       string    `json:"category" gorm:"-" binding:"omitempty"`
+	Category       string    `json:"category" gorm:"-" binding:"omitempty,category"`
 }
 
 type ProjectResponseMsg struct {

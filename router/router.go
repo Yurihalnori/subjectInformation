@@ -95,6 +95,15 @@ func InitRouter(r *gin.Engine) {
 			ArticleRouter.DELETE("/:id", ArticleController.Delete)
 		}
 
+		TutorRouter := apiRouter.Group("/commonDatabase/tutor")
+		{
+			TutorController := controller.TutorController{}
+			TutorRouter.GET("", TutorController.GetInfo)
+			TutorRouter.POST("", TutorController.Add)
+			TutorRouter.PUT("/:id", TutorController.Change)
+			TutorRouter.DELETE("/:id", TutorController.Delete)
+		}
+
 		apiRouter.POST("/file", controller.FileController{}.Upload)
 		apiRouter.PUT("/commonDatabase/search", controller.SearchController{}.SearchCommonDB)
 	}

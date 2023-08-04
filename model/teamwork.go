@@ -58,7 +58,7 @@ type TeamworkForm struct {
 }
 
 type TeamworkList struct {
-	Total          int        `json:"total"`
-	List           []Teamwork `json:"list"`
-	CategoryNumber [10]int64  `json:"categoryNumber"`
+	Total int        `json:"total"`
+	List  []Teamwork `json:"list"`
+	CategoryNumber [10]int64            `json:"categoryNumber"`
 }

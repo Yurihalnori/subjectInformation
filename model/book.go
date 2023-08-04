@@ -16,7 +16,7 @@ type Book struct { //学科图书
 	Download  int       `json:"download"`                                      //下载数
 	CreatedAt time.Time `json:"createdAt"`
 	UpdatedAt time.Time `json:"updatedAt"`
-	Category  string    `json:"category" gorm:"-" binding:"required"` // 学科分类
+	Category  string    `json:"category" gorm:"-" binding:"category"` // 学科分类
 }
 
 type BookOmitempty struct { //学科图书
@@ -33,7 +33,7 @@ type BookOmitempty struct { //学科图书
 	Download  int       `json:"download"`                                      //下载数
 	CreatedAt time.Time `json:"createdAt"`
 	UpdatedAt time.Time `json:"updatedAt"`
-	Category  string    `json:"category" gorm:"-" binding:"omitempty"` // 学科分类
+	Category  string    `json:"category" gorm:"-" binding:"omitempty,category"` // 学科分类
 }
 
 type BookResponseMsg struct {

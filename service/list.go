@@ -117,17 +117,16 @@ func (h ListService) GetList(form model.GetInfoForm, table string) interface{} {
 
 func (h ListService) GetCategory(table string) [10]int64 {
 	var category [10]int64
-	var data model.Category
-	model.DB.Raw("SELECT * FROM `categories` WHERE category1 = 1 AND tablee = 'unique_databases'").Scan(&data).Count(&category[0])
-	model.DB.Raw("SELECT * FROM `categories` WHERE category2 = 1 AND tablee = 'unique_databases'").Scan(&data).Count(&category[1])
-	model.DB.Raw("SELECT * FROM `categories` WHERE category3 = 1 AND tablee = 'unique_databases'").Scan(&data).Count(&category[2])
-	model.DB.Raw("SELECT * FROM `categories` WHERE category4 = 1 AND tablee = 'unique_databases'").Scan(&data).Count(&category[3])
-	model.DB.Raw("SELECT * FROM `categories` WHERE category5 = 1 AND tablee = 'unique_databases'").Scan(&data).Count(&category[4])
-	model.DB.Raw("SELECT * FROM `categories` WHERE category6 = 1 AND tablee = 'unique_databases'").Scan(&data).Count(&category[5])
-	model.DB.Raw("SELECT * FROM `categories` WHERE category7 = 1 AND tablee = 'unique_databases'").Scan(&data).Count(&category[6])
-	model.DB.Raw("SELECT * FROM `categories` WHERE category8 = 1 AND tablee = 'unique_databases'").Scan(&data).Count(&category[7])
-	model.DB.Raw("SELECT * FROM `categories` WHERE category9 = 1 AND tablee = 'unique_databases'").Scan(&data).Count(&category[8])
-	model.DB.Raw("SELECT * FROM `categories` WHERE category10 = 1 AND tablee = 'unique_databases'").Scan(&data).Count(&category[9])
+	model.DB.Where("category1 = 1 AND tablee = ?", table).Table("categories").Count(&category[0])
+	model.DB.Where("category2 = 1 AND tablee = ?", table).Table("categories").Count(&category[1])
+	model.DB.Where("category3 = 1 AND tablee = ?", table).Table("categories").Count(&category[2])
+	model.DB.Where("category4 = 1 AND tablee = ?", table).Table("categories").Count(&category[3])
+	model.DB.Where("category5 = 1 AND tablee = ?", table).Table("categories").Count(&category[4])
+	model.DB.Where("category6 = 1 AND tablee = ?", table).Table("categories").Count(&category[5])
+	model.DB.Where("category7 = 1 AND tablee = ?", table).Table("categories").Count(&category[6])
+	model.DB.Where("category8 = 1 AND tablee = ?", table).Table("categories").Count(&category[7])
+	model.DB.Where("category9 = 1 AND tablee = ?", table).Table("categories").Count(&category[8])
+	model.DB.Where("category10 = 1 AND tablee = ?", table).Table("categories").Count(&category[9])
 	fmt.Println(category)
 	return category
 }
