@@ -96,6 +96,7 @@ func InitRouter(r *gin.Engine) {
 		}
 
 		apiRouter.PUT("/commonDatabase/search", controller.SearchController{}.SearchCommonDB)
+		apiRouter.PUT("/uniqueDatabase/search", controller.SearchController{}.SearchUniqueDB)
 	}
 
 }
