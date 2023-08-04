@@ -81,6 +81,7 @@ func InitModel() {
 	}
 	if !DB.Migrator().HasTable(&UniqueDatabase{}) {
 		DB.Migrator().CreateTable(&UniqueDatabase{})
+		DB.Exec("ALTER TABLE unique_databases ADD FULLTEXT (name) WITH PARSER ngram")
 	}
 	if !DB.Migrator().HasTable(&Teamwork{}) {
 		DB.Migrator().CreateTable(&Teamwork{})

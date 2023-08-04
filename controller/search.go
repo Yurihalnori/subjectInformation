@@ -74,3 +74,7 @@ func (SearchController) SearchCommonDB(c *gin.Context) {
 		"total": total,
 	})
 }
+
+func (SearchController) SearchUniqueDB(c *gin.Context) {
+
+}
