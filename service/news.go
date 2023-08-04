@@ -2,6 +2,7 @@ package service
 
 import (
 	"errors"
+	"fmt"
 	"strconv"
 	"subjectInformation/model"
 
@@ -103,6 +104,7 @@ func (NewsService) ClickNewsOnce(id int) (err error) {
 
 func (NewsService) EditNews(form model.NewsEditRequest) (err error) {
 	var news model.News
+	fmt.Println(form)
 	res := model.DB.
 		Model(&news).
 		Where("id = ?", form.Id).
@@ -115,7 +117,11 @@ func (NewsService) EditNews(form model.NewsEditRequest) (err error) {
 	}
 	if err == nil {
 		if form.Category != "" {
-			err = Category{}.ChangeCategory(form.Category, form.Id, "News")
+			if len(form.Category) == 10 {
+				err = Category{}.ChangeCategory(form.Category, form.Id, "News")
+			} else {
+				err = errors.New("category参数错误")
+			}
 		}
 	}
 	return
