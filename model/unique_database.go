@@ -49,7 +49,7 @@ type GetInfoForm struct {
 }
 
 type UniqueList struct {
-	Total int              `json:"total"`
-	List  []UniqueDatabase `json:"list"`
-	// CategoryNumber []int            `json:"categoryNumber"`
+	Total          int              `json:"total"`
+	List           []UniqueDatabase `json:"list"`
+	CategoryNumber [10]int64        `json:"categoryNumber"`
 }

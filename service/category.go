@@ -80,7 +80,7 @@ func (h Category) ChangeCategory(category string, foreignKey int, table string) 
 		model.DB.Save(&data)
 		return nil
 	}
-	return errors.New("未找到对应category(理论上并不会发生)")
+	return errors.New("未找到对应category(理论上并不会发生,除非直接改了数据库)")
 }
 
 func (h Category) DeleteCategory(foreignKey int, table string) error {
@@ -90,5 +90,5 @@ func (h Category) DeleteCategory(foreignKey int, table string) error {
 		model.DB.Delete(&model.Category{}, data.Id)
 		return nil
 	}
-	return errors.New("未找到对应category(理论上并不会发生)")
+	return errors.New("未找到对应category(理论上并不会发生,除非直接改了数据库)")
 }

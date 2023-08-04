@@ -95,6 +95,8 @@ func InitRouter(r *gin.Engine) {
 			ArticleRouter.DELETE("/:id", ArticleController.Delete)
 		}
 
+		apiRouter.POST("/file", controller.FileController{}.Upload)
+
 		apiRouter.PUT("/search", controller.SearchController{}.SearchCommonDB)
 	}
 

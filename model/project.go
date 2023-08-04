@@ -14,6 +14,7 @@ type Project struct { //科研项目
 	Region         string    `json:"region" binding:"required"`                          //地区
 	Click          int       `json:"click"`                                              //点击数
 	Download       int       `json:"download"`                                           //下载数
+	Data           int       `json:"data"`
 	CreatedAt      time.Time `json:"createdAt"`
 	UpdatedAt      time.Time `json:"updatedAt"`
 	Category       string    `json:"category" gorm:"-" binding:"required"` // 学科分类
@@ -31,6 +32,7 @@ type ProjectOmitempty struct {
 	Region         string    `json:"region" binding:"omitempty"`
 	Click          int       `json:"click" binding:"omitempty"`
 	Download       int       `json:"download" binding:"omitempty"`
+	Data           int       `json:"data"`
 	CreatedAt      time.Time `json:"createdAt"`
 	UpdatedAt      time.Time `json:"updatedAt"`
 	Category       string    `json:"category" gorm:"-" binding:"omitempty"`
@@ -46,7 +48,7 @@ type ProjectForm struct {
 }
 
 type ProjectList struct {
-	Total int       `json:"total"`
-	List  []Project `json:"list"`
-	// CategoryNumber []int            `json:"categoryNumber"`
+	Total          int       `json:"total"`
+	List           []Project `json:"list"`
+	CategoryNumber [10]int64 `json:"categoryNumber"`
 }

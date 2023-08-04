@@ -11,7 +11,7 @@ type Book struct { //学科图书
 	Publisher string    `json:"publisher" binding:"required"`                  //出版商
 	Time      time.Time `json:"time"  gorm:"type:datetime" binding:"required"` //出版年月
 	Digest    string    `json:"digest" binding:"required"`                     //摘要
-	Text      string    `json:"text" binding:"required"`                       //全文
+	Text      string    `json:"text"`                                          //全文
 	Click     int       `json:"click"`                                         //点击数
 	Download  int       `json:"download"`                                      //下载数
 	CreatedAt time.Time `json:"createdAt"`
@@ -28,7 +28,7 @@ type BookOmitempty struct { //学科图书
 	Publisher string    `json:"publisher" binding:"omitempty"`                 //出版商
 	Time      time.Time `json:"time" gorm:"type:datetime" binding:"omitempty"` //出版年月s
 	Digest    string    `json:"digest" binding:"omitempty"`                    //摘要
-	Text      string    `json:"text" binding:"omitempty"`                      //全文
+	Text      string    `json:"text"`                                          //全文
 	Click     int       `json:"click"`                                         //点击数
 	Download  int       `json:"download"`                                      //下载数
 	CreatedAt time.Time `json:"createdAt"`
@@ -46,7 +46,7 @@ type BookForm struct {
 }
 
 type BookList struct {
-	Total int              `json:"total"`
-	List  []Book `json:"list"`
-	// CategoryNumber []int            `json:"categoryNumber"`
+	Total          int       `json:"total"`
+	List           []Book    `json:"list"`
+	CategoryNumber [10]int64 `json:"categoryNumber"`
 }

@@ -4,7 +4,7 @@ import "time"
 
 type Institute struct { //学位点
 	Id             int       `json:"id"`                                //序号
-	Name           string    `json:"name" binding:"required"`           //学位点名称
+	Name           string    `json:"name" binding:"omitempty"`          //学位点名称
 	University     string    `json:"university" binding:"required"`     //学校
 	College        string    `json:"college" binding:"required"`        //学院
 	Nation         string    `json:"nation" binding:"required"`         //国家
@@ -44,7 +44,7 @@ type InstituteForm struct {
 }
 
 type InstituteList struct {
-	Total int         `json:"total"`
-	List  []Institute `json:"list"`
-	// CategoryNumber []int            `json:"categoryNumber"`
+	Total          int         `json:"total"`
+	List           []Institute `json:"list"`
+	CategoryNumber [10]int64   `json:"categoryNumber"`
 }

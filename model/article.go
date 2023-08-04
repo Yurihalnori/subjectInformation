@@ -13,8 +13,8 @@ type Article struct { //期刊论文
 	Technique    string    `json:"technique" binding:"required"`                   //研究方法
 	KeyWord      string    `json:"keyWord" binding:"required"`                     //关键字
 	Digest       string    `json:"digest" binding:"required"`                      //摘要
-	Data         string    `json:"data" binding:"required"`                        //数据
-	Text         string    `json:"text" binding:"required"`                        //全文
+	Data         string    `json:"data"`                                           //数据
+	Text         string    `json:"text"`                                           //全文
 	Click        int       `json:"click"`                                          //点击数
 	Download     int       `json:"download"`                                       //下载数
 	CreatedAt    time.Time `json:"createdAt"`
@@ -33,8 +33,8 @@ type ArticleOmitempty struct { //期刊论文
 	Technique    string    `json:"technique" binding:"omitempty"`                   //研究方法
 	KeyWord      string    `json:"keyWord" binding:"omitempty"`                     //关键字
 	Digest       string    `json:"digest" binding:"omitempty"`                      //摘要
-	Data         string    `json:"data" binding:"omitempty"`                        //数据
-	Text         string    `json:"text" binding:"omitempty"`                        //全文
+	Data         string    `json:"data"`                                            //数据
+	Text         string    `json:"text"`                                            //全文
 	Click        int       `json:"click"`                                           //点击数
 	Download     int       `json:"download"`                                        //下载数
 	CreatedAt    time.Time `json:"createdAt"`
@@ -52,7 +52,7 @@ type ArticleForm struct {
 }
 
 type ArticleList struct {
-	Total int              `json:"total"`
-	List  []Article `json:"list"`
-	// CategoryNumber []int            `json:"categoryNumber"`
+	Total          int       `json:"total"`
+	List           []Article `json:"list"`
+	CategoryNumber [10]int64 `json:"categoryNumber"`
 }
