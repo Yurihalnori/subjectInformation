@@ -297,15 +297,15 @@ func (SearchService) SearchTeamwork(form model.SearchTeamworkRequest) (res []mod
 		}
 	}
 	JoinUniqueDB += "1=0) "
-	var gradeCondition = "( grade = " + strconv.Itoa(form.Grade) + "OR 6 = " + strconv.Itoa(form.Grade) + " ) "
-	var RawSql = "SELECT teamworks.id,name,grade,sponsor,direction,time,principal" +
+	var gradeCondition = " (( teamworks.grade = " + strconv.Itoa(form.Grade) + ") OR (6 = " + strconv.Itoa(form.Grade) + " )) "
+	var RawSql = "SELECT teamworks.id,name ,grade,direction,sponsor,time,principal,province,city , county,click,download " +
 		" ,MATCH(name) AGAINST (? IN NATURAL LANGUAGE MODE) AS relevance" +
-		" FROM unique_databases" + JoinUniqueDB +
+		" FROM teamworks" + JoinUniqueDB +
 		" WHERE MATCH(name) AGAINST (? IN NATURAL LANGUAGE MODE) AND" +
 		gradeCondition
 	var countSql = "SELECT COUNT(*) as theCount" +
-		" FROM unique_databases" + JoinUniqueDB +
-		" WHERE MATCH(name) AGAINST (? IN NATURAL LANGUAGE MODE)" +
+		" FROM teamworks" + JoinUniqueDB +
+		" WHERE MATCH(name) AGAINST (? IN NATURAL LANGUAGE MODE) AND" +
 		gradeCondition
 	var theCount = 0
 	err = model.DB.Raw(countSql, form.Title).Scan(&theCount).Error

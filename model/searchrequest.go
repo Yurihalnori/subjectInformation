@@ -13,11 +13,11 @@ type SearchCommonDBRequest struct {
 }
 
 type SearchCommonDBPreview struct {
-	Title     string
-	Id        string
-	TableName string
-	Author    string
-	Time      string
+	Title     string `json:"title"`
+	Id        string `json:"id"`
+	TableName string `json:"tableName"`
+	Author    string `json:"author"`
+	Time      string `json:"time"`
 }
 
 type SearchUniqueDBRequest struct {

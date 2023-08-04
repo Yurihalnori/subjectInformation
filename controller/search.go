@@ -128,3 +128,27 @@ func (SearchController) SearchUniqueDB(c *gin.Context) {
 		"total": total,
 	})
 }
+
+func (SearchController) SearchTeamworks(c *gin.Context) {
+	var form model.SearchTeamworkRequest
+	bindErr := c.BindJSON(&form)
+	if bindErr != nil {
+		_ = c.Error(&gin.Error{
+			Err:  bindErr,
+			Type: service.ParamErr,
+		})
+		return
+	}
+	res, total, err := service.SearchService{}.SearchTeamwork(form)
+	if err != nil {
+		_ = c.Error(&gin.Error{
+			Err:  err,
+			Type: service.ParamErr,
+		})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{
+		"list":  res,
+		"total": total,
+	})
+}
