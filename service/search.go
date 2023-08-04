@@ -18,11 +18,11 @@ func orderString(name string, ord string) (sql string) {
 			switch ord {
 			case "increase":
 				{
-					order += "date asc"
+					order += "time asc"
 				}
 			case "decrease":
 				{
-					order += "date desc"
+					order += "time desc"
 				}
 			}
 		case "citation":
