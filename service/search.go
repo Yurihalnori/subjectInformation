@@ -156,7 +156,7 @@ func (SearchService) CountModuleInCommonDB(form model.SearchCommonDBRequest) (bo
 	return
 }
 
-func (SearchService) SearchCommonDBProject(form model.SearchCommonDBRequest) (res []model.SearchCommonDBPreview, total int, err error) {
+func (SearchService) SearchCommonDBProject(form model.SearchCommonDBRequest) (res []model.ProjectRes, total int, err error) {
 	JoinProjects := " INNER JOIN categories ON categories.foreign_key =projects.id AND categories.tablee = 'projects' AND ( "
 	for key, value := range form.Category {
 		if value == 49 { // ascii 1 = 49
@@ -165,9 +165,10 @@ func (SearchService) SearchCommonDBProject(form model.SearchCommonDBRequest) (re
 	}
 	JoinProjects += "1=0) "
 
-	var RawSql = "SELECT title,id,TableName,author,time" +
+	var RawSql = "SELECT title,id,TableName,author,time,classification,sponsor,approval_number,superintendent,organization,click,download" +
 		" FROM (" + " SELECT title,projects.id , projects.superintendent AS author" +
 		",'projects' AS TableName" + ",projects.create_date AS time " +
+		",classification,sponsor,approval_number,superintendent,organization,click,download" +
 		" ,MATCH(title) AGAINST (? IN NATURAL LANGUAGE MODE) AS relevance" +
 		" FROM projects" + JoinProjects +
 		" WHERE MATCH(title) AGAINST (? IN NATURAL LANGUAGE MODE)" +
@@ -190,7 +191,7 @@ func (SearchService) SearchCommonDBProject(form model.SearchCommonDBRequest) (re
 	return
 }
 
-func (SearchService) SearchCommonDBArticle(form model.SearchCommonDBRequest) (res []model.SearchCommonDBPreview, total int, err error) {
+func (SearchService) SearchCommonDBArticle(form model.SearchCommonDBRequest) (res []model.ArticleRes, total int, err error) {
 	JoinArticles := " INNER JOIN categories ON categories.foreign_key = articles.id AND categories.tablee = 'articles' AND ( "
 	for key, value := range form.Category {
 		if value == 49 { // ascii 1 = 49
@@ -199,9 +200,10 @@ func (SearchService) SearchCommonDBArticle(form model.SearchCommonDBRequest) (re
 	}
 	JoinArticles += "1=0) "
 
-	var RawSql = "SELECT title,id,TableName,author,time" +
+	var RawSql = "SELECT title,id,TableName,author,time,nation,periodical,organization,technique,key_word,digest,data,text" +
 		" FROM (" + " SELECT title,articles.id , articles.author" +
 		",'articles' AS TableName" + ",articles.create_date AS time " +
+		" ,nation,periodical,organization,technique,key_word,digest,data,text" +
 		" ,MATCH(title) AGAINST (? IN NATURAL LANGUAGE MODE) AS relevance" +
 		" FROM articles" + JoinArticles +
 		" WHERE MATCH(title) AGAINST (? IN NATURAL LANGUAGE MODE)" +
@@ -224,7 +226,7 @@ func (SearchService) SearchCommonDBArticle(form model.SearchCommonDBRequest) (re
 	return
 }
 
-func (SearchService) SearchCommonDBDissertation(form model.SearchCommonDBRequest) (res []model.SearchCommonDBPreview, total int, err error) {
+func (SearchService) SearchCommonDBDissertation(form model.SearchCommonDBRequest) (res []model.DissertationRes, total int, err error) {
 	JoinDissertations := " INNER JOIN categories ON categories.foreign_key = dissertations.id AND categories.tablee = 'dissertations' AND ( "
 	for key, value := range form.Category {
 		if value == 49 { // ascii 1 = 49
@@ -232,9 +234,10 @@ func (SearchService) SearchCommonDBDissertation(form model.SearchCommonDBRequest
 		}
 	}
 	JoinDissertations += "1=0) "
-	var RawSql = "SELECT title,id,TableName,author,time" +
+	var RawSql = "SELECT title,id,TableName,author,time,province,city,university,college,technique,key_word,digest,data,text,click" +
 		" FROM (" + " SELECT title,dissertations.id , dissertations.author" +
 		",'dissertations' AS TableName" + ",dissertations.date AS time " +
+		", province,city,university,college,technique,key_word,digest,data,text,click" +
 		" ,MATCH(title) AGAINST (? IN NATURAL LANGUAGE MODE) AS relevance" +
 		" FROM dissertations" + JoinDissertations +
 		" WHERE MATCH(title) AGAINST (? IN NATURAL LANGUAGE MODE)" +
@@ -257,7 +260,7 @@ func (SearchService) SearchCommonDBDissertation(form model.SearchCommonDBRequest
 	return
 }
 
-func (SearchService) SearchCommonDBBook(form model.SearchCommonDBRequest) (res []model.SearchCommonDBPreview, total int, err error) {
+func (SearchService) SearchCommonDBBook(form model.SearchCommonDBRequest) (res []model.BookRes, total int, err error) {
 	JoinBooks := " INNER JOIN categories ON categories.foreign_key = books.id AND categories.tablee = 'books' AND ( "
 	for key, value := range form.Category {
 		if value == 49 { // ascii 1 = 49
@@ -265,9 +268,10 @@ func (SearchService) SearchCommonDBBook(form model.SearchCommonDBRequest) (res [
 		}
 	}
 	JoinBooks += "1=0) "
-	var RawSql = "SELECT title,id,TableName,author,time" +
+	var RawSql = "SELECT title,id,TableName,author,time,nation,language,publisher,digest,text,click,download" +
 		" FROM (" + " SELECT title,books.id , books.author" +
 		",'books' AS TableName" + ",time" +
+		", nation,language,publisher,digest,text,click,download " +
 		" ,MATCH(title) AGAINST (? IN NATURAL LANGUAGE MODE) AS relevance" +
 		" FROM books" + JoinBooks +
 		" WHERE MATCH(title) AGAINST (? IN NATURAL LANGUAGE MODE)" +

@@ -46,7 +46,21 @@ type BookForm struct {
 }
 
 type BookList struct {
-	Total int              `json:"total"`
+	Total int    `json:"total"`
 	List  []Book `json:"list"`
 	// CategoryNumber []int            `json:"categoryNumber"`
+}
+
+type BookRes struct {
+	Id        int       `json:"id"`                                            //序号
+	Title     string    `json:"name" binding:"required"`                       //图书名称
+	Nation    string    `json:"nation" binding:"required"`                     //国家
+	Language  string    `json:"language" binding:"required"`                   //语言
+	Author    string    `json:"author" binding:"required"`                     //作者
+	Publisher string    `json:"publisher" binding:"required"`                  //出版商
+	Time      time.Time `json:"time"  gorm:"type:datetime" binding:"required"` //出版年月
+	Digest    string    `json:"digest" binding:"required"`                     //摘要
+	Text      string    `json:"text" binding:"required"`                       //全文
+	Click     int       `json:"click"`                                         //点击数
+	Download  int       `json:"download"`                                      //下载数
 }
