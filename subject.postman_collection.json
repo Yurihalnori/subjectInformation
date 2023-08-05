@@ -19,7 +19,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"page\":1,\r\n    \"limit\":10,\r\n    \"field\":\"id\",\r\n    \"order\":\"asc\"\r\n}",
+							"raw": "{\r\n    \"page\":1,\r\n    \"limit\":10,\r\n    \"field\":\"name\",\r\n    \"order\":\"asc\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -72,7 +72,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"total\":1,\r\n    \"list\":[{\r\n        \"category\":\"1011011001\",\r\n        \"name\":\"fauihfaw\",\r\n        \"trimmer\":\"agwreua\",\r\n        \"introduction\":\"fahifbnwjnf\",\r\n        \"keyWord\":\"2131\",\r\n        \"attachment\":\"123\"\r\n    }]\r\n}",
+							"raw": "{\r\n    \"total\":1,\r\n    \"list\":[{\r\n        \"category\":\"1111011111\",\r\n        \"name\":\"fauihfaw\",\r\n        \"trimmer\":\"agwreua\",\r\n        \"introduction\":\"fahifbnwjnf\",\r\n        \"keyWord\":\"2131\",\r\n        \"attachment\":\"123\"\r\n    }]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -127,7 +127,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "20"
+									"value": "2"
 								}
 							]
 						}
@@ -139,6 +139,10 @@
 					"request": {
 						"method": "DELETE",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"url": {
 							"raw": "127.0.0.1:8080/api/uniqueDatabase/:id",
 							"host": [
@@ -156,7 +160,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "50"
+									"value": "2"
 								}
 							]
 						}
@@ -209,7 +213,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"total\":1,\r\n    \"list\":[\r\n        {\r\n        \"name\":\"name\",\r\n        \"grade\":\"3\",\r\n        \"direction\":\"horizontal\",\r\n        \"sponsor\":\"Trump\",\r\n        \"number\":\"114514\",\r\n        \"time\":\"1145.1.4\",\r\n        \"principal\":\"homo\",\r\n        \"member\":\"1,23,456\",\r\n        \"Province\":\"37\",\r\n        \"city\":\"07\",\r\n        \"county\":\"04\",\r\n        \"picture\":\"http://\",\r\n        \"Achievement\":\"http://\",\r\n        \"category\":\"0000000000\"\r\n    }\r\n    ]\r\n}",
+							"raw": "{\r\n    \"total\":1,\r\n    \"list\":[\r\n        {\r\n        \"name\":\"name\",\r\n        \"grade\":\"3\",\r\n        \"direction\":\"horizontal\",\r\n        \"sponsor\":\"Trump\",\r\n        \"number\":\"114514\",\r\n        \"time\":\"1145.1.4\",\r\n        \"principal\":\"homo\",\r\n        \"member\":\"1,23,456\",\r\n        \"Province\":\"37\",\r\n        \"city\":\"07\",\r\n        \"county\":\"04\",\r\n        \"picture\":\"http://\",\r\n        \"Achievement\":\"http://\",\r\n        \"category\":\"1110011100\"\r\n    }\r\n    ]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -264,7 +268,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "1"
+									"value": "2"
 								}
 							]
 						}
@@ -293,7 +297,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "1"
+									"value": "2"
 								}
 							]
 						}
@@ -358,7 +362,7 @@
 									}
 								},
 								"url": {
-									"raw": "127.0.0.1:8080/api/commonDatabase/project/",
+									"raw": "127.0.0.1:8080/api/commonDatabase/project",
 									"host": [
 										"127",
 										"0",
@@ -369,8 +373,7 @@
 									"path": [
 										"api",
 										"commonDatabase",
-										"project",
-										""
+										"project"
 									]
 								}
 							},
@@ -383,7 +386,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"title\":\"123456\",\r\n    \"category\":\"1111111111\",\r\n    \"superintendent\":\"abc\"\r\n}",
+									"raw": "{\r\n    \"title\":\"123456\",\r\n    \"category\":\"1111000111\",\r\n    \"superintendent\":\"abc\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -408,7 +411,7 @@
 									"variable": [
 										{
 											"key": "id",
-											"value": "25"
+											"value": "2"
 										}
 									]
 								}
@@ -438,7 +441,7 @@
 									"variable": [
 										{
 											"key": "id",
-											"value": "25"
+											"value": "2"
 										}
 									]
 								}
@@ -633,7 +636,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"total\":1,\r\n    \"list\":[{\r\n        \"name\":\"reo\",\r\n        \"nation\":\"China\",\r\n        \"language\":\"chinese\",\r\n        \"author\":\"Trump\",\r\n        \"publisher\":\"123\",\r\n        \"time\":\"2023-08-01T15:30:45+00:00\",\r\n        \"digest\":\"123\",\r\n        \"text\":\"text\",\r\n        \"category\":\"1111111111\"\r\n    }]\r\n}",
+									"raw": "{\r\n    \"total\":1,\r\n    \"list\":[{\r\n        \"name\":\"reo\",\r\n        \"nation\":\"China\",\r\n        \"language\":\"chinese\",\r\n        \"author\":\"Trump\",\r\n        \"publisher\":\"123\",\r\n        \"time\":\"2023-08-01T15:30:45+00:00\",\r\n        \"digest\":\"123\",\r\n        \"text\":\"text\",\r\n        \"category\":\"1101110001\"\r\n    }]\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -690,7 +693,7 @@
 									"variable": [
 										{
 											"key": "id",
-											"value": "17"
+											"value": "1"
 										}
 									]
 								}
@@ -861,7 +864,7 @@
 									"variable": [
 										{
 											"key": "id",
-											"value": null
+											"value": "2"
 										}
 									]
 								}
@@ -1010,6 +1013,147 @@
 							"response": []
 						}
 					]
+				},
+				{
+					"name": "导师",
+					"item": [
+						{
+							"name": "获取条目",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"page\":1,\r\n    \"limit\":10,\r\n    \"field\":\"id\",\r\n    \"order\":\"desc\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "127.0.0.1:8080/api/commonDatabase/tutor",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"commonDatabase",
+										"tutor"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "添加条目",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"total\":1,\r\n    \"list\":[\r\n        {\r\n            \"name\":\"Trump\",\r\n            \"university\":\"xjtu\",\r\n            \"college\":\"e a p\",\r\n            \"nation\":\"China\",\r\n            \"province\":\"sd\",\r\n            \"city\":\"wf\",\r\n            \"direction\":\"xxx\",\r\n            \"title\":\"教授\",\r\n            \"contact\":\"xxx@xjtu.edu.cn\",\r\n            \"classification\":\"博导/硕导\",\r\n            \"category\":\"1101101100\"\r\n        }\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "127.0.0.1:8080/api/commonDatabase/tutor",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"commonDatabase",
+										"tutor"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "修改条目",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\":\"trump\",\r\n    \"category\":\"0000111101\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "127.0.0.1:8080/api/commonDatabase/tutor/:id",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"commonDatabase",
+										"tutor",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "删除条目",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "127.0.0.1:8080/api/commonDatabase/tutor/:id",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"commonDatabase",
+										"tutor",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				}
 			]
 		},
@@ -1109,7 +1253,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "127.0.0.1:8080/api/user/23",
+							"raw": "127.0.0.1:8080/api/user",
 							"host": [
 								"127",
 								"0",
@@ -1119,8 +1263,7 @@
 							"port": "8080",
 							"path": [
 								"api",
-								"user",
-								"23"
+								"user"
 							]
 						}
 					},
@@ -1133,7 +1276,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"userId\":10,\r\n    \"role\":1\r\n}",
+							"raw": "{\r\n    \"userId\":1,\r\n    \"role\":1\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1170,7 +1313,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"total\":1,\r\n    \"list\":[\r\n        {\r\n        \"title\":\"关于举办2023年西安交通大学大学生数学建模竞赛校赛的通知\",\r\n        \"category\":\"1111100011\",\r\n        \"module\": 3,\r\n        \"region\":2,\r\n        \"department\":\"挑战网\",\r\n        \"date\":\"2023-06-01\",\r\n        \"content\":\"各学院（部、中心)、各参赛队伍：全国大学生数学建模竞赛创办于1992年，是首批列入“高校学科竞赛排行榜”的19项竞赛之一，目前已成为全国高校规模最大的基础性学科竞赛，对于培养学生的实践创新能力有重要意义。报名参加本年度数模竞赛校赛的队伍已达725支，参赛人数首次超过2000人，拟通过校赛初步选拔220-260支队伍，并结合参加培训情况与指导教师评价进行进一步遴选。具体查看实践教学中心通知：http://pec.xjtu.edu.cn/info/1191/3681.htm实践教学中心2023年6月20日\" \r\n        },\r\n        {\r\n        \"title\":\"关于领取2023年全国大学生英语竞赛获奖证书的通知\",\r\n        \"category\":\"1110100011\",\r\n        \"module\": 3,\r\n        \"region\":2,\r\n        \"department\":\"挑战网\",\r\n        \"date\":\"2023-06-03\",\r\n        \"content\":\"在2023年全国大学生英语竞赛中，我校共有175人获奖，其中特等奖9人，一等奖3人，二等奖61人，三等奖102人（获奖名单详见附件）。请获奖学生携带学生证于7月7日前到兴庆校区外文楼A座101办公室领取获奖证书外国语学院  2023年6月25日\" \r\n        },\r\n        {\r\n        \"title\":\"2023年9月全国计算机等级考试报名通知\",\r\n        \"category\":\"1010100011\",\r\n        \"module\": 3,\r\n        \"region\":2,\r\n        \"department\":\"挑战网\",\r\n        \"date\":\"2023-06-05\",\r\n        \"content\":\"2023年9月全国计算机等级考试报名通知信息来源： 发布日期: 2023-06-25浏览次数: 667请相互转告、并转发此通知。一、西安交大考点所有“全国计算机等级考试”相关通知，将由公众号推送，敬请关注：计算机教学实验中心XJTU二、此次考试西安交大考点仅接收本校学生报名，本校考生在网上进行报名时，如无法在报名系统看见“西安交通大学”考点，请考生将考生信息发至考点邮箱ctec@mail.xjtu.edu.cn。考生信息加入考生数据库后，考生才可以进入报名系统进行报名。考点将考生信息加入考试数据库需要1个工作日。\" \r\n        }\r\n    ]\r\n}",
+							"raw": "{\r\n    \"total\":1,\r\n    \"list\":[\r\n        {\r\n        \"title\":\"关于举办2023年西安交通大学大学生数学建模竞赛校赛的通知\",\r\n        \"category\":\"1111100011\",\r\n        \"module\": 3,\r\n        \"region\":2,\r\n        \"department\":\"挑战网\",\r\n        \"date\":\"2023-08-01T15:30:45+00:00\",\r\n        \"content\":\"各学院（部、中心)、各参赛队伍：全国大学生数学建模竞赛创办于1992年，是首批列入“高校学科竞赛排行榜”的19项竞赛之一，目前已成为全国高校规模最大的基础性学科竞赛，对于培养学生的实践创新能力有重要意义。报名参加本年度数模竞赛校赛的队伍已达725支，参赛人数首次超过2000人，拟通过校赛初步选拔220-260支队伍，并结合参加培训情况与指导教师评价进行进一步遴选。具体查看实践教学中心通知：http://pec.xjtu.edu.cn/info/1191/3681.htm实践教学中心2023年6月20日\" \r\n        }\r\n    ]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1210,7 +1353,7 @@
 							}
 						},
 						"url": {
-							"raw": "127.0.0.1:8080/api/news/3",
+							"raw": "127.0.0.1:8080/api/news/4",
 							"host": [
 								"127",
 								"0",
@@ -1221,7 +1364,7 @@
 							"path": [
 								"api",
 								"news",
-								"3"
+								"4"
 							]
 						}
 					},
@@ -1234,7 +1377,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"content\":\"学生\",\r\n    \"category\":\"1111001000\",\r\n    \"page\":1,\r\n    \"limit\":1,\r\n    \"module\":3,\r\n    \"name\":\"time\",\r\n    \"order\":\"decrease\"\r\n}",
+							"raw": "{\r\n    \"content\":\"学生\",\r\n    \"category\":\"1111100011\",\r\n    \"page\":1,\r\n    \"limit\":1,\r\n    \"module\":4,\r\n    \"name\":\"time\",\r\n    \"order\":\"decrease\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1288,7 +1431,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "127.0.0.1:8080/api/news/2",
+							"raw": "127.0.0.1:8080/api/news/2?limit=20&category=1001100111&name=popularity&order=decrease",
 							"host": [
 								"127",
 								"0",
@@ -1302,59 +1445,6 @@
 								"2"
 							],
 							"query": [
-								{
-									"key": "limit",
-									"value": "20",
-									"disabled": true
-								},
-								{
-									"key": "category",
-									"value": "1001100111",
-									"disabled": true
-								},
-								{
-									"key": "name",
-									"value": "popularity",
-									"disabled": true
-								},
-								{
-									"key": "order",
-									"value": "decrease",
-									"disabled": true
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "获取学界资讯",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "127.0.0.1:8080/api/news/?module=4&page=1&limit=20&category=1001100111&name=popularity&order=decrease",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"news",
-								""
-							],
-							"query": [
-								{
-									"key": "module",
-									"value": "4"
-								},
-								{
-									"key": "page",
-									"value": "1"
-								},
 								{
 									"key": "limit",
 									"value": "20"
@@ -1375,6 +1465,57 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "获取学界资讯",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:8080/api/news/?module=2&page=1&limit=11&category=1000000000",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"news",
+								""
+							],
+							"query": [
+								{
+									"key": "module",
+									"value": "2"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "11"
+								},
+								{
+									"key": "category",
+									"value": "1000000000"
+								},
+								{
+									"key": "name",
+									"value": "popularity",
+									"disabled": true
+								},
+								{
+									"key": "order",
+									"value": "decrease",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -1385,7 +1526,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"module\":5,\r\n    \"title\":\"123\",\r\n    \"category\":\"1111111111\",\r\n    \"page\":1,\r\n    \"limit\":10\r\n}",
+					"raw": "{\r\n    \"module\":5,\r\n    \"title\":\"fa\",\r\n    \"category\":\"1111111111\",\r\n    \"page\":1,\r\n    \"limit\":10\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -1411,6 +1552,38 @@
 							"value": null,
 							"disabled": true
 						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "文件上传",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/C:/Users/14277/Desktop/游戏/明日方舟/kaltist.jpg"
+						}
+					]
+				},
+				"url": {
+					"raw": "127.0.0.1:8080/api/file",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"file"
 					]
 				}
 			},
