@@ -13,7 +13,7 @@ type News struct { //学界咨询
 	Region     uint      `json:"region"`                             //domestic|foreign
 	CreatedAt  time.Time `json:"createdAt"`
 	UpdatedAt  time.Time `json:"updatedAt"`
-	Category   string    `json:"category" gorm:"type:varchar(64)" binding:"required,len=10"` // 学科分类
+	Category   string    `json:"category" gorm:"type:varchar(64)" binding:"category"` // 学科分类
 }
 
 type NewsEditRequest struct { //学界咨询
@@ -32,9 +32,9 @@ type NewsEditRequest struct { //学界咨询
 
 type GetSomeNews struct {
 	Module   int    `form:"module" json:"module" binding:"required,oneof=1 2 3 4 5"`
-	Page     int    `form:"page" json:"page" binding:"required"`
-	Limit    int    `form:"limit" json:"limit" binding:"required"`
-	Category string `form:"category" json:"category" binding:"required,len=10" `
+	Page     int    `form:"page" json:"page" binding:"numeric"`
+	Limit    int    `form:"limit" json:"limit" binding:"numeric"`
+	Category string `form:"category" json:"category" binding:"category" `
 	Name     string `form:"name" json:"name"`
 	Order    string `form:"order" json:"order"`
 }
@@ -69,10 +69,10 @@ type NewsDetail struct {
 
 type NewsSearchRequest struct {
 	Content  string `json:"content" binding:"required"`
-	Module   uint   `json:"Module" binding:"required,oneof=1 2 3 4 5""`
+	Module   uint   `json:"module" binding:"required,oneof=1 2 3 4 5"`
 	Name     string `json:"name"`
 	Order    string `json:"order"`
-	Page     int    `form:"page" json:"page" binding:"required"`
-	Limit    int    `form:"limit" json:"limit" binding:"required"`
-	Category string `form:"category" json:"category" binding:"required,len=10"`
+	Page     int    `form:"page" json:"page" binding:"numeric"`
+	Limit    int    `form:"limit" json:"limit" binding:"numeric"`
+	Category string `form:"category" json:"category" binding:"category"`
 }

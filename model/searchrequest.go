@@ -4,17 +4,17 @@ import "time"
 
 type SearchCommonDBRequest struct {
 	Title    string `json:"title"`
-	Category string `json:"category" binding:"required"`
-	Module   int    `json:"module" binding:"required"`
-	Page     int    `json:"page" binding:"required"`
-	Limit    int    `json:"limit" binding:"required"`
+	Category string `json:"category" binding:"category"`
+	Module   int    `json:"module" binding:"required,oneof=1 2 3 4 5"`
+	Page     int    `json:"page" binding:"numeric"`
+	Limit    int    `json:"limit" binding:"numeric"`
 	Name     string `json:"name"`
 	Order    string `json:"order"`
 }
 
 type SearchCommonDBPreview struct {
 	Title     string `json:"title"`
-	Id        string `json:"id"`
+	Id        int    `json:"id"`
 	TableName string `json:"tableName"`
 	Author    string `json:"author"`
 	Time      string `json:"time"`
@@ -22,9 +22,9 @@ type SearchCommonDBPreview struct {
 
 type SearchUniqueDBRequest struct {
 	Title    string `json:"title" binding:"required"`
-	Category string `json:"category" binding:"required"`
-	Page     int    `json:"page" binding:"required"`
-	Limit    int    `json:"limit" binding:"required"`
+	Category string `json:"category" binding:"category"`
+	Page     int    `json:"page" binding:"numeric"`
+	Limit    int    `json:"limit" binding:"numeric"`
 	Name     string `json:"name"`
 	Order    string `json:"order"`
 }
@@ -40,9 +40,9 @@ type SearchUniqueDBPreview struct {
 
 type SearchTeamworkRequest struct {
 	Title    string `json:"title" binding:"required"`
-	Category string `json:"category" binding:"required"`
-	Page     int    `json:"page" binding:"required"`
-	Limit    int    `json:"limit" binding:"required"`
+	Category string `json:"category" binding:"category"`
+	Page     int    `json:"page" binding:"numeric"`
+	Limit    int    `json:"limit" binding:"numeric"`
 	Name     string `json:"name"`
 	Order    string `json:"order"`
 	Grade    int    `json:"grade"`
