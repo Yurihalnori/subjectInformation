@@ -20,16 +20,13 @@ func (SearchController) SearchCommonDB(c *gin.Context) {
 		})
 		return
 	}
-	var res []model.SearchCommonDBPreview
-	var err error
-	var total = 0
 	switch form.Module {
 	case 5:
 		var dissertationCount = 0
 		var bookCount = 0
 		var projectCount = 0
 		var articleCount = 0
-		res, err = service.SearchService{}.SearchInCommonDB(form)
+		res, err := service.SearchService{}.SearchInCommonDB(form)
 		if err != nil {
 			_ = c.Error(&gin.Error{
 				Err:  err,
@@ -54,14 +51,71 @@ func (SearchController) SearchCommonDB(c *gin.Context) {
 		})
 		return
 	case 1:
-		res, total, err = service.SearchService{}.SearchCommonDBProject(form)
+		res, total, err := service.SearchService{}.SearchCommonDBProject(form)
+		if err != nil {
+			_ = c.Error(&gin.Error{
+				Err:  err,
+				Type: service.ParamErr,
+			})
+			return
+		}
+		c.JSON(http.StatusOK, gin.H{
+			"list":  res,
+			"total": total,
+		})
 	case 2:
-		res, total, err = service.SearchService{}.SearchCommonDBBook(form)
+		res, total, err := service.SearchService{}.SearchCommonDBBook(form)
+		if err != nil {
+			_ = c.Error(&gin.Error{
+				Err:  err,
+				Type: service.ParamErr,
+			})
+			return
+		}
+		c.JSON(http.StatusOK, gin.H{
+			"list":  res,
+			"total": total,
+		})
 	case 3:
-		res, total, err = service.SearchService{}.SearchCommonDBDissertation(form)
+		res, total, err := service.SearchService{}.SearchCommonDBDissertation(form)
+		if err != nil {
+			_ = c.Error(&gin.Error{
+				Err:  err,
+				Type: service.ParamErr,
+			})
+			return
+		}
+		c.JSON(http.StatusOK, gin.H{
+			"list":  res,
+			"total": total,
+		})
 	case 4:
-		res, total, err = service.SearchService{}.SearchCommonDBArticle(form)
+		res, total, err := service.SearchService{}.SearchCommonDBArticle(form)
+		if err != nil {
+			_ = c.Error(&gin.Error{
+				Err:  err,
+				Type: service.ParamErr,
+			})
+			return
+		}
+		c.JSON(http.StatusOK, gin.H{
+			"list":  res,
+			"total": total,
+		})
 	}
+}
+
+func (SearchController) SearchUniqueDB(c *gin.Context) {
+	var form model.SearchUniqueDBRequest
+	bindErr := c.BindJSON(&form)
+	if bindErr != nil {
+		_ = c.Error(&gin.Error{
+			Err:  bindErr,
+			Type: service.ParamErr,
+		})
+		return
+	}
+	res, total, err := service.SearchService{}.SearchUniqueDB(form)
 	if err != nil {
 		_ = c.Error(&gin.Error{
 			Err:  err,
@@ -75,6 +129,26 @@ func (SearchController) SearchCommonDB(c *gin.Context) {
 	})
 }
 
-func (SearchController) SearchUniqueDB(c *gin.Context) {
-
+func (SearchController) SearchTeamworks(c *gin.Context) {
+	var form model.SearchTeamworkRequest
+	bindErr := c.BindJSON(&form)
+	if bindErr != nil {
+		_ = c.Error(&gin.Error{
+			Err:  bindErr,
+			Type: service.ParamErr,
+		})
+		return
+	}
+	res, total, err := service.SearchService{}.SearchTeamwork(form)
+	if err != nil {
+		_ = c.Error(&gin.Error{
+			Err:  err,
+			Type: service.ParamErr,
+		})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{
+		"list":  res,
+		"total": total,
+	})
 }

@@ -106,6 +106,8 @@ func InitRouter(r *gin.Engine) {
 
 		apiRouter.POST("/file", controller.FileController{}.Upload)
 		apiRouter.PUT("/commonDatabase/search", controller.SearchController{}.SearchCommonDB)
+		apiRouter.PUT("/uniqueDatabase/search", controller.SearchController{}.SearchUniqueDB)
+		apiRouter.PUT("/teamwork/search", controller.SearchController{}.SearchTeamworks)
 	}
 
 }

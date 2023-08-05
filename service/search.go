@@ -66,29 +66,29 @@ func (SearchService) SearchInCommonDB(form model.SearchCommonDBRequest) (res []m
 		"SELECT " +
 		"'articles' AS TableName, " + "articles.title, " +
 		"articles.id, " + "articles.author, " + "articles.create_date AS time " +
-		" ,MATCH(articles.title) AGAINST (? IN BOOLEAN MODE) AS relevance " +
+		" ,MATCH(articles.title) AGAINST (? IN NATURAL LANGUAGE MODE) AS relevance " +
 		"FROM articles " + JoinArticles +
-		"WHERE MATCH(articles.title) AGAINST (? IN BOOLEAN MODE) " +
+		"WHERE MATCH(articles.title) AGAINST (? IN NATURAL LANGUAGE MODE) " +
 		"UNION ALL " +
 		"SELECT " +
 		"'books' AS TableName, " + "books.title, " + "books.id, " +
 		"books.author, " + "books.time " +
-		" ,MATCH(books.title) AGAINST (? IN BOOLEAN MODE) AS relevance " +
+		" ,MATCH(books.title) AGAINST (? IN NATURAL LANGUAGE MODE) AS relevance " +
 		"FROM books " + JoinBooks +
-		"WHERE MATCH(books.title) AGAINST (? IN BOOLEAN MODE) " +
+		"WHERE MATCH(books.title) AGAINST (? IN NATURAL LANGUAGE MODE) " +
 		"UNION ALL " + "SELECT " +
 		"'dissertations' AS TableName, " + "dissertations.title, " + "dissertations.id, " +
 		"dissertations.author, " + "dissertations.date AS time " +
-		" ,MATCH(dissertations.title) AGAINST (? IN BOOLEAN MODE) AS relevance " +
+		" ,MATCH(dissertations.title) AGAINST (? IN NATURAL LANGUAGE MODE) AS relevance " +
 		"FROM dissertations " + JoinDissertations +
-		"WHERE MATCH(dissertations.title) AGAINST (? IN BOOLEAN MODE) " +
+		"WHERE MATCH(dissertations.title) AGAINST (? IN NATURAL LANGUAGE MODE) " +
 		"UNION ALL " +
 		"SELECT " +
 		"'projects' AS TableName, " + "projects.title, " + "projects.id, " +
 		"superintendent AS author, " + "projects.create_date AS time " +
-		" ,MATCH(projects.title) AGAINST (? IN BOOLEAN MODE) AS relevance " +
+		" ,MATCH(projects.title) AGAINST (? IN NATURAL LANGUAGE MODE) AS relevance " +
 		"FROM projects " + JoinProjects +
-		"WHERE MATCH(projects.title) AGAINST (? IN BOOLEAN MODE) " +
+		"WHERE MATCH(projects.title) AGAINST (? IN NATURAL LANGUAGE MODE) " +
 		") AS r"
 
 	rawSql += orderString(form.Name, form.Order)
@@ -122,19 +122,19 @@ func (SearchService) CountModuleInCommonDB(form model.SearchCommonDBRequest) (bo
 	var rawSql = "SELECT " +
 		"'articles' AS TableName, COUNT(*) AS COUNT " +
 		"FROM articles " + JoinArticles +
-		"WHERE MATCH(articles.title) AGAINST (? IN BOOLEAN MODE) " +
+		"WHERE MATCH(articles.title) AGAINST (? IN NATURAL LANGUAGE MODE) " +
 		"UNION ALL " + "SELECT " +
 		"'books' AS TableName, COUNT(*) AS COUNT " +
 		"FROM books " + JoinBooks +
-		"WHERE MATCH(books.title) AGAINST (? IN BOOLEAN MODE) " +
+		"WHERE MATCH(books.title) AGAINST (? IN NATURAL LANGUAGE MODE) " +
 		"UNION ALL " + "SELECT " +
 		"'dissertations' AS TableName, COUNT(*) AS COUNT " +
 		"FROM dissertations " + JoinDissertations +
-		"WHERE MATCH(dissertations.title) AGAINST (? IN BOOLEAN MODE) " +
+		"WHERE MATCH(dissertations.title) AGAINST (? IN NATURAL LANGUAGE MODE) " +
 		"UNION ALL " + "SELECT " +
 		"'projects' AS TableName,  COUNT(*) AS COUNT " +
 		"FROM projects " + JoinProjects +
-		"WHERE MATCH(projects.title) AGAINST (? IN BOOLEAN MODE);"
+		"WHERE MATCH(projects.title) AGAINST (? IN NATURAL LANGUAGE MODE);"
 	type CommonDBModuleCounts struct {
 		TableName string
 		COUNT     int
@@ -156,7 +156,7 @@ func (SearchService) CountModuleInCommonDB(form model.SearchCommonDBRequest) (bo
 	return
 }
 
-func (SearchService) SearchCommonDBProject(form model.SearchCommonDBRequest) (res []model.SearchCommonDBPreview, total int, err error) {
+func (SearchService) SearchCommonDBProject(form model.SearchCommonDBRequest) (res []model.ProjectRes, total int, err error) {
 	JoinProjects := " INNER JOIN categories ON categories.foreign_key =projects.id AND categories.tablee = 'projects' AND ( "
 	for key, value := range form.Category {
 		if value == 49 { // ascii 1 = 49
@@ -165,17 +165,18 @@ func (SearchService) SearchCommonDBProject(form model.SearchCommonDBRequest) (re
 	}
 	JoinProjects += "1=0) "
 
-	var RawSql = "SELECT title,id,TableName,author,time" +
+	var RawSql = "SELECT title,id,TableName,author,time,classification,sponsor,approval_number,superintendent,organization,click,download" +
 		" FROM (" + " SELECT title,projects.id , projects.superintendent AS author" +
 		",'projects' AS TableName" + ",projects.create_date AS time " +
-		" ,MATCH(title) AGAINST (? IN BOOLEAN MODE) AS relevance" +
+		",classification,sponsor,approval_number,superintendent,organization,click,download" +
+		" ,MATCH(title) AGAINST (? IN NATURAL LANGUAGE MODE) AS relevance" +
 		" FROM projects" + JoinProjects +
-		" WHERE MATCH(title) AGAINST (? IN BOOLEAN MODE)" +
+		" WHERE MATCH(title) AGAINST (? IN NATURAL LANGUAGE MODE)" +
 		") AS results"
 
 	var countSql = "SELECT COUNT(*) as theCount" +
 		" FROM projects" + JoinProjects +
-		" WHERE MATCH(title) AGAINST (? IN BOOLEAN MODE)"
+		" WHERE MATCH(title) AGAINST (? IN NATURAL LANGUAGE MODE)"
 
 	var theCount = 0
 	err = model.DB.Raw(countSql, form.Title).Scan(&theCount).Error
@@ -190,7 +191,7 @@ func (SearchService) SearchCommonDBProject(form model.SearchCommonDBRequest) (re
 	return
 }
 
-func (SearchService) SearchCommonDBArticle(form model.SearchCommonDBRequest) (res []model.SearchCommonDBPreview, total int, err error) {
+func (SearchService) SearchCommonDBArticle(form model.SearchCommonDBRequest) (res []model.ArticleRes, total int, err error) {
 	JoinArticles := " INNER JOIN categories ON categories.foreign_key = articles.id AND categories.tablee = 'articles' AND ( "
 	for key, value := range form.Category {
 		if value == 49 { // ascii 1 = 49
@@ -199,17 +200,18 @@ func (SearchService) SearchCommonDBArticle(form model.SearchCommonDBRequest) (re
 	}
 	JoinArticles += "1=0) "
 
-	var RawSql = "SELECT title,id,TableName,author,time" +
+	var RawSql = "SELECT title,id,TableName,author,time,nation,periodical,organization,technique,key_word,digest,data,text" +
 		" FROM (" + " SELECT title,articles.id , articles.author" +
 		",'articles' AS TableName" + ",articles.create_date AS time " +
-		" ,MATCH(title) AGAINST (? IN BOOLEAN MODE) AS relevance" +
+		" ,nation,periodical,organization,technique,key_word,digest,data,text" +
+		" ,MATCH(title) AGAINST (? IN NATURAL LANGUAGE MODE) AS relevance" +
 		" FROM articles" + JoinArticles +
-		" WHERE MATCH(title) AGAINST (? IN BOOLEAN MODE)" +
+		" WHERE MATCH(title) AGAINST (? IN NATURAL LANGUAGE MODE)" +
 		") AS results"
 
 	var countSql = "SELECT COUNT(*) as theCount" +
 		" FROM articles" + JoinArticles +
-		" WHERE MATCH(title) AGAINST (? IN BOOLEAN MODE)"
+		" WHERE MATCH(title) AGAINST (? IN NATURAL LANGUAGE MODE)"
 	var theCount = 0
 	err = model.DB.Raw(countSql, form.Title).Scan(&theCount).Error
 	total = theCount
@@ -224,7 +226,7 @@ func (SearchService) SearchCommonDBArticle(form model.SearchCommonDBRequest) (re
 	return
 }
 
-func (SearchService) SearchCommonDBDissertation(form model.SearchCommonDBRequest) (res []model.SearchCommonDBPreview, total int, err error) {
+func (SearchService) SearchCommonDBDissertation(form model.SearchCommonDBRequest) (res []model.DissertationRes, total int, err error) {
 	JoinDissertations := " INNER JOIN categories ON categories.foreign_key = dissertations.id AND categories.tablee = 'dissertations' AND ( "
 	for key, value := range form.Category {
 		if value == 49 { // ascii 1 = 49
@@ -232,16 +234,17 @@ func (SearchService) SearchCommonDBDissertation(form model.SearchCommonDBRequest
 		}
 	}
 	JoinDissertations += "1=0) "
-	var RawSql = "SELECT title,id,TableName,author,time" +
+	var RawSql = "SELECT title,id,TableName,author,time,province,city,university,college,technique,key_word,digest,data,text,click" +
 		" FROM (" + " SELECT title,dissertations.id , dissertations.author" +
 		",'dissertations' AS TableName" + ",dissertations.date AS time " +
-		" ,MATCH(title) AGAINST (? IN BOOLEAN MODE) AS relevance" +
+		", province,city,university,college,technique,key_word,digest,data,text,click" +
+		" ,MATCH(title) AGAINST (? IN NATURAL LANGUAGE MODE) AS relevance" +
 		" FROM dissertations" + JoinDissertations +
-		" WHERE MATCH(title) AGAINST (? IN BOOLEAN MODE)" +
+		" WHERE MATCH(title) AGAINST (? IN NATURAL LANGUAGE MODE)" +
 		") AS results"
 	var countSql = "SELECT COUNT(*) as theCount" +
 		" FROM dissertations" + JoinDissertations +
-		" WHERE MATCH(title) AGAINST (? IN BOOLEAN MODE)"
+		" WHERE MATCH(title) AGAINST (? IN NATURAL LANGUAGE MODE)"
 
 	var theCount = 0
 	err = model.DB.Raw(countSql, form.Title).Scan(&theCount).Error
@@ -257,7 +260,7 @@ func (SearchService) SearchCommonDBDissertation(form model.SearchCommonDBRequest
 	return
 }
 
-func (SearchService) SearchCommonDBBook(form model.SearchCommonDBRequest) (res []model.SearchCommonDBPreview, total int, err error) {
+func (SearchService) SearchCommonDBBook(form model.SearchCommonDBRequest) (res []model.BookRes, total int, err error) {
 	JoinBooks := " INNER JOIN categories ON categories.foreign_key = books.id AND categories.tablee = 'books' AND ( "
 	for key, value := range form.Category {
 		if value == 49 { // ascii 1 = 49
@@ -265,16 +268,17 @@ func (SearchService) SearchCommonDBBook(form model.SearchCommonDBRequest) (res [
 		}
 	}
 	JoinBooks += "1=0) "
-	var RawSql = "SELECT title,id,TableName,author,time" +
+	var RawSql = "SELECT title,id,TableName,author,time,nation,language,publisher,digest,text,click,download" +
 		" FROM (" + " SELECT title,books.id , books.author" +
 		",'books' AS TableName" + ",time" +
-		" ,MATCH(title) AGAINST (? IN BOOLEAN MODE) AS relevance" +
+		", nation,language,publisher,digest,text,click,download " +
+		" ,MATCH(title) AGAINST (? IN NATURAL LANGUAGE MODE) AS relevance" +
 		" FROM books" + JoinBooks +
-		" WHERE MATCH(title) AGAINST (? IN BOOLEAN MODE)" +
+		" WHERE MATCH(title) AGAINST (? IN NATURAL LANGUAGE MODE)" +
 		") AS results"
 	var countSql = "SELECT COUNT(*) as theCount" +
 		" FROM books" + JoinBooks +
-		" WHERE MATCH(title) AGAINST (? IN BOOLEAN MODE)"
+		" WHERE MATCH(title) AGAINST (? IN NATURAL LANGUAGE MODE)"
 
 	var theCount = 0
 	err = model.DB.Raw(countSql, form.Title).Scan(&theCount).Error
@@ -289,10 +293,61 @@ func (SearchService) SearchCommonDBBook(form model.SearchCommonDBRequest) (res [
 	return
 }
 
-func (SearchService) SearchTeamwork() {
-
+func (SearchService) SearchTeamwork(form model.SearchTeamworkRequest) (res []model.SearchTeamworkPreview, total int, err error) {
+	JoinUniqueDB := " INNER JOIN categories ON categories.foreign_key = teamworks.id AND categories.tablee = 'teamworks' AND ( "
+	for key, value := range form.Category {
+		if value == 49 { // ascii 1 = 49
+			JoinUniqueDB += "categories.category" + strconv.Itoa(key+1) + " ='1'" + " OR "
+		}
+	}
+	JoinUniqueDB += "1=0) "
+	var gradeCondition = " (( teamworks.grade = " + strconv.Itoa(form.Grade) + ") OR (6 = " + strconv.Itoa(form.Grade) + " )) "
+	var RawSql = "SELECT teamworks.id,name ,grade,direction,sponsor,time,principal,province,city , county,click,download " +
+		" ,MATCH(name) AGAINST (? IN NATURAL LANGUAGE MODE) AS relevance" +
+		" FROM teamworks" + JoinUniqueDB +
+		" WHERE MATCH(name) AGAINST (? IN NATURAL LANGUAGE MODE) AND" +
+		gradeCondition
+	var countSql = "SELECT COUNT(*) as theCount" +
+		" FROM teamworks" + JoinUniqueDB +
+		" WHERE MATCH(name) AGAINST (? IN NATURAL LANGUAGE MODE) AND" +
+		gradeCondition
+	var theCount = 0
+	err = model.DB.Raw(countSql, form.Title).Scan(&theCount).Error
+	total = theCount
+	if err != nil {
+		return nil, 0, err
+	}
+	RawSql += orderString(form.Name, form.Order)
+	limit := " LIMIT " + strconv.Itoa((form.Page-1)*form.Limit) + " , " + strconv.Itoa(form.Limit)
+	RawSql += limit
+	err = model.DB.Raw(RawSql, form.Title, form.Title).Scan(&res).Error
+	return
 }
 
-func (SearchService) SearchUniqueDB() {
-
+func (SearchService) SearchUniqueDB(form model.SearchUniqueDBRequest) (res []model.SearchUniqueDBPreview, total int, err error) {
+	JoinUniqueDB := " INNER JOIN categories ON categories.foreign_key = unique_databases.id AND categories.tablee = 'unique_databases' AND ( "
+	for key, value := range form.Category {
+		if value == 49 { // ascii 1 = 49
+			JoinUniqueDB += "categories.category" + strconv.Itoa(key+1) + " ='1'" + " OR "
+		}
+	}
+	JoinUniqueDB += "1=0) "
+	var RawSql = "SELECT unique_databases.id,name,trimmer,key_word,click,download" +
+		" ,MATCH(name) AGAINST (? IN NATURAL LANGUAGE MODE) AS relevance" +
+		" FROM unique_databases" + JoinUniqueDB +
+		" WHERE MATCH(name) AGAINST (? IN NATURAL LANGUAGE MODE)"
+	var countSql = "SELECT COUNT(*) as theCount" +
+		" FROM unique_databases" + JoinUniqueDB +
+		" WHERE MATCH(name) AGAINST (? IN NATURAL LANGUAGE MODE)"
+	var theCount = 0
+	err = model.DB.Raw(countSql, form.Title).Scan(&theCount).Error
+	total = theCount
+	if err != nil {
+		return nil, 0, err
+	}
+	RawSql += orderString(form.Name, form.Order)
+	limit := " LIMIT " + strconv.Itoa((form.Page-1)*form.Limit) + " , " + strconv.Itoa(form.Limit)
+	RawSql += limit
+	err = model.DB.Raw(RawSql, form.Title, form.Title).Scan(&res).Error
+	return
 }
