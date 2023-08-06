@@ -10,6 +10,7 @@ News & Database of Journalism
 ## [团队项目](./api_modules/teamwork.md)
 ## [高级搜索接口](./api_modules/search.md)
 ## [用户管理](./api_modules/user.md)
+## [文件管理](./api_modules/file.md)
 
 ## 返回示例
 ### 正确

@@ -16,6 +16,7 @@ type UniqueDatabase struct {
 	CreatedAt    time.Time `json:"createdAt"`
 	UpdatedAt    time.Time `json:"updatedAt"`
 	Category     string    `json:"category" gorm:"-" binding:"category"` // 学科分类
+	Blank        string    `json:"blank"`
 }
 
 type UniqueDatabaseOmitempty struct {
@@ -30,6 +31,7 @@ type UniqueDatabaseOmitempty struct {
 	CreatedAt    time.Time `json:"createdAt"`
 	UpdatedAt    time.Time `json:"updatedAt"`
 	Category     string    `json:"category" gorm:"-" binding:"omitempty,category"` // 学科分类
+	Blank        string    `json:"blank"`
 }
 
 type UniqueResponseMsg struct {

@@ -1,26 +1,21 @@
 ## [< 返回API导航](../API.md)
-### Route
-#### 特色数据库
-attachment `{base_url}/api/file/uniqueDatabase/attachment`
-
-#### 科研项目
-data `{base_url}/api/file/commonDatabase/project/data`
-
-#### 学科图书
-text `{base_url}/api/file/commonDatabase/book/text`
-
-#### 学科论文
-text `{base_url}/api/file/commonDatabase/dissertation/text`
-data `{base_url}/api/file/commonDatabase/dissertation/data`
-
-#### 期刊论文
-data `{base_url}/api/file/commonDatabase/data`
-text `{base_url}/api/file/commonDatabase/text`
-
-#### 团队项目
-picture `{base_url}/api/file/teamwork/picture`
-text `{base_url}/api/file/teamwork/text`
-
+## 文件
+||1|2|3|4|5|6|
+| :---: | :----: | :----: | :----: |:----: | :----:| :---:|
+|数据库|特色数据库|科研项目|学科图书|学科论文|期刊论文|团队项目|
+|表名(table)|unique_database|project|book|dissertation|article|teamwork|
+|字段名(field)|attachment|text|text|text|text|text|
+|||||data|data|picture|
+tip:仅供参考，前端可根据需求改变
 ### 文件上传
-key为`file` value为`文件`
++ Request
+```json
+{
+  //以表单form形式上传
+  "file":,
+  "table":"unique_database",
+  "field":"data",
+}
+```
+
 

@@ -18,6 +18,7 @@ type Tutor struct { //导师
 	UpdatedAt      time.Time `json:"updatedAt"`
 	// InstituteID    uint      `json:"InstituteID"`
 	Category string `json:"category" gorm:"-" binding:"category"` // 学科分类
+	Blank    string `json:"blank"`
 }
 
 type TutorOmitempty struct { //导师
@@ -36,6 +37,7 @@ type TutorOmitempty struct { //导师
 	UpdatedAt      time.Time `json:"updatedAt"`
 	// InstituteID    uint      `json:"InstituteID"`
 	Category string `json:"category" gorm:"-" binding:"omitempty,category"` // 学科分类
+	Blank    string `json:"blank"`
 }
 
 type TutorResponseMsg struct {

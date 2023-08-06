@@ -24,6 +24,7 @@ type Teamwork struct { //团队项目地图
 	CreatedAt time.Time `json:"createdAt"`
 	UpdatedAt time.Time `json:"updatedAt"`
 	Category  string    `json:"category" gorm:"-" binding:"category"` // 学科分类
+	Blank     string    `json:"blank"`
 }
 
 type TeamworkOmitempty struct {
@@ -46,6 +47,7 @@ type TeamworkOmitempty struct {
 	CreatedAt time.Time `json:"createdAt"`
 	UpdatedAt time.Time `json:"updatedAt"`
 	Category  string    `json:"category" gorm:"-" binding:"omitempty,category"`
+	Blank     string    `json:"blank"`
 }
 
 type TeamworkResponseMsg struct {
@@ -58,7 +60,7 @@ type TeamworkForm struct {
 }
 
 type TeamworkList struct {
-	Total int        `json:"total"`
-	List  []Teamwork `json:"list"`
-	CategoryNumber [10]int64            `json:"categoryNumber"`
+	Total          int        `json:"total"`
+	List           []Teamwork `json:"list"`
+	CategoryNumber [10]int64  `json:"categoryNumber"`
 }

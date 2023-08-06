@@ -915,10 +915,17 @@
 							"name": "添加条目",
 							"request": {
 								"method": "POST",
-								"header": [],
+								"header": [
+									{
+										"key": "Accept-Language",
+										"value": "zh",
+										"type": "text",
+										"disabled": true
+									}
+								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"total\":1,\r\n    \"list\":[\r\n        {\r\n            \"nation\":\"China\",\r\n            \"title\":\"title\",\r\n            \"periodical\":\"123\",\r\n            \"author\":\"123\",\r\n            \"organization\":\"123\",\r\n            \"createdate\":\"2023-08-01T15:30:45+00:00\",\r\n            \"technique\":\"123\",\r\n            \"keyWord\":\"key\",\r\n            \"digest\":\"digest\",\r\n            \"data\":\"data\",\r\n            \"text\":\"text\",\r\n            \"category\":\"0000000000\"\r\n        }\r\n    ]\r\n}",
+									"raw": "{\r\n    \"total\":1,\r\n    \"list\":[\r\n        {\r\n            \"nation\":\"China\",\r\n            \"title\":\"title\",\r\n            \"periodical\":\"123\",\r\n            \"organization\":\"123\",\r\n            \"author\":\"123\",\r\n            \"createdate\":\"2023-08-01T15:30:45+00:00\",\r\n            \"technique\":\"123\",\r\n            \"keyWord\":\"key\",\r\n            \"digest\":\"digest\",\r\n            \"data\":\"data\",\r\n            \"text\":\"text\",\r\n            \"category\":\"1110011110\"\r\n        }\r\n    ]\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"

@@ -18,4 +18,5 @@ type Category struct { //学科分类
 	Category10 bool      //会展
 	CreatedAt  time.Time `json:"createdAt"`
 	UpdatedAt  time.Time `json:"updatedAt"`
+	Blank      string    `json:"blank"`
 }

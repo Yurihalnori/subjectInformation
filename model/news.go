@@ -14,6 +14,7 @@ type News struct { //学界咨询
 	CreatedAt  time.Time `json:"createdAt"`
 	UpdatedAt  time.Time `json:"updatedAt"`
 	Category   string    `json:"category" gorm:"type:varchar(64)" binding:"category"` // 学科分类
+	Blank      string    `json:"blank"`
 }
 
 type NewsEditRequest struct { //学界咨询
@@ -28,6 +29,7 @@ type NewsEditRequest struct { //学界咨询
 	CreatedAt  time.Time `json:"createdAt"`
 	UpdatedAt  time.Time `json:"updatedAt"`
 	Category   string    `json:"category" gorm:"type:varchar(64)"`
+	Blank      string    `json:"blank"`
 }
 
 type GetSomeNews struct {

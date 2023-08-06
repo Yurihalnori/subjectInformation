@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"strconv"
 
+	"subjectInformation/global"
 	"subjectInformation/model"
 	"subjectInformation/service"
 
@@ -21,9 +22,17 @@ func (s TutorController) Add(c *gin.Context) {
 	var form model.TutorForm
 	if err := c.ShouldBind(&form); err != nil {
 		fmt.Printf("controller %v", err)
-		c.Error(&gin.Error{
-			Err:  errors.New("存在字段错误，请检查输入信息"),
-			Type: service.ParamErr,
+		errs, ok := err.(validator.ValidationErrors)
+		if !ok {
+			c.Error(&gin.Error{
+				Err:  errors.New("非数据格式错误,maybe数据类型或其他错误"),
+				Type: service.ParamErr,
+			})
+			return
+		}
+		c.JSON(http.StatusOK, gin.H{
+			"success": false,
+			"error":   errs.Translate(global.Trans),
 		})
 		return
 	}
@@ -43,9 +52,17 @@ func (s TutorController) Change(c *gin.Context) {
 	id, _ := strconv.Atoi(c.Param("id"))
 	if err := c.ShouldBind(&form); err != nil {
 		fmt.Printf("controller %v", err)
-		c.Error(&gin.Error{
-			Err:  err,
-			Type: service.ParamErr,
+		errs, ok := err.(validator.ValidationErrors)
+		if !ok {
+			c.Error(&gin.Error{
+				Err:  errors.New("非数据格式错误,maybe数据类型或其他错误"),
+				Type: service.ParamErr,
+			})
+			return
+		}
+		c.JSON(http.StatusOK, gin.H{
+			"success": false,
+			"error":   errs.Translate(global.Trans),
 		})
 		return
 	}
@@ -106,11 +123,19 @@ func (s TutorController) Delete(c *gin.Context) {
 // 获取条目
 func (s TutorController) GetInfo(c *gin.Context) {
 	var form model.GetInfoForm
-	if err := c.ShouldBindJSON(&form); err != nil {
+	if err := c.ShouldBind(&form); err != nil {
 		fmt.Printf("controller %v", err)
-		c.Error(&gin.Error{
-			Err:  err,
-			Type: service.ParamErr,
+		errs, ok := err.(validator.ValidationErrors)
+		if !ok {
+			c.Error(&gin.Error{
+				Err:  errors.New("非数据格式错误,maybe数据类型或其他错误"),
+				Type: service.ParamErr,
+			})
+			return
+		}
+		c.JSON(http.StatusOK, gin.H{
+			"success": false,
+			"error":   errs.Translate(global.Trans),
 		})
 		return
 	}

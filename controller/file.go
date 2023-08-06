@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"fmt"
 	"net/http"
 	"os"
 
@@ -12,14 +13,18 @@ type FileController struct {
 
 func (s FileController) Upload(c *gin.Context) {
 	file, _ := c.FormFile("file")
-	if _, err := os.Stat("./file/upload"); err != nil {
-		if os.IsNotExist(err) {
-			os.MkdirAll("./file/upload", os.ModePerm)
-		}
-	}
-	c.SaveUploadedFile(file, "./file/upload/"+file.Filename)
+	table := c.PostForm("table")
+	field := c.PostForm("field")
+	dst := "./file/" + table + "/" + field + "/"
+	fmt.Println(dst)
+	os.MkdirAll(dst, os.ModePerm)
+	c.SaveUploadedFile(file, dst+file.Filename)
 	c.JSON(http.StatusOK, Response{
 		Success: true,
 		Data:    file,
 	})
+}
+
+func (s FileController) Download(c *gin.Context) {
+
 }
