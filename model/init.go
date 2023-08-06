@@ -87,10 +87,10 @@ func InitModel() {
 		_ = DB.Migrator().CreateTable(&Teamwork{})
 		DB.Exec("ALTER TABLE teamworks ADD FULLTEXT (name) WITH PARSER ngram")
 	}
-	err := DB.AutoMigrate(&News{}, &User{}, &UniqueDatabase{}, &Teamwork{},
-		&Project{}, &Institute{}, &Book{}, &Dissertation{},
-		&Article{}, &Tutor{}, &Category{})
-	if err != nil {
-		panic(err)
-	}
+	// err := DB.AutoMigrate(&News{}, &User{}, &UniqueDatabase{}, &Teamwork{},
+	// 	&Project{}, &Institute{}, &Book{}, &Dissertation{},
+	// 	&Article{}, &Tutor{}, &Category{})
+	// if err != nil {
+	// 	panic(err)
+	// }
 }
