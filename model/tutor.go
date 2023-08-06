@@ -17,7 +17,8 @@ type Tutor struct { //导师
 	CreatedAt      time.Time `json:"createdAt"`
 	UpdatedAt      time.Time `json:"updatedAt"`
 	// InstituteID    uint      `json:"InstituteID"`
-	Category string `json:"category" gorm:"-" binding:"category"` // 学科分类
+	Category    string                 `json:"category" gorm:"-" binding:"category"` // 学科分类
+	FurtherData map[string]interface{} `gorm:"type:json"`
 }
 
 type TutorOmitempty struct { //导师
