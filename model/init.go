@@ -46,45 +46,51 @@ func InitModel() {
 	// DB.AutoMigrate(&News{}, &User{}, &UniqueDatabase{}, &Teamwork{})
 	// DB.AutoMigrate(&Project{}, &Institute{}, &Book{}, &Dissertation{}, &Article{}, &Tutor{})
 	if !DB.Migrator().HasTable(&Project{}) {
-		DB.Migrator().CreateTable(&Project{})
+		_ = DB.Migrator().CreateTable(&Project{})
 		DB.Exec("ALTER TABLE projects ADD FULLTEXT (title) WITH PARSER ngram")
 	}
 	if !DB.Migrator().HasTable(&Institute{}) {
-		DB.Migrator().CreateTable(&Institute{})
+		_ = DB.Migrator().CreateTable(&Institute{})
 	}
 	if !DB.Migrator().HasTable(&Book{}) {
-		DB.Migrator().CreateTable(&Book{})
+		_ = DB.Migrator().CreateTable(&Book{})
 		DB.Exec("ALTER TABLE books ADD FULLTEXT (title) WITH PARSER ngram")
 	}
 	if !DB.Migrator().HasTable(&Dissertation{}) {
-		DB.Migrator().CreateTable(&Dissertation{})
+		_ = DB.Migrator().CreateTable(&Dissertation{})
 		DB.Exec("ALTER TABLE dissertations ADD FULLTEXT (title) WITH PARSER ngram")
 	}
 	if !DB.Migrator().HasTable(&Article{}) {
-		DB.Migrator().CreateTable(&Article{})
+		_ = DB.Migrator().CreateTable(&Article{})
 		DB.Exec("ALTER TABLE articles ADD FULLTEXT (title) WITH PARSER ngram")
 	}
 	if !DB.Migrator().HasTable(&Tutor{}) {
-		DB.Migrator().CreateTable(&Tutor{})
+		_ = DB.Migrator().CreateTable(&Tutor{})
 	}
 	if !DB.Migrator().HasTable(&Category{}) {
-		DB.Migrator().CreateTable(&Category{})
+		_ = DB.Migrator().CreateTable(&Category{})
 	}
 	if !DB.Migrator().HasTable(&News{}) {
-		DB.Migrator().CreateTable(&News{})
+		_ = DB.Migrator().CreateTable(&News{})
 		DB.Exec("ALTER TABLE news ADD FULLTEXT (text) WITH PARSER ngram")
 		DB.Exec("ALTER TABLE news ADD FULLTEXT (title) WITH PARSER ngram")
 		DB.Exec("ALTER TABLE news ADD FULLTEXT (title,text) WITH PARSER ngram")
 	}
 	if !DB.Migrator().HasTable(&User{}) {
-		DB.Migrator().CreateTable(&User{})
+		_ = DB.Migrator().CreateTable(&User{})
 	}
 	if !DB.Migrator().HasTable(&UniqueDatabase{}) {
-		DB.Migrator().CreateTable(&UniqueDatabase{})
+		_ = DB.Migrator().CreateTable(&UniqueDatabase{})
 		DB.Exec("ALTER TABLE unique_databases ADD FULLTEXT (name) WITH PARSER ngram")
 	}
 	if !DB.Migrator().HasTable(&Teamwork{}) {
-		DB.Migrator().CreateTable(&Teamwork{})
+		_ = DB.Migrator().CreateTable(&Teamwork{})
 		DB.Exec("ALTER TABLE teamworks ADD FULLTEXT (name) WITH PARSER ngram")
+	}
+	err := DB.AutoMigrate(&News{}, &User{}, &UniqueDatabase{}, &Teamwork{},
+		&Project{}, &Institute{}, &Book{}, &Dissertation{},
+		&Article{}, &Tutor{}, &Category{})
+	if err != nil {
+		panic(err)
 	}
 }
