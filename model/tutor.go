@@ -1,6 +1,9 @@
 package model
 
-import "time"
+import (
+	"gorm.io/gorm"
+	"time"
+)
 
 type Tutor struct { //导师
 	Id             int       `json:"id"`                                //序号
@@ -17,9 +20,9 @@ type Tutor struct { //导师
 	CreatedAt      time.Time `json:"createdAt"`
 	UpdatedAt      time.Time `json:"updatedAt"`
 	// InstituteID    uint      `json:"InstituteID"`
-	Category    string                 `json:"category" gorm:"-" binding:"category"` // 学科分类
-	FurtherData map[string]interface{} `gorm:"type:json"`
-	Blank    string `json:"blank"`
+	Category    string `json:"category" gorm:"-" binding:"category"` // 学科分类
+	FurtherData string `gorm:"type:json"`
+	Blank       string `json:"blank"`
 }
 
 type TutorOmitempty struct { //导师
@@ -54,4 +57,9 @@ type TutorList struct {
 	Total          int       `json:"total"`
 	List           []Tutor   `json:"list"`
 	CategoryNumber [10]int64 `json:"categoryNumber"`
+}
+
+func (t *Tutor) BeforeSave(tx *gorm.DB) error {
+	t.FurtherData = "{}"
+	return nil
 }

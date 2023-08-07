@@ -1,20 +1,23 @@
 package model
 
-import "time"
+import (
+	"gorm.io/gorm"
+	"time"
+)
 
 type News struct { //学界咨询
-	Id          int                    `json:"id"`                                 //序号
-	Title       string                 `gorm:"type:varchar(64)" json:"title"`      //题目
-	Module      uint                   `json:"module"`                             //模块  0:行业资讯，1：学术会议，2：学科竞赛，3：招聘信息
-	Department  string                 `gorm:"type:varchar(64)" json:"department"` //主体单位
-	Text        string                 `gorm:"type:longtext" json:"content"`       //全文
-	Click       uint                   `json:"click" gorm:"default:0"`             //点击数
-	Date        time.Time              `gorm:"type:datetime" json:"date"`          // 发布时间
-	Region      uint                   `json:"region"`                             //domestic|foreign
-	CreatedAt   time.Time              `json:"createdAt"`
-	UpdatedAt   time.Time              `json:"updatedAt"`
-	Category    string                 `json:"category" gorm:"type:varchar(64)" binding:"category"` // 学科分类
-	FurtherData map[string]interface{} `gorm:"type:json"`
+	Id          int       `json:"id"`                                 //序号
+	Title       string    `gorm:"type:varchar(64)" json:"title"`      //题目
+	Module      uint      `json:"module"`                             //模块  0:行业资讯，1：学术会议，2：学科竞赛，3：招聘信息
+	Department  string    `gorm:"type:varchar(64)" json:"department"` //主体单位
+	Text        string    `gorm:"type:longtext" json:"content"`       //全文
+	Click       uint      `json:"click" gorm:"default:0"`             //点击数
+	Date        time.Time `gorm:"type:datetime" json:"date"`          // 发布时间
+	Region      uint      `json:"region"`                             //domestic|foreign
+	CreatedAt   time.Time `json:"createdAt"`
+	UpdatedAt   time.Time `json:"updatedAt"`
+	Category    string    `json:"category" gorm:"type:varchar(64)" binding:"category"` // 学科分类
+	FurtherData string    `gorm:"type:json"`
 }
 
 type NewsEditRequest struct { //学界咨询
@@ -77,4 +80,9 @@ type NewsSearchRequest struct {
 	Page     int    `form:"page" json:"page" binding:"numeric"`
 	Limit    int    `form:"limit" json:"limit" binding:"numeric"`
 	Category string `form:"category" json:"category" binding:"category"`
+}
+
+func (n *News) BeforeSave(tx *gorm.DB) error {
+	n.FurtherData = "{}"
+	return nil
 }
