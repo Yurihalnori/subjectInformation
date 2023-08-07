@@ -2,6 +2,7 @@ package service
 
 import (
 	"fmt"
+	"strconv"
 	"subjectInformation/model"
 )
 
@@ -22,11 +23,23 @@ func (h ListService) Order(field string, order string) (orderstr string) {
 
 func (h ListService) GetList(form model.GetInfoForm, table string) interface{} {
 	orderstr := h.Order(form.Field, form.Order)
+
+	condition := "INNER JOIN categories ON categories.foreign_key =" +
+		table + "s.id AND categories.tablee = '" + table + "s" + "' AND( "
+	for key, value := range form.Category {
+		if value == 49 { // ascii 1 = 49
+			condition += "categories.category" + strconv.Itoa(key+1) + " ='1'" + " OR "
+		}
+	}
+	condition += "1=0)"
+
 	switch table {
-	case "unique":
+	case "unique_database":
 		{
 			var list []model.UniqueDatabase
-			result := model.DB.Limit(form.Limit).Order(orderstr).Offset(form.Page*form.Limit - 10).Find(&list)
+			result := model.DB.Joins(condition).
+				Limit(form.Limit).Order(orderstr).
+				Offset(form.Page*form.Limit - 10).Find(&list)
 			var data = model.UniqueList{
 				Total:          int(result.RowsAffected),
 				List:           list,

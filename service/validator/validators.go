@@ -26,6 +26,7 @@ func category(fl validator.FieldLevel) bool {
 				return false
 			}
 		}
+		return true
 	}
-	return true
+	return false
 }

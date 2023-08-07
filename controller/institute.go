@@ -123,7 +123,7 @@ func (s InstituteController) Delete(c *gin.Context) {
 // 获取条目
 func (s InstituteController) GetInfo(c *gin.Context) {
 	var form model.GetInfoForm
-	if err := c.ShouldBind(&form); err != nil {
+	if err := c.BindJSON(&form); err != nil {
 		fmt.Printf("controller %v", err)
 		errs, ok := err.(validator.ValidationErrors)
 		if !ok {

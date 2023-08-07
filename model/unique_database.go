@@ -46,10 +46,11 @@ type UniqueForm struct {
 }
 
 type GetInfoForm struct {
-	Page  int    `json:"page" binding:"numeric"`
-	Limit int    `json:"limit" binding:"numeric"`
-	Field string `json:"field" binding:"omitempty"`
-	Order string `json:"order" binding:"omitempty,oneof=desc asc"`
+	Page     int    `json:"page" binding:"numeric"`
+	Limit    int    `json:"limit" binding:"numeric"`
+	Field    string `json:"field" binding:"omitempty"`
+	Order    string `json:"order" binding:"omitempty,oneof=desc asc"`
+	Category string `json:"category" binding:"category"`
 }
 
 type UniqueList struct {

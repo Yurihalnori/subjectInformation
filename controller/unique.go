@@ -122,7 +122,7 @@ func (s UniqueController) Delete(c *gin.Context) {
 // 获取条目
 func (s UniqueController) GetInfo(c *gin.Context) {
 	var form model.GetInfoForm
-	if err := c.ShouldBind(&form); err != nil {
+	if err := c.BindJSON(&form); err != nil {
 		fmt.Printf("controller %v", err)
 		errs, ok := err.(validator.ValidationErrors)
 		if !ok {
@@ -140,7 +140,7 @@ func (s UniqueController) GetInfo(c *gin.Context) {
 	}
 
 	ListService := service.ListService{}
-	data := ListService.GetList(form, "unique")
+	data := ListService.GetList(form, "unique_database")
 
 	c.JSON(http.StatusOK, Response{
 		Success: true,
