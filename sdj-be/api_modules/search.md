@@ -2,7 +2,7 @@
 
 ## 检索
 
-### 获取检索字段
+### 获取检索字段 `GET {base_url}/api/advsearch`
 - 要求：使用query传递
 - Request
 ```json
@@ -19,7 +19,7 @@
  "searchKeyWords":["title","author","organization",...]
 }
 ```
-### 进行高级检索 `PUT {base_url}/api/search`
+### 进行高级检索 `PUT {base_url}/api/advsearch`
 - 要求：使用body传递
 - Request
     ```json
