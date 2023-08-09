@@ -12,6 +12,7 @@ func InitRouter(r *gin.Engine) {
 	apiRouter := r.Group("/api")
 	{
 		apiRouter.POST("/admin/change", middleware.LoginCheck, middleware.AdminCheck, controller.UserController{}.ChangeUserInfo)
+
 		userRouter := apiRouter.Group("/user")
 		{
 			userController := controller.UserController{}
@@ -19,6 +20,8 @@ func InitRouter(r *gin.Engine) {
 			userRouter.POST("/login", userController.Login)
 			userRouter.DELETE("/logout", userController.Logout)
 			userRouter.GET("/", userController.CheckUserStatus)
+			userRouter.GET("/:id", userController.CheckUserStatusById)
+
 		}
 
 		newsRouter := apiRouter.Group("/news")

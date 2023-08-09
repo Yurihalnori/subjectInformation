@@ -237,3 +237,39 @@ func (UserController) ChangeUserInfo(c *gin.Context) {
 		},
 	})
 }
+
+func (UserController) CheckUserStatusById(c *gin.Context) {
+	id := c.Param("id")
+	validate := validator.New()
+	if err := validate.Var(id, "numeric"); err != nil {
+		_ = c.Error(&gin.Error{
+			Err:  errors.New("请返回正确的id"),
+			Type: service.ParamErr,
+		})
+		return
+	}
+	user, err := service.UserService{}.CheckInfo(id)
+	if user == nil {
+		c.JSON(http.StatusOK, gin.H{
+			"success": false,
+			"message": "用户不存在",
+			"code":    service.ParamErr,
+		})
+		return
+	}
+	if err != nil {
+		_ = c.Error(&gin.Error{
+			Err:  err,
+			Type: service.ParamErr,
+		})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{
+		"success": true,
+		"data": gin.H{
+			"userId":   user.Id,
+			"role":     user.Usertype,
+			"username": user.Username,
+		},
+	})
+}

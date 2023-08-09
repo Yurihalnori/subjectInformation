@@ -22,12 +22,12 @@ func (UserService) CheckUsername(username string) bool {
 }
 
 func (UserService) CheckPassword(username string) (user *model.User, err error) {
-	model.DB.Where("username = ?", username).First(&user)
+	err = model.DB.Where("username = ?", username).First(&user).Error
 	return
 }
 
 func (UserService) CheckInfo(userid string) (user *model.User, err error) {
-	model.DB.Where("id = ?", userid).First(&user)
+	err = model.DB.Where("id = ?", userid).First(&user).Error
 	return
 }
 
