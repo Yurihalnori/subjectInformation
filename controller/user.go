@@ -172,7 +172,7 @@ func (UserController) CheckUserStatus(c *gin.Context) {
 	session := sessions.Default(c)
 	id, ok := session.Get("id").(int)
 	if !ok {
-		c.Error(&gin.Error{
+		_ = c.Error(&gin.Error{
 			Err:  errors.New("未登录"),
 			Type: service.ParamErr,
 		})
@@ -205,8 +205,9 @@ func (UserController) CheckUserStatus(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{
 		"success": true,
 		"data": gin.H{
-			"userId": user.Id,
-			"role":   user.Usertype,
+			"userId":   user.Id,
+			"role":     user.Usertype,
+			"username": user.Username,
 		},
 	})
 }

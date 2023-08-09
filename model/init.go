@@ -40,6 +40,14 @@ func init() {
 		panic(err)
 	}
 	DB = db
+	// 获取通用数据库对象 sql.DB ，然后使用其提供的功能
+	sqlDB, err := db.DB()
+	// SetMaxIdleConns 用于设置连接池中空闲连接的最大数量。
+	sqlDB.SetMaxIdleConns(10)
+	// SetMaxOpenConns 设置打开数据库连接的最大数量。
+	sqlDB.SetMaxOpenConns(100)
+	// SetConnMaxLifetime 设置了连接可复用的最大时间。
+	sqlDB.SetConnMaxLifetime(time.Hour)
 }
 
 func InitModel() {
@@ -86,8 +94,8 @@ func InitModel() {
 		DB.Exec("ALTER TABLE teamworks ADD FULLTEXT (name) WITH PARSER ngram")
 	}
 	_ = DB.AutoMigrate(&News{}, &User{}, &UniqueDatabase{}, &Teamwork{},
-		&Project{}, &Institute{}, &Book{}, &Dissertation{},
-		&Article{}, &Tutor{}, &Category{})
+		&Project{}, &Book{}, &Dissertation{}, &Article{}, &Category{})
+	_ = DB.AutoMigrate(&Institute{}, &Tutor{})
 	// if err != nil {
 	// 	panic(err)
 	// }

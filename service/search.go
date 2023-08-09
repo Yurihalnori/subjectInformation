@@ -8,6 +8,25 @@ import (
 type SearchService struct {
 }
 
+var SearchKeyFiled = map[int][]string{
+	//1：公共数据库 11：公共数据库-项目12：公共数据库-图书
+	//13：公共数据库-学位论文 14：公共数据库-期刊论文
+	//5：学位点 6：特色数据库 7：团队项目 8：全部
+	1: {"Title", "Author"},
+	11: {"Title", "Classification", "Sponsor", "ApprovalNumber",
+		"Superintendent", "Organization", "Region"},
+	12: {"Title", "Nation", "Language", "Author", "Publisher", "Digest"},
+	13: {"Title", "Author", "Tutor", "Province", "City", "University",
+		"College", "Technique", "KeyWord", "Digest"},
+	14: {"Title", "Nation", "Periodical", "Author", "Organization", "Technique",
+		"KeyWord", "Digest"},
+	5: {"Name", "University", "College", "Nation", "Province", "City", "Classification"},
+	6: {"Name", "Trimmer", "Keyword", "Introduction"},
+	7: {"Name", "Grade", "Direction", "Sponsor", "Number", "Principal",
+		"Member", "Province", "City", "County"},
+	8: {"Title", "Author"},
+}
+
 func orderString(name string, ord string) (sql string) {
 	order := " ORDER BY "
 	if name == "" || ord == "" || name == "relevance" {
@@ -350,4 +369,18 @@ func (SearchService) SearchUniqueDB(form model.SearchUniqueDBRequest) (res []mod
 	RawSql += limit
 	err = model.DB.Raw(RawSql, form.Title, form.Title).Scan(&res).Error
 	return
+}
+
+func (SearchService) EasySearchByLike(database int, field string, keyword string) {
+	switch database {
+	case 1:
+	case 11:
+	case 12:
+	case 13:
+	case 14:
+	case 5:
+	case 6:
+	case 7:
+	case 8:
+	}
 }
