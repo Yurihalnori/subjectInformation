@@ -2,6 +2,7 @@ package service
 
 import (
 	"errors"
+	"fmt"
 	"subjectInformation/model"
 )
 
@@ -15,7 +16,19 @@ func (h TutorService) Add(form model.TutorForm) interface{} {
 
 	for i := 0; i < form.Total; i++ {
 		data := form.List[i]
-		model.DB.Create(&data)
+
+		if data.InstituteID != 0 {
+			var Institute model.Institute
+			result := model.DB.Preload("Tutors").Find(&Institute, int(data.InstituteID))
+			fmt.Println(Institute)
+			if result.RowsAffected == 0 {
+				return errors.New("未找到对应学位点信息")
+			} else {
+				model.DB.Create(&data)
+				model.DB.Model(&Institute).Association("Tutors").Append([]model.Tutor{data})
+			}
+		}
+
 		categoryService.AddCategory(data.Category, data.Id, "tutors")
 		s := model.TutorResponseMsg{
 			Id: data.Id,

@@ -40,6 +40,14 @@ func (s TutorController) Add(c *gin.Context) {
 	TutorService := service.TutorService{}
 	data := TutorService.Add(form)
 
+	if err, ok := data.(error); ok {
+		c.Error(&gin.Error{
+			Err:  err,
+			Type: service.ParamErr,
+		})
+		return
+	}
+
 	c.JSON(http.StatusOK, Response{
 		Success: true,
 		Data:    data,

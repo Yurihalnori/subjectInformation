@@ -1,8 +1,9 @@
 package model
 
 import (
-	"gorm.io/gorm"
 	"time"
+
+	"gorm.io/gorm"
 )
 
 type Tutor struct { //导师
@@ -19,10 +20,10 @@ type Tutor struct { //导师
 	Classification string    `json:"classification" binding:"required"` //类型(博导 硕导)
 	CreatedAt      time.Time `json:"createdAt"`
 	UpdatedAt      time.Time `json:"updatedAt"`
-	// InstituteID    uint      `json:"InstituteID"`
-	Category    string `json:"category" gorm:"-" binding:"category"` // 学科分类
-	FurtherData string `gorm:"type:json"`
-	Blank       string `json:"blank"`
+	InstituteID    uint      `json:"instituteID" binding:"omitempty"`
+	Category       string    `json:"category" gorm:"-" binding:"category"` // 学科分类
+	FurtherData    string    `gorm:"type:json"`
+	Blank          string    `json:"blank"`
 }
 
 type TutorOmitempty struct { //导师
@@ -39,9 +40,9 @@ type TutorOmitempty struct { //导师
 	Classification string    `json:"classification" binding:"omitempty"` //类型(博导 硕导)
 	CreatedAt      time.Time `json:"createdAt"`
 	UpdatedAt      time.Time `json:"updatedAt"`
-	// InstituteID    uint      `json:"InstituteID"`
-	Category string `json:"category" gorm:"-" binding:"omitempty,category"` // 学科分类
-	Blank    string `json:"blank"`
+	InstituteID    uint      `json:"instituteID" binding:"omitempty"`
+	Category       string    `json:"category" gorm:"-" binding:"omitempty,category"` // 学科分类
+	Blank          string    `json:"blank"`
 }
 
 type TutorResponseMsg struct {

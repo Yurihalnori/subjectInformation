@@ -1,8 +1,9 @@
 package model
 
 import (
-	"gorm.io/gorm"
 	"time"
+
+	"gorm.io/gorm"
 )
 
 type Institute struct { //学位点
@@ -17,7 +18,7 @@ type Institute struct { //学位点
 	Click          int       `json:"click"`                                         //点击数
 	CreatedAt      time.Time `json:"createdAt"`
 	UpdatedAt      time.Time `json:"updatedAt"`
-	Totors         []Tutor   `json:"tutors" binding:"omitempty"`
+	Tutors         []Tutor   `json:"tutors" binding:"omitempty" gorm:"constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
 	Category       string    `json:"category" gorm:"-" binding:"category"` // 学科分类
 	FurtherData    string    `gorm:"type:json"`
 	Blank          string    `json:"blank"`
@@ -35,7 +36,7 @@ type InstituteOmitempty struct { //学位点
 	Click          int       `json:"click" binding:"omitempty"`                      //点击数
 	CreatedAt      time.Time `json:"createdAt"`
 	UpdatedAt      time.Time `json:"updatedAt"`
-	Totors         []Tutor   `json:"tutors" binding:"omitempty"`
+	Tutors         []Tutor   `json:"tutors" binding:"omitempty"`
 	Category       string    `json:"category" gorm:"-" binding:"omitempty,category"` // 学科分类
 	Blank          string    `json:"blank"`
 }

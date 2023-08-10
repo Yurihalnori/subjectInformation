@@ -55,6 +55,7 @@ func (h InstituteService) Delete(id int) error {
 	if result := model.DB.First(&data, id); result.Error != nil {
 		return errors.New("未找到对应id信息,请检查id是否正确")
 	}
+	model.DB.Where("institute_id = ?", id).Delete(&model.Tutor{})
 	model.DB.Delete(&model.Institute{}, id)
 	categoryService := Category{}
 	cateErr := categoryService.DeleteCategory(id, "institutes")

@@ -86,7 +86,7 @@ func (h ListService) GetList(form model.GetInfoForm, table string) interface{} {
 	case "institute":
 		{
 			var list []model.Institute
-			result := model.DB.Joins(condition).
+			result := model.DB.Joins(condition).Preload("Tutors").
 				Limit(form.Limit).Order(orderstr).Offset(form.Page*form.Limit - 10).Find(&list)
 			var data = model.InstituteList{
 				Total:          int(result.RowsAffected),
